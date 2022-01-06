@@ -30,5 +30,7 @@ namespace Domain.Entities
         public virtual IEnumerable<Rating> BoxRatings { get; set; }
 
         public virtual IEnumerable<Comment> BoxComments { get; set; }
+
+        public virtual IEnumerable<Relationship> Relationship { get; set; }
     }
 }

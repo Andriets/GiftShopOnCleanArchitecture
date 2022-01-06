@@ -23,5 +23,9 @@ namespace Domain.Entities
         public virtual IEnumerable<Comment> Comments { get; set; }
 
         public virtual IEnumerable<Cart> Carts { get; set; }
+
+        public virtual IEnumerable<Relationship> Relationship { get; set; }
+
+        public virtual IEnumerable<BoxTag> BoxTag { get; set; }
     }
 }
