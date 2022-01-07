@@ -27,6 +27,12 @@ namespace Application.Common.Interfaces
 
         DbSet<UserBoxOrder> UserBoxOrder { get; set; }
 
+        DbSet<Tag> Tags { get; set; }
+
+        DbSet<BoxTag> BoxTag { get; set; }
+
+        DbSet<Relationship> Relationship { get; set; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
