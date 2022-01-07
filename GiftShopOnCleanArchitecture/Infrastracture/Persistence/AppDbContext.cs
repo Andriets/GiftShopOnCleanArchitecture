@@ -27,6 +27,12 @@ namespace Infrastracture.Persistence
 
         public DbSet<UserBoxOrder> UserBoxOrder { get; set; }
 
+        public DbSet<Tag> Tags { get; set; }
+
+        public DbSet<BoxTag> BoxTag { get; set; }
+
+        public DbSet<Relationship> Relationship { get; set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {

@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Infrastracture.Persistence;
+using Microsoft.ML;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Application.Common.Interfaces;
+using Infrastracture.Services;
+using Application.Common.Models;
+using Infrastracture.Model;
 
 namespace Infrastracture
 {
@@ -20,6 +20,8 @@ namespace Infrastracture
                 options.UseSqlServer(configuration
                     .GetConnectionString("DefaultConnection")));
 
+            services.AddScoped<IAppDbContext>(provider => provider.GetService<AppDbContext>());
+
             services.AddIdentity<ApplicationUser, IdentityRole>(opts =>
             {
                 opts.Password.RequiredLength = 8;
@@ -29,6 +31,8 @@ namespace Infrastracture
             })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<IRecommendService, RecommendService>();
 
             return services;
         }
