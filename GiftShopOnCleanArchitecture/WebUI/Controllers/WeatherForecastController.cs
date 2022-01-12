@@ -1,4 +1,6 @@
-﻿using Application.User.Queries.GetAllUsers;
+﻿using Application.Common.Models;
+using Application.User.Commands.CreateUser;
+using Application.User.Queries.GetAllUsers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +42,13 @@ namespace WebUI.Controllers
         {
             var res = await _mediator.Send(new GetAllUsersQuery());
             return Ok(res);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> CreateUser(UserDTO user)
+        {
+            var res = await _mediator.Send(new CreateUserCommand() { User = user });
+            return string.IsNullOrEmpty(res) ? BadRequest("") : Ok(res);
         }
     }
 }

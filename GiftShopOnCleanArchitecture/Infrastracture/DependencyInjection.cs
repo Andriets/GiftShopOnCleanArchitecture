@@ -9,6 +9,9 @@ using Application.Common.Interfaces;
 using Infrastracture.Services;
 using Application.Common.Models;
 using Infrastracture.Model;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Text;
 
 namespace Infrastracture
 {
@@ -32,7 +35,28 @@ namespace Infrastracture
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddTransient<IRecommendService, RecommendService>();
+            services
+                .AddMemoryCache()
+                .AddAuthentication("Bearer")
+                .AddJwtBearer(opt =>
+                {
+                    opt.RequireHttpsMetadata = false;
+                    opt.SaveToken = true;
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("JWTOptions:SecretKey"))),
+
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+
+                        ClockSkew = TimeSpan.FromSeconds(5),
+                    };
+                });
+
+            services.AddScoped<IRecommendService, RecommendService>();
+            services.AddScoped<IIdentityService, IdentityService>();
 
             return services;
         }
