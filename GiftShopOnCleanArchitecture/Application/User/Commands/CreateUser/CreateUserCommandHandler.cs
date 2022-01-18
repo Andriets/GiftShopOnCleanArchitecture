@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Common.Mapping;
 
 namespace Application.User.Commands.CreateUser
 {
@@ -27,17 +28,18 @@ namespace Application.User.Commands.CreateUser
 
         public async Task<string> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var appUser = _mapper.Map<UserDTO, ApplicationUser>(request.User);
+            var appUser = request.User.ToEntity();
             appUser.Id = Guid.NewGuid().ToString();
 
-            var res = await _identityService.CreateUserAsync(appUser.UserName, request.User.Password);
+            var res = await _identityService.CreateUserAsync(appUser, request.User.Password);
 
             if (res.Result.Succeeded)
             {
+                await _identityService.AddToRoleAsync(appUser, request.User.Role);
                 return res.UserId;
             }
 
-            throw new GiftShopExeption($"Creating new user failed: {res.Result.Errors}");
+            throw new GiftShopException($"Creating new user failed: {res.Result.Errors}");
         }
     }
 }

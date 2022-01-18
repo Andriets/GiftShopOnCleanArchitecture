@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 namespace Domain.Exeptions
 {
     [Serializable]
-    public class GiftShopExeption : Exception
+    public class GiftShopException : Exception
     {
-        public GiftShopExeption()
+        public GiftShopException()
         {
         }
 
-        public GiftShopExeption(string message)
+        public GiftShopException(string message)
             : base(message)
         {
         }
 
-        public GiftShopExeption(string message, Exception inner)
+        public GiftShopException(string message, Exception inner)
             : base(message, inner)
         {
         }

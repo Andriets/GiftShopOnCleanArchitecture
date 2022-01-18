@@ -36,14 +36,13 @@ namespace Infrastracture.Services
             return user.UserName;
         }
 
-        public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
+        public async Task AddToRoleAsync(ApplicationUser user, string role)
         {
-            var user = new ApplicationUser
-            {
-                UserName = userName,
-                Email = userName,
-            };
+            await _userManager.AddToRoleAsync(user, role);
+        }
 
+        public async Task<(Result Result, string UserId)> CreateUserAsync(ApplicationUser user, string password)
+        {
             var result = await _userManager.CreateAsync(user, password);
 
             return (result.ToApplicationResult(), user.Id);

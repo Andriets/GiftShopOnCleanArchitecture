@@ -19,7 +19,15 @@ namespace Application.Common.Models
 
         public string Password { get; set; }
 
+        public string Region { get; set; }
+
         public string Role { get; set; }
+
+        public string City { get; set; }
+
+        public string PostOffice { get; set; }
+
+        public string History { get; set; }
 
         public Photo Photo { get; set; }
     }
