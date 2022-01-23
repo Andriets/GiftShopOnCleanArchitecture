@@ -12,6 +12,7 @@ using Infrastracture.Model;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Infrastracture
 {
@@ -37,7 +38,7 @@ namespace Infrastracture
 
             services
                 .AddMemoryCache()
-                .AddAuthentication("Bearer")
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
                 {
                     opt.RequireHttpsMetadata = false;
@@ -57,6 +58,7 @@ namespace Infrastracture
 
             services.AddScoped<IRecommendService, RecommendService>();
             services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<ITokenService, TokenService>();
 
             return services;
         }

@@ -26,5 +26,20 @@ namespace Application.Common.Mapping
                 Photo = userDTO.Photo
             };
         }
+
+        public static UserDTO ToDTO(this ApplicationUser appUser)
+        {
+            return new UserDTO()
+            {
+                Id = appUser.Id,
+                FirstName = appUser.FirstName,
+                LastName = appUser.LastName,
+                Email = appUser.UserName,
+                Region = appUser.Region,
+                City = appUser.City,
+                PostOffice = appUser.PostOffice,
+                Photo = appUser.Photo
+            };
+        }
     }
 }

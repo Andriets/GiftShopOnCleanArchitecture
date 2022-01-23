@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Infrastracture.Services
 {
-    public  class IdentityService : IIdentityService
+    public class IdentityService : IIdentityService
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -77,6 +77,36 @@ namespace Infrastracture.Services
         public async Task<Result> DeleteUserAsync(ApplicationUser user)
         {
             var result = await _userManager.DeleteAsync(user);
+
+            return result.ToApplicationResult();
+        }
+
+        public async Task<ApplicationUser> GetUserByIdAsync(string userId)
+        {
+            return await _userManager.FindByIdAsync(userId);
+        }
+
+        public async Task<ApplicationUser> GetUserByUserNameAsync(string userName)
+        {
+            return await _userManager.FindByNameAsync(userName);
+        }
+
+        public async Task<IList<string>> GetUserRolesByUserNameAsync(string userName)
+        {
+            var appUser = await _userManager.FindByNameAsync(userName);
+            return await _userManager.GetRolesAsync(appUser);
+        }
+
+        public async Task<Result> ChangePasswordAsync(string userId, string currPassword, string newPassword)
+        {
+            var appUser = await _userManager.FindByIdAsync(userId);
+
+            if (appUser == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            var result = await _userManager.ChangePasswordAsync(appUser, currPassword, newPassword);
 
             return result.ToApplicationResult();
         }
