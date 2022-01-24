@@ -17,18 +17,18 @@ namespace Application.Common.Models
 
         public double Price { get; set; }
 
-        public virtual Photo Photo { get; set; }
+        public Photo Photo { get; set; }
 
-        public virtual IEnumerable<UserBoxOrder> UserBoxOrders { get; set; }
+        public IEnumerable<UserBoxOrder> UserBoxOrders { get; set; }
 
-        public virtual IEnumerable<Rating> Ratings { get; set; }
+        public IEnumerable<Rating> Ratings { get; set; }
 
-        public virtual IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<Comment> Comments { get; set; }
 
-        public virtual IEnumerable<Cart> Carts { get; set; }
+        public IEnumerable<Cart> Carts { get; set; }
 
-        public virtual IEnumerable<Relationship> Relationship { get; set; }
+        public IEnumerable<Relationship> Relationship { get; set; }
 
-        public virtual IEnumerable<BoxTag> BoxTag { get; set; }
+        public IEnumerable<BoxTag> BoxTag { get; set; }
     }
 }
