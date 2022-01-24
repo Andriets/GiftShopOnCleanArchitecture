@@ -1,10 +1,11 @@
-﻿using Application.User.Queries.GetAllUsers;
-using MediatR;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers
 {
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     public class WeatherForecastController : Controller
     {
@@ -33,13 +34,6 @@ namespace WebUI.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
-        }
-
-        [HttpGet("[action]")]
-        public async Task<IActionResult> GetUsers()
-        {
-            var res = await _mediator.Send(new GetAllUsersQuery());
-            return Ok(res);
         }
     }
 }
