@@ -91,7 +91,7 @@ namespace Infrastracture.Services
             var predictionEngine = mlContext.Model.CreatePredictionEngine<BoxRating, RatingPrediction>(model);
 
             var boxes = _appDbContext.Boxes.Where(b => 
-                !_appDbContext.UserBoxOrder.Any(ubo => ubo.BoxId == b.Id))
+                !_appDbContext.BoxOrder.Any(ubo => ubo.BoxId == b.Id))
                 .Select(b => b.Id)
                 .ToArray();
 

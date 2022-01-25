@@ -23,7 +23,7 @@ namespace Domain.Entities
 
         public virtual Photo Photo { get; set; }
 
-        public virtual IEnumerable<UserBoxOrder> UserBoxOrders { get; set; }
+        public virtual IEnumerable<BoxOrder> BoxOrders { get; set; }
 
         public virtual IEnumerable<Cart> CartList { get; set; }
 
@@ -32,5 +32,7 @@ namespace Domain.Entities
         public virtual IEnumerable<Comment> BoxComments { get; set; }
 
         public virtual IEnumerable<Relationship> Relationship { get; set; }
+
+        public virtual IEnumerable<Order> Orders { get; set; }
     }
 }

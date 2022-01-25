@@ -26,7 +26,7 @@ namespace Infrastracture.Persistence
 
         public DbSet<Rating> Ratings { get; set; }
 
-        public DbSet<UserBoxOrder> UserBoxOrder { get; set; }
+        public DbSet<BoxOrder> BoxOrder { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
 

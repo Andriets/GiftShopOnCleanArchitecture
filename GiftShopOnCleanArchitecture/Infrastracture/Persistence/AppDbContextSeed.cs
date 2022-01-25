@@ -23,7 +23,8 @@ namespace Infrastracture.Persistence
                 ApplicationUser admin = new ApplicationUser
                 {
                     Email = "superadmin@gmail.com",
-                    UserName = "superadmin@gmail.com"
+                    UserName = "superadmin@gmail.com",
+                    EmailConfirmed = true
                 };
                 IdentityResult result = await userManager.CreateAsync(admin, "1qaz1qaz");
                 if (result.Succeeded)
@@ -42,7 +43,8 @@ namespace Infrastracture.Persistence
                 ApplicationUser moderator = new ApplicationUser
                 {
                     Email = "moder@gmail.com",
-                    UserName = "moder@gmail.com"
+                    UserName = "moder@gmail.com",
+                    EmailConfirmed = true
                 };
                 IdentityResult result = await userManager.CreateAsync(moderator, "1qaz1qaz");
                 if (result.Succeeded)
@@ -61,7 +63,8 @@ namespace Infrastracture.Persistence
                 ApplicationUser user = new ApplicationUser
                 {
                     Email = "user@gmail.com",
-                    UserName = "user@gmail.com"
+                    UserName = "user@gmail.com",
+                    EmailConfirmed = true
                 };
                 IdentityResult result = await userManager.CreateAsync(user, "1qaz1qaz");
                 if (result.Succeeded)

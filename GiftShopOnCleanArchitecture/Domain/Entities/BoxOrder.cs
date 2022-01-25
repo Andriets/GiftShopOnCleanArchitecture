@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class UserBoxOrder
+    public class BoxOrder
     {
-        public string UserId { get; set; }
-
-        public virtual ApplicationUser User { get; set; }
-
         public Guid BoxId { get; set; }
 
         public virtual Box Box { get; set; }
