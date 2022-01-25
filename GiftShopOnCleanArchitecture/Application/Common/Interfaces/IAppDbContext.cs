@@ -33,6 +33,6 @@ namespace Application.Common.Interfaces
 
         DbSet<Relationship> Relationship { get; set; }
 
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

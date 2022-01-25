@@ -1,14 +1,12 @@
 ﻿using Domain.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Common.Models
+namespace Application.Boxes.Commands.UpdateBox
 {
-    public class BoxDTO
+    public class UpdateBoxCommand : IRequest<Guid>
     {
         public Guid Id { get; set; }
 

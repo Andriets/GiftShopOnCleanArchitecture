@@ -59,6 +59,7 @@ namespace Infrastracture
             services.AddScoped<IRecommendService, RecommendService>();
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IPhotoService, PhotoService>();
 
             return services;
         }
