@@ -26,7 +26,7 @@ namespace Application.Boxes.Commands.CreateBox
                 Title = request.Title,
                 Description = request.Description,
                 Price = request.Price,
-                Photo = request.Photo,
+                Photo = request.PhotoBytes,
                 BoxTag = request.BoxTag
             };
 

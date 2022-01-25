@@ -3,14 +3,13 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Boxes.Commands.CreateBox
+namespace Application.Boxes.Commands.UpdateBox
 {
-    public class CreateBoxCommand : IRequest<Guid>
+    public class UpdateBoxCommand : IRequest<Guid>
     {
+        public Guid Id { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -20,6 +19,12 @@ namespace Application.Boxes.Commands.CreateBox
         public IFormFile Photo { get; set; }
 
         public Photo PhotoBytes { get; set; }
+
+        public IEnumerable<Rating> Ratings { get; set; }
+
+        public IEnumerable<Comment> Comments { get; set; }
+
+        public IEnumerable<Relationship> Relationship { get; set; }
 
         public IEnumerable<BoxTag> BoxTag { get; set; }
     }

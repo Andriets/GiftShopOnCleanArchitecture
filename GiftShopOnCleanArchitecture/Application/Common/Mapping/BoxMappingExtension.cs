@@ -10,7 +10,7 @@ namespace Application.Common.Mapping
 {
     public static class BoxMappingExtension
     {
-        public static Box ToEntity(BoxDTO boxDTO)
+        public static Box ToEntity(this BoxDTO boxDTO)
         {
             return new Box()
             {
@@ -18,11 +18,11 @@ namespace Application.Common.Mapping
                 Title = boxDTO.Title,
                 Description = boxDTO.Description,
                 Price = boxDTO.Price,
-                Photo = boxDTO.Photo
+                Photo = boxDTO.PhotoBytes
             };
         }
 
-        public static BoxDTO ToDTO(Box box)
+        public static BoxDTO ToDTO(this Box box)
         {
             return new BoxDTO()
             {
@@ -30,13 +30,35 @@ namespace Application.Common.Mapping
                 Title = box.Title,
                 Description = box.Description,
                 Price = box.Price,
-                Photo = box.Photo,
-                UserBoxOrders = box.UserBoxOrders,
-                Ratings = box.Ratings,
-                Comments = box.Comments,
-                Carts = box.Carts,
-                Relationship = box.Relationship,
-                BoxTag = box.BoxTag
+                PhotoBytes = box.Photo,
+                Ratings = box.Ratings.Select(r => new Rating 
+                { 
+                    BoxId = r.BoxId,
+                    UserId = r.UserId,
+                    Score = r.Score
+                }),
+                Comments = box.Comments.Select(c => new Comment
+                {
+                    Id = c.Id,
+                    BoxId = c.BoxId,
+                    UserId= c.UserId,
+                    CommentText = c.CommentText
+                }),
+                Relationship = box.Relationship.Select(r => new Relationship
+                {
+                    UserId = r.UserId,
+                    BoxId = r.BoxId,
+                    Attitude = r.Attitude
+                }),
+                BoxTag = box.BoxTag.Select(bt => new BoxTag
+                {
+                    BoxId = bt.BoxId,
+                    Tag = new Tag
+                    {
+                        Id = bt.Tag.Id,
+                        TagName = bt.Tag.TagName
+                    }
+                })
             };
         }
     }

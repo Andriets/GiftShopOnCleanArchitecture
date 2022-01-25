@@ -1,4 +1,8 @@
 ﻿using Application.Boxes.Commands.CreateBox;
+using Application.Boxes.Commands.DeleteBox;
+using Application.Boxes.Commands.UpdateBox;
+using Application.Boxes.Queries.GetAllBoxes;
+using Application.Boxes.Queries.GetBoxById;
 using Domain.Exeptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +31,62 @@ namespace WebUI.Controllers
             {
                 return BadRequest("Fail");
             }
+        }
 
+        [HttpPost("[action]")]
+        public async Task<IActionResult> UpdateBox(UpdateBoxCommand createBoxCommand)
+        {
+            try
+            {
+                var res = await _mediator.Send(createBoxCommand);
+                return Ok(res);
+            }
+            catch (GiftShopException)
+            {
+                return BadRequest("Fail");
+            }
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult GetAllBoxes([FromQuery] GetAllBoxesQuery getAllBoxesQuery)
+        {
+            try
+            {
+                var res = _mediator.Send(getAllBoxesQuery).Result;
+                return Ok(res);
+            }
+            catch (GiftShopException)
+            {
+                return BadRequest("Fail");
+            }
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult GetBoxById([FromQuery] GetBoxByIdQuery getBoxByIdQuery)
+        {
+            try
+            {
+                var res = _mediator.Send(getBoxByIdQuery).Result;
+                return Ok(res);
+            }
+            catch (GiftShopException)
+            {
+                return BadRequest("Fail");
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> DeleteBoxById(DeleteBoxCommand deleteBoxCommand)
+        {
+            try
+            {
+                var res = await _mediator.Send(deleteBoxCommand);
+                return Ok(res);
+            }
+            catch (GiftShopException)
+            {
+                return BadRequest("Fail");
+            }
         }
     }
 }

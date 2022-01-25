@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,15 +18,13 @@ namespace Application.Common.Models
 
         public double Price { get; set; }
 
-        public Photo Photo { get; set; }
+        public IFormFile Photo { get; set; }
 
-        public IEnumerable<UserBoxOrder> UserBoxOrders { get; set; }
+        public Photo PhotoBytes { get; set; }
 
         public IEnumerable<Rating> Ratings { get; set; }
 
         public IEnumerable<Comment> Comments { get; set; }
-
-        public IEnumerable<Cart> Carts { get; set; }
 
         public IEnumerable<Relationship> Relationship { get; set; }
 
