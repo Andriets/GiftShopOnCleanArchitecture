@@ -21,6 +21,8 @@ namespace Domain.Entities
 
         public DateTime OrderDate { get; set; }
 
+        public DateTime LastModifiedDate { get; set; }
+
         public OrderStatus OrderStatus { get; set; }
 
         public string UserId { get; set; }

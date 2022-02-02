@@ -22,7 +22,20 @@ namespace Application.Common.Mapping
                 PostOffice = orderDTO.PostOffice,
                 OrderDate = orderDTO.OrderDate,
                 OrderStatus = orderDTO.OrderStatus,
-                BoxOrders = orderDTO.BoxOrders
+                UserId = orderDTO.UserId,
+                /*  User = new ApplicationUser()
+                  {
+                      Id = orderDTO.User.Id,
+                      FirstName = orderDTO.User.FirstName,
+                      LastName = orderDTO.User.LastName,
+                      Region = orderDTO.User.Region,
+                      City = orderDTO.User.City,
+                      PostOffice = orderDTO.User.PostOffice,
+                      History = orderDTO.User.History,
+                      Photo = orderDTO.User.Photo,
+                      UserName = orderDTO.UserName
+                  },*/
+                BoxOrders = orderDTO.Boxes.Select(b => new BoxOrder() { BoxId = b.Id }).ToList()
             };
         }
 
@@ -37,9 +50,10 @@ namespace Application.Common.Mapping
                 City = order.City,
                 PostOffice = order.PostOffice,
                 OrderDate = order.OrderDate,
+                LastModifiedDate = order.LastModifiedDate,
                 OrderStatus = order.OrderStatus,
                 UserId = order.UserId,
-                User = new UserDTO()
+                User = order.User == null ? null : new UserDTO()
                 {
                     Id = order.User.Id,
                     FirstName = order.User.FirstName,
@@ -50,18 +64,12 @@ namespace Application.Common.Mapping
                     PostOffice = order.User.PostOffice,
                     Photo = order.User.Photo
                 },
-                BoxOrders = order.BoxOrders.Select(bo => new BoxOrder()
+                Boxes = order.BoxOrders?.Select(bo => new BoxDTO()
                 {
-                    BoxId = bo.BoxId,
-                    Box = new Box()
-                    {
-                        Id = bo.Box.Id,
-                        Title = bo.Box.Title,
-                        Description = bo.Box.Description,
-                        Price = bo.Box.Price,
-                        Photo = bo.Box.Photo
-                    },
-                    OrderId = bo.OrderId
+                    Id = bo.Box.Id,
+                    Title = bo.Box.Title,
+                    Description = bo.Box.Description,
+                    Price = bo.Box.Price
                 })
             };
         }

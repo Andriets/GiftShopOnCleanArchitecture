@@ -24,12 +24,14 @@ namespace Application.Common.Models
 
         public DateTime OrderDate { get; set; }
 
+        public DateTime LastModifiedDate { get; set; }
+
         public OrderStatus OrderStatus { get; set; }
 
         public string UserId { get; set; }
 
         public UserDTO User { get; set; }
 
-        public IEnumerable<BoxOrder> BoxOrders { get; set; }
+        public IEnumerable<BoxDTO> Boxes { get; set; }
     }
 }

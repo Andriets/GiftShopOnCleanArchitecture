@@ -23,8 +23,6 @@ namespace Domain.Entities
 
         public virtual Photo Photo { get; set; }
 
-        public virtual IEnumerable<BoxOrder> BoxOrders { get; set; }
-
         public virtual IEnumerable<Cart> CartList { get; set; }
 
         public virtual IEnumerable<Rating> BoxRatings { get; set; }
