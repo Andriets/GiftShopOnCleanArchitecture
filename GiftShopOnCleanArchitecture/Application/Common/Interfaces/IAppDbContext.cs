@@ -25,7 +25,7 @@ namespace Application.Common.Interfaces
 
         DbSet<Rating> Ratings { get; set; }
 
-        DbSet<UserBoxOrder> UserBoxOrder { get; set; }
+        DbSet<BoxOrder> BoxOrder { get; set; }
 
         DbSet<Tag> Tags { get; set; }
 

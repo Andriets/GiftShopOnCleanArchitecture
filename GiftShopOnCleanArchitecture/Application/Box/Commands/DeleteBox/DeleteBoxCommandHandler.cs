@@ -27,11 +27,11 @@ namespace Application.Boxes.Commands.DeleteBox
                 throw new GiftShopException("Box not found");
             }
 
-            var userBoxOrders = _context.UserBoxOrder.Where(ubo => ubo.BoxId == box.Id).ToArray();
+            var boxOrders = _context.BoxOrder.Where(ubo => ubo.BoxId == box.Id).ToArray();
 
-            if (userBoxOrders != null)
+            if (boxOrders != null)
             {
-                _context.UserBoxOrder.RemoveRange(userBoxOrders);
+                _context.BoxOrder.RemoveRange(boxOrders);
             }
 
             var ratings = _context.Ratings.Where(r => r.BoxId == box.Id).ToArray();

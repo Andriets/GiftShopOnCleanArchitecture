@@ -1,14 +1,17 @@
 ﻿using Domain.Emuns;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Application.Common.Models
 {
-    public class Order : BaseEntity
+    public class OrderDTO
     {
+        public Guid Id { get; set; }
+
         public string UserName { get; set; }
 
         public string PhoneNumber { get; set; }
@@ -27,9 +30,8 @@ namespace Domain.Entities
 
         public string UserId { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
-        
-        public virtual IEnumerable<BoxOrder> BoxOrders { get; set; }
+        public UserDTO User { get; set; }
 
+        public IEnumerable<BoxDTO> Boxes { get; set; }
     }
 }

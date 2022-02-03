@@ -17,7 +17,7 @@ namespace Domain.Entities
 
         public virtual Photo Photo { get; set; }
 
-        public virtual IEnumerable<UserBoxOrder> UserBoxOrders { get; set; }
+        public virtual IEnumerable<BoxOrder> BoxOrders { get; set; }
 
         public virtual IEnumerable<Rating> Ratings { get; set; }
 
