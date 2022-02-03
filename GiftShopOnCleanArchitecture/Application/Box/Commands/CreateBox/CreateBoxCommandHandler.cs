@@ -27,7 +27,7 @@ namespace Application.Boxes.Commands.CreateBox
                 Description = request.Description,
                 Price = request.Price,
                 Photo = request.PhotoBytes,
-                BoxTag = request.BoxTag
+                BoxTag = request.Tags.Select(t => new BoxTag() { TagId = t.Id }).ToList()
             };
 
             _context.Boxes.Add(box);
