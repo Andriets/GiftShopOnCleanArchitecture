@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Application.Orders.Queries.GetOrderById;
 using Application.Orders.Commands.UpdateOrderStatus;
+using Application.Carts.Commands.DeleteBoxesFromCart;
 
 namespace WebUI.Controllers
 {
@@ -25,8 +26,18 @@ namespace WebUI.Controllers
         {
             try
             {
-                var res = await _mediator.Send(new CreateOrderCommand() { Order = orderDTO});
-                return Ok(res);
+                var createOrderTask = _mediator.Send(new CreateOrderCommand() { Order = orderDTO});
+                if (orderDTO.UserId != null)
+                {
+                    var DeleteBoxesFromCartTask = _mediator.Send(new DeleteBoxesFromCartCommand()
+                    {
+                        UserId = orderDTO.UserId,
+                        BoxesIds = orderDTO.Boxes.Select(b => b.Id).ToArray()
+                    });
+                    await Task.WhenAll(createOrderTask, DeleteBoxesFromCartTask);
+                }
+
+                return Ok(await createOrderTask);
             }
             catch (GiftShopException)
             {

@@ -31,26 +31,26 @@ namespace Application.Common.Mapping
                 Description = box.Description,
                 Price = box.Price,
                 PhotoBytes = box.Photo,
-                Ratings = box.Ratings.Select(r => new Rating 
+                Ratings = box.Ratings?.Select(r => new Rating 
                 { 
                     BoxId = r.BoxId,
                     UserId = r.UserId,
                     Score = r.Score
                 }),
-                Comments = box.Comments.Select(c => new Comment
+                Comments = box.Comments?.Select(c => new Comment
                 {
                     Id = c.Id,
                     BoxId = c.BoxId,
                     UserId= c.UserId,
                     CommentText = c.CommentText
                 }),
-                Relationship = box.Relationship.Select(r => new Relationship
+                Relationship = box.Relationship?.Select(r => new Relationship
                 {
                     UserId = r.UserId,
                     BoxId = r.BoxId,
                     Attitude = r.Attitude
                 }),
-                BoxTag = box.BoxTag.Select(bt => new BoxTag
+                BoxTag = box.BoxTag?.Select(bt => new BoxTag
                 {
                     BoxId = bt.BoxId,
                     Tag = new Tag
