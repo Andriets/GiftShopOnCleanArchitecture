@@ -5,15 +5,25 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { createBrowserHistory } from 'history';
+import configureStore from './store/configureStore';
+import { Provider } from 'react-redux';
+
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
-const rootElement = document.getElementById('root');
+const history = createBrowserHistory({ basename: baseUrl });
 
+const initialState = window.initialReduxState;
+const store = configureStore(history, initialState);
+
+const rootElement = document.getElementById('root');
 ReactDOM.render(
-  <BrowserRouter basename={baseUrl}>
-    <App />
-  </BrowserRouter>,
-  rootElement);
+    <Provider store={store}>
+        <BrowserRouter history={history}>
+            <App />
+        </BrowserRouter>
+    </Provider>,
+    rootElement);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
