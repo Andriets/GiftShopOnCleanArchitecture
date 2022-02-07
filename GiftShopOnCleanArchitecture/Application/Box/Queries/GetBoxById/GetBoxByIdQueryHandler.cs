@@ -26,6 +26,7 @@ namespace Application.Boxes.Queries.GetBoxById
             var res = _context.Boxes
                 .Include(b => b.Ratings)
                 .Include(b => b.Comments)
+                    .ThenInclude(c => c.User)
                 .Include(b => b.Relationship)
                 .Include(b => b.BoxTag)
                     .ThenInclude(bt => bt.Tag)

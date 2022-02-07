@@ -22,12 +22,6 @@ namespace Application.Common.Models
 
         public Photo PhotoBytes { get; set; }
 
-        public IEnumerable<Rating> Ratings { get; set; }
-
-        public IEnumerable<Comment> Comments { get; set; }
-
-        public IEnumerable<Relationship> Relationship { get; set; }
-
-        public IEnumerable<BoxTag> BoxTag { get; set; }
+        public IEnumerable<BoxCommentDetails> BoxCommentDetails { get; set; }
     }
 }
