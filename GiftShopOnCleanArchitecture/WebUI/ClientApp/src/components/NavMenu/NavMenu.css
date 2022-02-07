@@ -1,0 +1,50 @@
+﻿header {
+  width: 60px;
+  height: 100vh;
+  background: #FA4032;
+  float: left;
+}
+
+.topNavMenu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.topNavMenuChild {
+  width: 100%;
+  height: 60px;
+  padding: 8px;
+}
+
+.topNavMenuChild:last-child {
+  background: #AF2F26;
+}
+
+.topNavMenuChild:hover {
+  cursor: pointer;
+}
+
+.topNavMenuChild img {
+  width: 100%;
+}
+
+ul.menu {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 0;
+  list-style-type: none;
+}
+
+li.menu_list {
+  width: 100%;
+  height: 60px;
+  padding: 10px;
+}
+
+li.menu_list:hover {
+  cursor: pointer;
+  background: #FF9263;
+}
+
