@@ -31,34 +31,19 @@ namespace Application.Common.Mapping
                 Description = box.Description,
                 Price = box.Price,
                 PhotoBytes = box.Photo,
-                Ratings = box.Ratings?.Select(r => new Rating 
-                { 
-                    BoxId = r.BoxId,
-                    UserId = r.UserId,
-                    Score = r.Score
-                }),
-                Comments = box.Comments?.Select(c => new Comment
-                {
-                    Id = c.Id,
-                    BoxId = c.BoxId,
-                    UserId= c.UserId,
-                    CommentText = c.CommentText
-                }),
-                Relationship = box.Relationship?.Select(r => new Relationship
-                {
-                    UserId = r.UserId,
-                    BoxId = r.BoxId,
-                    Attitude = r.Attitude
-                }),
-                BoxTag = box.BoxTag?.Select(bt => new BoxTag
-                {
-                    BoxId = bt.BoxId,
-                    Tag = new Tag
-                    {
-                        Id = bt.Tag.Id,
-                        TagName = bt.Tag.TagName
-                    }
-                })
+                BoxCommentDetails = from c in box.Comments
+                                    join r in box.Ratings on c.UserId equals r.UserId into CommentsRatings
+                                    from cr in CommentsRatings.DefaultIfEmpty()
+                                    join rel in box.Relationship on cr.UserId equals rel.UserId into ComRatRel
+                                    from clr in ComRatRel.DefaultIfEmpty()
+                                    select new BoxCommentDetails()
+                                    {
+                                        UserId = c.UserId,
+                                        UserName = c.User == null ? null : $"{c?.User?.FirstName} {c?.User?.LastName}",
+                                        CommentMessage = c.CommentText,
+                                        Score = cr?.Score,
+                                        Attitude = clr?.Attitude
+                                    }
             };
         }
     }
