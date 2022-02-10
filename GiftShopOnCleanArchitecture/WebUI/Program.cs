@@ -11,12 +11,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddControllersWithViews();
-builder.Services.AddCors();
+builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
 
 builder.Services.AddMvc();
-
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "GiftShop API", Version = "v1" });
@@ -84,6 +86,7 @@ app.UseSwaggerUI(c =>
 });
 
 app.UseRouting();
+app.UseCors("corsapp");
 
 app.UseAuthentication();
 app.UseAuthorization();

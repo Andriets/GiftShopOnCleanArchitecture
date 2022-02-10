@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router';
 import { Home } from './components/Home/Home';
 import NotFound from './components/NotFound/NotFound.jsx';
+import LoginWrapper from './components/Login/LoginWrapper';
 
 import './custom.css'
 
@@ -18,6 +19,7 @@ export default class App extends Component {
               <Redirect to="/home" />
           )}/>
         <Route exact path='/home' component={Home} />
+        <Route exact path='/login' component={LoginWrapper} />
         <Route component={NotFound} />
       </Switch>
     );

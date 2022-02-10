@@ -1,0 +1,102 @@
+:root {
+    --main-color2: #FA812F;
+}
+
+.background {
+    width: 100vw;
+    height: 100vh;
+    background: url('../../img/AuthBackground.png') 100% 100% no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginContainer {
+    display: flex;
+}
+
+.leftPart img {
+    width: 400px;
+}
+
+.rightPart {
+    width: 400px;
+    background: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.signIn {
+    width: 300px;
+    padding: 10px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 3px var(--main-color2) solid;
+}
+
+.signIn span {
+    font: 1.2em "Bebas Neue", normal;
+    font-weight: bold;
+    font-size: 25px;
+    color: var(--main-color2);
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.links a {
+    color: var(--main-color2);
+}
+
+.login-form {
+    width: 100%;
+    height: 230px;
+    padding: 0px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inputs {
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inputBox input {
+    width: 300px;
+    height: 50px;
+    border: 3px var(--main-color2) solid;
+    font-size: 20px;
+}
+
+.inputBox input:focus-visible {
+    outline: none;
+}
+
+.errorMessage {
+    color: red;
+    position: absolute;
+    margin-top: 120px;
+}
+
+.submit-btn input {
+    width: 200px;
+    height: 50px;
+    border: 3px var(--main-color2) solid;
+    background: var(--main-color2);
+    color: #fff;
+    font-size: 25px;
+}
