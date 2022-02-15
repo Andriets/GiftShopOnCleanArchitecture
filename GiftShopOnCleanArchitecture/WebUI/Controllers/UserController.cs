@@ -24,7 +24,7 @@ namespace WebUI.Controllers
         public async Task<IActionResult> CreateUser(UserDTO user)
         {
             var res = await _mediator.Send(new CreateUserCommand() { User = user });
-            return string.IsNullOrEmpty(res) ? BadRequest("") : Ok(res);
+            return string.IsNullOrEmpty(res) ? BadRequest("") : Ok(new { UserId = res });
         }
 
         [HttpPost("[action]")]
