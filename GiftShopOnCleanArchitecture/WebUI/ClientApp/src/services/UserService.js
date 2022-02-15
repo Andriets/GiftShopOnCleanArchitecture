@@ -5,7 +5,7 @@ const baseService = new BaseService();
 export default class AuthenticationService {
 
     Register = async (data) => {
-        const res = await baseService.postQuery('Account/Register', data);
+        const res = await baseService.postQuery('User/CreateUser', data);
         return !res.ok 
             ? { error: await res.text() }
             : await res.json();

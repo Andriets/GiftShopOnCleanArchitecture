@@ -30,6 +30,7 @@ namespace Application.User.Commands.CreateUser
         {
             var appUser = request.User.ToEntity();
             appUser.Id = Guid.NewGuid().ToString();
+            appUser.EmailConfirmed = true;
 
             var res = await _identityService.CreateUserAsync(appUser, request.User.Password);
 

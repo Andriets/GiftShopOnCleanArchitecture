@@ -13,7 +13,7 @@
     align-items: center;
 }
 
-.loginContainer {
+.registerContainer {
     display: flex;
 }
 
@@ -31,16 +31,16 @@
     align-items: center;
 }
 
-.signIn {
+.register {
     width: 300px;
-    padding: 10px 0px;
+    /* padding: 10px 0px; */
     display: flex;
     justify-content: center;
     align-items: center;
     border-bottom: 3px var(--main-color2) solid;
 }
 
-.signIn span {
+.register span {
     font: 1.2em "Bebas Neue", normal;
     font-weight: 400;
     font-size: 35px;
@@ -58,49 +58,28 @@
     color: var(--main-color2);
 }
 
-.login-form {
-    height: 230px;
-    padding: 0px 50px;
+.register-form {
+    height: 345px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
 
-.inputs {
-    height: 110px;
+.inputs-r {
+    height: 260px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
 
-.inputBox input {
-    width: 300px;
-    height: 50px;
-    padding-left: 10px;
-    border: 3px var(--main-color2) solid;
-    font-size: 20px;
+.inputs-r input {
+    height: 45px;
 }
 
-.inputBox input::placeholder {
-}
-
-.inputBox input:focus-visible {
-    outline: none;
-}
-
-.errorMessage {
+.registerMessage {
     color: red;
     align-self: flex-start;
-    margin-top: -40px;
-}
-
-.submit-btn input {
-    width: 200px;
-    height: 50px;
-    border: 3px var(--main-color2) solid;
-    background: var(--main-color2);
-    color: #fff;
-    font-size: 25px;
+    /* padding: 5px 0px 10px 0px; */
 }
