@@ -3,6 +3,7 @@ using Application.Common.Mapping;
 using Application.Common.Models;
 using Domain.Exeptions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,9 @@ namespace Application.User.Queries.GetUserById
 
         public async Task<UserDTO> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            var appUser = await _context.Users.FindAsync(request.UserId);
+            var appUser = await _context.Users
+                .Include(u => u.Photo)
+                .FirstOrDefaultAsync(u => u.Id == request.UserId);
 
             if (appUser == null)
             {

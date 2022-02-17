@@ -3,6 +3,7 @@ using Application.User.Commands.AuthorizeUser;
 using Application.User.Commands.ChangePassword;
 using Application.User.Commands.CreateUser;
 using Application.User.Queries.GetUserById;
+using Application.Users.Commands.UpdateUserPhoto;
 using Domain.Exeptions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -33,6 +34,19 @@ namespace WebUI.Controllers
         {
             var res = await _mediator.Send(getUserByIdQuery);
             return Ok(res);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> UpdateUserPhotoAsync([FromForm] UpdateUserPhotoCommand updateUserPhotoCommand)
+        {
+            try
+            {
+                var res = await _mediator.Send(updateUserPhotoCommand);
+                return Ok(res);
+            } catch (GiftShopException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost("[action]")]

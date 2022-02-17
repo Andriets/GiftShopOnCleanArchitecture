@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
+import { UpdateUserPhoto } from './UserAction';
 import './Profile.css';
 
 export default class AvatarBlock extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            imagefile: []
+            imagefile: { }
         }
     }
 
-    handleOnDrop = (newImageFile, onChange) => {
+    handleOnDrop = (newImageFile) => {
         if(newImageFile.length > 0){
             const reader = new FileReader();
             reader.onload = (event) => {
+                UpdateUserPhoto({ id: this.props.userInfo.id, photo: newImageFile[0]});
                 this.setState({
                     imagefile: {
                         preview: event.target.result
@@ -21,27 +23,18 @@ export default class AvatarBlock extends Component {
                 });
             };
             reader.readAsDataURL(newImageFile[0]);
-            const imagefile = {
-                file: newImageFile[0],
-                name: newImageFile[0].name,
-                preview: reader.result,
-                size: 1
-            };
-            //this.setState({ imagefile: [imagefile] }, () => onChange(imagefile));
         }
     };
 
     render() {
-        console.log(this.state.imagefile.preview);
         return (
             <div className='avatar-block'>
-                {/* <img src={process.env.PUBLIC_URL + '/img/userIcon.png'}/> */}
                 <Dropzone onDrop={acceptedFiles => this.handleOnDrop(acceptedFiles)}>
                     {({getRootProps, getInputProps}) => (
                         <section>
                             <div className='photo-background' {...getRootProps()}>
                                 <input {...getInputProps()} />
-                                <img src={this.state.imagefile.preview ? this.state.imagefile.preview : process.env.PUBLIC_URL + '/img/userIcon.png'}/>
+                                <img src={this.props.userInfo.photo?.img ? "data:image/png;base64," + this.props.userInfo.photo.img : process.env.PUBLIC_URL + '/img/userIcon.png'}/>
                             </div>
                         </section>
                     )}

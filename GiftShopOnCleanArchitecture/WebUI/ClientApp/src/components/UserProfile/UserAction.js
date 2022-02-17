@@ -16,6 +16,10 @@ export function GetUserById(id) {
     }
 }
 
+export async function UpdateUserPhoto(userData) {
+    await api_serv.UpdateUserPhoto(userData);
+}
+
 function SetUser(payload) {
     return {
         type: SET_USER,

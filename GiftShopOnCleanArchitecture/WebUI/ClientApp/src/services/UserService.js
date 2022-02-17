@@ -23,5 +23,13 @@ export default class AuthenticationService {
         return res;
     }
 
-    
+    UpdateUserPhoto = async (userData) => {
+        let file = new FormData();
+        file.append('UserId', userData.id);
+        file.append('Photo', userData.photo);
+        const res = await baseService.postQueryWithData('User/UpdateUserPhoto', file);
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
+    }
 }
