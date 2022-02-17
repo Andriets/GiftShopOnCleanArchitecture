@@ -19,9 +19,9 @@ export default class App extends Component {
           render={() => (
               <Redirect to="/home" />
           )}/>
-        <Route exact path='/home' component={Home} />
-        <Route exact path='/login' component={LoginWrapper} />
-        <Route exact path='/register' component={RegisterWrapper} />
+        <Route path='/home' component={Home} />
+        <Route path='/login' component={LoginWrapper} />
+        <Route path='/register' component={RegisterWrapper} />
         <Route component={NotFound} />
       </Switch>
     );

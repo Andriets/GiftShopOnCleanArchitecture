@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { GetUserById } from '../UserProfile/UserAction';
 import './NavMenu.css';
 
-export default class NavMenu extends Component {
+class NavMenu extends Component {
   static displayName = NavMenu.name;
 
   constructor (props) {
     super(props);
   }
 
+  componentWillMount() {
+    const userId = localStorage.getItem("Id");
+    if (userId) {
+      this.props.getUserById(userId);
+    }
+  }
+
   render () {
+    const { isAuthenticated, role } = this.props.userInfo;
+
     return (
       <header>
           <div className='topNavMenu'>
             <div className='topNavMenuChild'>
               <img src={process.env.PUBLIC_URL + '/img/logo.png'} />
             </div>
-            <div className='topNavMenuChild'>
-              <img src={process.env.PUBLIC_URL + '/img/userIcon.png'} />
-            </div>
+            <a href={isAuthenticated ? "/home/profile" : "/login"}>
+              <div className='topNavMenuChild'>
+                  <img src={process.env.PUBLIC_URL + '/img/userIcon.png'} />
+              </div>
+            </a>
           </div>
           
           <nav>
@@ -39,3 +52,22 @@ export default class NavMenu extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  let userInfo = state.user;
+  userInfo.isAuthenticated = !!localStorage.getItem("JwtToken");
+  return {
+    userInfo: userInfo
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getUserById: (id) => dispatch(GetUserById(id))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NavMenu);

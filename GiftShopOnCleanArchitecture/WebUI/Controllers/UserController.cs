@@ -2,6 +2,7 @@
 using Application.User.Commands.AuthorizeUser;
 using Application.User.Commands.ChangePassword;
 using Application.User.Commands.CreateUser;
+using Application.User.Queries.GetUserById;
 using Domain.Exeptions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -25,6 +26,13 @@ namespace WebUI.Controllers
         {
             var res = await _mediator.Send(new CreateUserCommand() { User = user });
             return string.IsNullOrEmpty(res) ? BadRequest("") : Ok(new { UserId = res });
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetUserByIdAsync([FromQuery] GetUserByIdQuery getUserByIdQuery)
+        {
+            var res = await _mediator.Send(getUserByIdQuery);
+            return Ok(res);
         }
 
         [HttpPost("[action]")]

@@ -19,7 +19,7 @@ export default class AuthenticationService {
     }
 
     GetUserById = async (id) => {
-        const res = await baseService.getQuery(`Account/GetUserById/?id=${id}`);
+        const res = await baseService.getQuery(`User/GetUserById?userid=${id}`);
         return res;
     }
 

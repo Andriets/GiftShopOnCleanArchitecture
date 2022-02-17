@@ -10,6 +10,14 @@ const initialState = {
         isRegisterPending: false,
         isRegisterSuccess: false,
         registerError: null
+    },
+    user: {
+        Id: null,
+        Email: null,
+        FirstName: null,
+        LastName: null,
+        Role: null,
+        JwtToken: null
     }
 };
 
