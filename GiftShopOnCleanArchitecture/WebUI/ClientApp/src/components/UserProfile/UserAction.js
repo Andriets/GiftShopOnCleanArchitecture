@@ -10,14 +10,23 @@ export function GetUserById(id) {
         api_serv.GetUserById(id)
             .then(response => {
                 if (!response.error) {
+                    response.photo.img = "data:image/png;base64," + response.photo.img;
                     dispatch(SetUser(response));
                 }
             });
     }
 }
 
-export async function UpdateUserPhoto(userData) {
-    await api_serv.UpdateUserPhoto(userData);
+export function UpdateUserPhoto(userData) {
+    return dispatch => {
+        api_serv.UpdateUserPhoto({id: userData.id, photo: userData.photoBytes})
+            .then(response => {
+                if (!response.error) {
+                    response.photo.img = "data:image/png;base64," + response.photo.img;
+                    dispatch(SetUser(response));
+                }
+            });
+    } 
 }
 
 function SetUser(payload) {

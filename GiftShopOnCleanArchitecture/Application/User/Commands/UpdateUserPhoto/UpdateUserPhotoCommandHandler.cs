@@ -1,4 +1,6 @@
 ﻿using Application.Common.Interfaces;
+using Application.Common.Mapping;
+using Application.Common.Models;
 using Domain.Exeptions;
 using MediatR;
 using System;
@@ -10,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Commands.UpdateUserPhoto
 {
-    public class UpdateUserPhotoCommandHandler : IRequestHandler<UpdateUserPhotoCommand, bool>
+    public class UpdateUserPhotoCommandHandler : IRequestHandler<UpdateUserPhotoCommand, UserDTO>
     {
         private readonly IAppDbContext _context;
 
@@ -22,7 +24,7 @@ namespace Application.Users.Commands.UpdateUserPhoto
             _photoService = photoService;
         }
 
-        public async Task<bool> Handle(UpdateUserPhotoCommand request, CancellationToken cancellationToken)
+        public async Task<UserDTO> Handle(UpdateUserPhotoCommand request, CancellationToken cancellationToken)
         {
             var appUser = await _context.Users.FindAsync(request.UserId);
 
@@ -39,7 +41,7 @@ namespace Application.Users.Commands.UpdateUserPhoto
             appUser.Photo = await _photoService.AddPhoto(request.Photo);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return true;
+            return appUser.ToDTO();
         }
     }
 }

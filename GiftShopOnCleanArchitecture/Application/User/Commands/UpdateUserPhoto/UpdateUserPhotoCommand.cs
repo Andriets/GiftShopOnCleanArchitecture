@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Application.Common.Models;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Users.Commands.UpdateUserPhoto
 {
-    public class UpdateUserPhotoCommand : IRequest<bool>
+    public class UpdateUserPhotoCommand : IRequest<UserDTO>
     {
         public string UserId { get; set; }
 

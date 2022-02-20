@@ -26,11 +26,11 @@ class RegisterWrapper extends Component {
                     </div>
                     <div className='rightPart'>
                         <div className='register'>
-                            <span>Register</span>
+                            <span>SIGN UP</span>
                         </div>
                         <RegisterForm  onSubmit={this.submitRegister} registerError={registerStatus.registerError}/>
                         <div className='links'>
-                            <a href='/home'>Already have account?</a>
+                            <a href='/login'>Already have account?</a>
                         </div>
                     </div>
                 </div>

@@ -33,7 +33,7 @@ class RegisterForm extends Component {
                     <span className="registerMessage">{registerError}</span>
                 }
                 <div className="submit-btn">
-                    <input type="submit" value="Register"/>
+                    <input type="submit" value="Sign Up"/>
                 </div>
             </form>
         );
