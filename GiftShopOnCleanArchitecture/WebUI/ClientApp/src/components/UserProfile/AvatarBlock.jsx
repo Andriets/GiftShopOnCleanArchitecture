@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
-import { UpdateUserPhoto } from './UserAction';
+import { UpdateUserPhoto, ChangePassword } from './UserAction';
 import LogOutModal from './LogOutModal';
+import ChangePasswordModal from './ChangePasswordModal';
 import './Profile.css';
 
 
@@ -10,7 +11,8 @@ class AvatarBlock extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showLogOutModal: false
+            showLogOutModal: false,
+            showChangePasswordModal: false,
         }
 
         this.handleOnChangePasswordClick = this.handleOnChangePasswordClick.bind(this);
@@ -31,7 +33,18 @@ class AvatarBlock extends Component {
         }
     };
 
-    handleOnChangePasswordClick = (disabled) => {
+    handleChangePasswordSubmit = (formData) => {
+        formData.userId = this.props.userInfo.id;
+        this.props.changePassword(formData);
+        this.setState({
+            showChangePasswordModal: false
+        })
+    }
+
+    handleOnChangePasswordClick = (show) => {
+        this.setState({
+            showChangePasswordModal: show
+        })
     }
 
     handleOnLogOutClick = (show) => {
@@ -54,9 +67,10 @@ class AvatarBlock extends Component {
                         </section>
                     )}
                 </Dropzone>
-                <button>
+                <button onClick={() => this.handleOnChangePasswordClick(true)}>
                     Change Password
                 </button>
+                <ChangePasswordModal isOpen={this.state.showChangePasswordModal} handleShow={this.handleOnChangePasswordClick} onSubmit={this.handleChangePasswordSubmit}/>
                 <button onClick={() => this.handleOnLogOutClick(true)}>
                     Log Out
                 </button>
@@ -67,7 +81,6 @@ class AvatarBlock extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log('mapStateToProps: ', state);
     let userInfo = state.user;
     userInfo.isAuthenticated = !!localStorage.getItem("JwtToken");
     return {
@@ -78,7 +91,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateUserPhoto: (userInfo) => dispatch(UpdateUserPhoto(userInfo))
+        updateUserPhoto: (userInfo) => dispatch(UpdateUserPhoto(userInfo)),
+        changePassword: (changePasswordData) => dispatch(ChangePassword(changePasswordData))
     };
 };
 

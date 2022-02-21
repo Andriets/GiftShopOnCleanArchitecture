@@ -69,7 +69,7 @@ namespace WebUI.Controllers
             try
             {
                 await _mediator.Send(changePasswordCommand);
-                return Ok();
+                return Ok("");
             } catch (GiftShopException ex)
             {
                 return BadRequest(ex.Message);

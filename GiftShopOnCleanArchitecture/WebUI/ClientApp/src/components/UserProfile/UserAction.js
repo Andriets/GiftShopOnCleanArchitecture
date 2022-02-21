@@ -1,4 +1,5 @@
 import UserService from '../../services/UserService';
+import {reset} from 'redux-form';
 
 export const SET_USER = "SET_USER";
 export const SET_USER_SIGN_OUT = "SET_USER_SIGN_OUT";
@@ -27,6 +28,17 @@ export function UpdateUserPhoto(userData) {
                 }
             });
     } 
+}
+
+export function ChangePassword(changePasswordData) {
+    return dispatch => {
+        api_serv.ChangePassword(changePasswordData)
+            .then(response => {
+                if (!response.error) {
+                    dispatch(reset('change-password-form'));
+                }
+            });
+    }
 }
 
 function SetUser(payload) {

@@ -4,15 +4,15 @@ const baseService = new BaseService();
 
 export default class AuthenticationService {
 
-    Register = async (data) => {
-        const res = await baseService.postQuery('User/CreateUser', data);
+    Register = async (registerData) => {
+        const res = await baseService.postQuery('User/CreateUser', registerData);
         return !res.ok 
             ? { error: await res.text() }
             : await res.json();
     }
 
-    SignIn = async (data) => {
-        const res = await baseService.postQuery('User/SignIn', data);
+    SignIn = async (loginData) => {
+        const res = await baseService.postQuery('User/SignIn', loginData);
         return !res.ok
             ? { error: await res.text() }
             : await res.json();
@@ -31,5 +31,12 @@ export default class AuthenticationService {
         return !res.ok
             ? { error: await res.text() }
             : await res.json();
+    }
+
+    ChangePassword = async (changePasswordData) => {
+        const res = await baseService.postQuery('User/ChangePassword', changePasswordData);
+        return !res.ok
+            ? { error: await res.text() }
+            : res;
     }
 }
