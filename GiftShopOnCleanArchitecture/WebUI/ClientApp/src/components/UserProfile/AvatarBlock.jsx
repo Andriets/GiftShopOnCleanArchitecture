@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
-import { UpdateUserPhoto, ChangePassword } from './UserAction';
+import { UpdateUserPhoto, ShowChangePasswordModal, ChangePassword } from './UserAction';
 import LogOutModal from './LogOutModal';
 import ChangePasswordModal from './ChangePasswordModal';
 import './Profile.css';
@@ -11,8 +11,7 @@ class AvatarBlock extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showLogOutModal: false,
-            showChangePasswordModal: false,
+            showLogOutModal: false
         }
 
         this.handleOnChangePasswordClick = this.handleOnChangePasswordClick.bind(this);
@@ -42,9 +41,7 @@ class AvatarBlock extends Component {
     }
 
     handleOnChangePasswordClick = (show) => {
-        this.setState({
-            showChangePasswordModal: show
-        })
+        this.props.showChangePasswordModal(show);
     }
 
     handleOnLogOutClick = (show) => {
@@ -54,7 +51,7 @@ class AvatarBlock extends Component {
     }
 
     render() {
-        const { userInfo } = this.props;
+        const { userInfo, changePasswordModal } = this.props;
         return (
             <div className='avatar-block'>
                 <Dropzone onDrop={acceptedFiles => this.handleOnDrop(acceptedFiles)}>
@@ -70,11 +67,19 @@ class AvatarBlock extends Component {
                 <button onClick={() => this.handleOnChangePasswordClick(true)}>
                     Change Password
                 </button>
-                <ChangePasswordModal isOpen={this.state.showChangePasswordModal} handleShow={this.handleOnChangePasswordClick} onSubmit={this.handleChangePasswordSubmit}/>
+                <ChangePasswordModal 
+                    isOpen={changePasswordModal.isOpen} 
+                    handleShow={this.props.showChangePasswordModal} 
+                    errorMessage={changePasswordModal.changingPasError}
+                    onSubmit={this.handleChangePasswordSubmit}/>
+
                 <button onClick={() => this.handleOnLogOutClick(true)}>
                     Log Out
                 </button>
-                <LogOutModal isOpen={this.state.showLogOutModal} message={"Do you really want to Log Out?"} handleShow={this.handleOnLogOutClick}/>
+                <LogOutModal 
+                    isOpen={this.state.showLogOutModal} 
+                    message={"Do you really want to Log Out?"} 
+                    handleShow={this.handleOnLogOutClick}/>
             </div>
         );
     }
@@ -85,14 +90,15 @@ const mapStateToProps = state => {
     userInfo.isAuthenticated = !!localStorage.getItem("JwtToken");
     return {
         userInfo: userInfo,
-        disabled: state.disabled
+        changePasswordModal: state.changePasswordModal
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         updateUserPhoto: (userInfo) => dispatch(UpdateUserPhoto(userInfo)),
-        changePassword: (changePasswordData) => dispatch(ChangePassword(changePasswordData))
+        changePassword: (changePasswordData) => dispatch(ChangePassword(changePasswordData)),
+        showChangePasswordModal: (show) => dispatch(ShowChangePasswordModal(show))
     };
 };
 

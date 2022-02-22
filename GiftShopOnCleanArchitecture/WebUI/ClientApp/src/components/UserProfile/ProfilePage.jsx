@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { GetUserById } from '../UserProfile/UserAction';
 import AvatarBlock from './AvatarBlock';
+import UserInfoBlock from './UserInfoBlock';
 import './Profile.css';
 
 class ProfilePage extends Component {
@@ -20,9 +21,7 @@ class ProfilePage extends Component {
                         <AvatarBlock userInfo={this.props.userInfo}/>
                     </div>
                     <div className='profile-content-right'>
-                        <div className='info-block'>
-
-                        </div>
+                        <UserInfoBlock />
                     </div>
                 </div>
             </div>

@@ -12,7 +12,7 @@ class ChangePasswordModal extends Component {
     }
 
     render() {
-        const { isOpen, handleShow, handleSubmit } = this.props;
+        const { isOpen, handleShow, handleSubmit, errorMessage } = this.props;
         return (
             <Dialog open={isOpen}>
                 <form onSubmit={handleSubmit}>
@@ -28,6 +28,9 @@ class ChangePasswordModal extends Component {
                                 <Field name="repeadPassword" placeholder="Repead Password" component="input" type="password" />
                             </div>
                         </div>
+                        {errorMessage && 
+                            <p>{errorMessage}</p>
+                        }
                     </DialogContent>
                     <DialogActions>
                         <Button
