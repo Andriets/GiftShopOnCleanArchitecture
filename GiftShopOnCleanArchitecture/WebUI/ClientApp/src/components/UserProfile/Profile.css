@@ -82,6 +82,74 @@
 .info-block {
     width: 100%;
     height: 100%;
+    padding: 0px 40px;
     background: #F6F6F6;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.info-block_navbar {
+    width: 100%;
+    height: 10%;
+}
+
+.info-block_navbar-list {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0;
+    list-style-type: none;
+}
+
+.info-block_navbar-list li {
+    font-size: 38px;
+    padding-right: 30px;
+}
+
+.info-block_navbar-list li:hover {
+    cursor: pointer;
+}
+
+.userInfoForm {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.userInfo-fieldsRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userInfo-fieldBox {
+    width: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.userInfo-fieldBox label {
+    font-size: 28px;
+}
+
+.userInfo-fieldBox input {
+    width: 100%;
+    height: 50px;
+    font-size: 24px;
+}
+
+.userInfo-fieldsRow button {
+    width: 480px;
+    height: 60px;
 }

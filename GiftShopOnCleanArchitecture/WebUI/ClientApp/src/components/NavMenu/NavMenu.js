@@ -12,12 +12,12 @@ class NavMenu extends Component {
     super(props);
   }
 
-  componentWillMount() {
-    const userId = localStorage.getItem("Id");
-    if (userId) {
-      this.props.getUserById(userId);
-    }
-  }
+  // componentWillMount() {
+  //   const userId = localStorage.getItem("Id");
+  //   if (userId) {
+  //     this.props.getUserById(userId);
+  //   }
+  // }
 
   render () {
     const { isAuthenticated, role } = this.props.userInfo;

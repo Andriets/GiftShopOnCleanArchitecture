@@ -10,7 +10,6 @@ class RegisterWrapper extends Component {
     }
 
     submitRegister = registerData => {
-        debugger;
         registerData.role = 'User';
         this.props.register(registerData);
     }
