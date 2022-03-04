@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm } from 'redux-form';
+import { UpdateUserInfo } from './UserAction';
 import './Profile.css';
 
 class UserInfoForm extends Component {
@@ -9,7 +10,8 @@ class UserInfoForm extends Component {
     }
 
     onSubmit = (formData) => {
-        console.log(formData);
+        formData.id = localStorage.getItem("Id");
+        this.props.updateUserInfo(formData);
     }
 
     render() {
@@ -76,7 +78,7 @@ const mapStateToProps = (state) => {
         firstname: state.user.firstName,
         lastname: state.user.lastName,
         email: state.user.email,
-        phonenumber: "",
+        phonenumber: state.user.phoneNumber,
         region: state.user.region,
         city: state.user.city,
         postoffice: state.user.postOffice
@@ -88,6 +90,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        updateUserInfo: (userInfo) => dispatch(UpdateUserInfo(userInfo))
     };
 };
 

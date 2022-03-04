@@ -33,6 +33,18 @@ export function UpdateUserPhoto(userData) {
     } 
 }
 
+export function UpdateUserInfo(userInfo) {
+    return dispatch => {
+        api_serv.UpdateUserInfo(userInfo)
+            .then(response => {
+                if (!response.error) {
+                    response.photo.img = "data:image/png;base64," + response.photo.img;
+                    dispatch(SetUser(response));
+                }
+            })
+    }
+}
+
 export function ShowChangePasswordModal(show) {
     return dispatch => {
         dispatch(SetModal(show));

@@ -3,6 +3,7 @@ using Application.Common.Mapping;
 using Application.Common.Models;
 using Domain.Exeptions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,9 @@ namespace Application.Users.Commands.UpdateUserInfo
 
         public async Task<UserDTO> Handle(UpdateUserInfoCommand request, CancellationToken cancellationToken)
         {
-            var appUser = await _context.Users.FindAsync(request.Id);
+            var appUser = await _context.Users
+                .Include(u => u.Photo)
+                .FirstOrDefaultAsync(u => u.Id == request.Id);
 
             if (appUser == null)
             {
@@ -33,7 +36,9 @@ namespace Application.Users.Commands.UpdateUserInfo
             if (!string.IsNullOrEmpty(request.Email))
             {
                 appUser.Email = request.Email;
+                appUser.NormalizedEmail = request.Email.ToUpper();
                 appUser.UserName = request.Email;
+                appUser.NormalizedUserName = request.Email.ToUpper();
             }
 
             if (!string.IsNullOrEmpty(request.PhoneNumber))

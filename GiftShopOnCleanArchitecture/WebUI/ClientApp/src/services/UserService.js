@@ -33,6 +33,13 @@ export default class AuthenticationService {
             : await res.json();
     }
 
+    UpdateUserInfo = async (userInfo) => {
+        const res = await baseService.postQuery('User/UpdateUserInfo', userInfo);
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json(); 
+    }
+
     ChangePassword = async (changePasswordData) => {
         const res = await baseService.postQuery('User/ChangePassword', changePasswordData);
         return !res.ok
