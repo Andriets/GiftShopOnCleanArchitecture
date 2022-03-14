@@ -29,7 +29,7 @@ class LoginWrapper extends Component {
                         <LoginFrom  onSubmit={this.submitLogin} loginError={loginStatus.loginError}/>
                         <div className='links'>
                             <a href='/home'>Forgot password?</a>
-                            <a href='/home'>Don't have account?</a>
+                            <a href='/register'>Don't have account?</a>
                         </div>
                     </div>
                 </div>

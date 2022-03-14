@@ -18,6 +18,12 @@ const initialState = {
         LastName: null,
         Role: null,
         JwtToken: null
+    },
+    changePasswordModal: {
+        isOpen: false,
+        isChangingPasPenging: false,
+        isChangingPasSuccess: false,
+        changingPasError: null
     }
 };
 

@@ -3,6 +3,8 @@ using Application.User.Commands.AuthorizeUser;
 using Application.User.Commands.ChangePassword;
 using Application.User.Commands.CreateUser;
 using Application.User.Queries.GetUserById;
+using Application.Users.Commands.UpdateUserInfo;
+using Application.Users.Commands.UpdateUserPhoto;
 using Domain.Exeptions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -36,6 +38,19 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
+        public async Task<IActionResult> UpdateUserPhotoAsync([FromForm] UpdateUserPhotoCommand updateUserPhotoCommand)
+        {
+            try
+            {
+                var res = await _mediator.Send(updateUserPhotoCommand);
+                return Ok(res);
+            } catch (GiftShopException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("[action]")]
         public async Task<IActionResult> SignInAsync(UserDTO user)
         {
             try
@@ -55,8 +70,22 @@ namespace WebUI.Controllers
             try
             {
                 await _mediator.Send(changePasswordCommand);
-                return Ok();
+                return Ok("");
             } catch (GiftShopException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> UpdateUserInfoAsync(UpdateUserInfoCommand updateUserInfoCommand)
+        {
+            try
+            {
+                var res = await _mediator.Send(updateUserInfoCommand);
+                return Ok(res);
+            }
+            catch (GiftShopException ex)
             {
                 return BadRequest(ex.Message);
             }

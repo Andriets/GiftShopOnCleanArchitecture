@@ -12,12 +12,12 @@ class NavMenu extends Component {
     super(props);
   }
 
-  componentWillMount() {
-    const userId = localStorage.getItem("Id");
-    if (userId) {
-      this.props.getUserById(userId);
-    }
-  }
+  // componentWillMount() {
+  //   const userId = localStorage.getItem("Id");
+  //   if (userId) {
+  //     this.props.getUserById(userId);
+  //   }
+  // }
 
   render () {
     const { isAuthenticated, role } = this.props.userInfo;
@@ -30,7 +30,7 @@ class NavMenu extends Component {
             </div>
             <a href={isAuthenticated ? "/home/profile" : "/login"}>
               <div className='topNavMenuChild'>
-                  <img src={process.env.PUBLIC_URL + '/img/userIcon.png'} />
+                  <img src={this.props.userInfo.photo?.img ? this.props.userInfo.photo.img : process.env.PUBLIC_URL + '/img/userIcon.png'} />
               </div>
             </a>
           </div>
@@ -45,7 +45,7 @@ class NavMenu extends Component {
               </li>
               <li className='menu_list'>
                 <img src={process.env.PUBLIC_URL + '/img/cart.svg'} />
-              </li>
+              </li>             
             </ul>
           </nav>
       </header>

@@ -25,7 +25,7 @@ namespace Application.User.Commands.ChangePassword
 
             if (!res.Succeeded)
             {
-                throw new GiftShopException(res.Errors.ToString());
+                throw new GiftShopException(res.Errors[0].ToString());
             }
 
             return true;

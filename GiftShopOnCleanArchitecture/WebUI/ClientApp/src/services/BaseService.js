@@ -6,7 +6,7 @@ export default class BaseService {
             method: "get",
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${localStorage.getItem('JwtToken')}`
             }),
         });
 
@@ -32,7 +32,7 @@ export default class BaseService {
                 method: "post",
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${localStorage.getItem('JwtToken')}`
                 }),
                 body: JSON.stringify(data)
             }
