@@ -24,6 +24,10 @@ const initialState = {
         isChangingPasPenging: false,
         isChangingPasSuccess: false,
         changingPasError: null
+    },
+    boxes: {
+        isPending: false,
+        list: []
     }
 };
 

@@ -5,6 +5,7 @@ import { Register } from '../components/Register/RegisterAction';
 import { reducer as RegifterReducer } from '../components/Register/RegisterReducer';
 import { reducer as UserReducer } from '../components/UserProfile/UserReducer';
 import { reducer as ChangePasswordModalReducer } from '../components/UserProfile/ChangePasswordModalReducer';
+import { reducer as BoxesReducer } from '../components/AdminPanel/Boxes/BoxReducer';
 
 const rootReducers = {
     routing: routerReducer,
@@ -12,7 +13,8 @@ const rootReducers = {
     login: LoginReducer,
     register: RegifterReducer,
     user: UserReducer,
-    changePasswordModal: ChangePasswordModalReducer
+    changePasswordModal: ChangePasswordModalReducer,
+    boxes: BoxesReducer
 };
 
 export default rootReducers;
