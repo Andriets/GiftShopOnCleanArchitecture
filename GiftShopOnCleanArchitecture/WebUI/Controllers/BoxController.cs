@@ -21,15 +21,15 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> CreateBox(CreateBoxCommand createUserCommand)
+        public async Task<IActionResult> CreateBox([FromForm] CreateBoxCommand createUserCommand)
         {
             try
             {
                 var res = await _mediator.Send(createUserCommand);
-                return Ok(res);
+                return Ok(new { id = res });
             } catch (GiftShopException)
             {
-                return BadRequest("Fail");
+                return BadRequest(new { error = "Fail" });
             }
         }
 

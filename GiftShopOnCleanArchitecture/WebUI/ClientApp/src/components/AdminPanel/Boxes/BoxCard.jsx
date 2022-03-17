@@ -6,12 +6,13 @@ export default class BoxCard extends Component {
     }
 
     render() {
-        const { title, description, price } = this.props.boxInfo;
+        const { title, description, price, photoBytes } = this.props.boxInfo;
+        console.log(this.props.boxInfo);
         return (
             <div className='box-card'>
                 <div className='box-left'>
                     <div className='box-photo'>
-                        <img />
+                        <img src={"data:image/png;base64," + photoBytes?.img}/>
                     </div>
                     <div className='box-info'>
                         <h4 className='box-title'>{title}</h4>

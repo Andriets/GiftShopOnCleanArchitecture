@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import BoxCard from './BoxCard';
-import { GetAllBoxes } from './BoxAction';
+import { GetAllBoxes, SetModalOpen } from './BoxAction';
+import { GetAllTags } from '../Tags/TagAction';
 import BoxModal from './BoxModal';
 import '../Admin.css';
 
 class BoxesBlock extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isModalOpen: false
-        }
-
-        this.handleOpen = this.handleOpen.bind(this);
-        this.handleClose = this.handleClose.bind(this);
     }
 
     componentWillMount() {
@@ -23,30 +18,18 @@ class BoxesBlock extends Component {
             keyWord: ""
         }
         this.props.getAllBoxes(filterData);
-    }
-
-    handleOpen(open) {
-        this.setState({
-            isModalOpen: open
-        })
-    }
-
-    handleClose(open) {
-        this.setState({
-            isModalOpen: open
-        })
+        this.props.getAllTags("");
     }
 
     render() {
-        const { boxes } = this.props;
-
+        const { boxes, isModalOpen, setModalOpen } = this.props;
         return (
             <div className='boxes-block'>
                 <div className='boxes-actions'>
-                    <button onClick={() => this.handleOpen(true)}>
+                    <button onClick={() => setModalOpen(true)}>
                         ADD NEW BOX
                     </button>
-                    <BoxModal isOpen={this.state.isModalOpen} handleClose={this.handleClose}/>
+                    <BoxModal isOpen={isModalOpen} handleClose={setModalOpen}/>
                 </div>
                 <div className='boxes-list'>
                     {
@@ -62,13 +45,16 @@ class BoxesBlock extends Component {
 
 const mapStateToProps = state => {
     return {
-        boxes: state.boxes
+        boxes: state.boxes,
+        isModalOpen: state.addBox.isOpen
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        getAllBoxes: (filterData) => dispatch(GetAllBoxes(filterData))
+        getAllBoxes: (filterData) => dispatch(GetAllBoxes(filterData)),
+        getAllTags: (keyWord) => dispatch(GetAllTags(keyWord)),
+        setModalOpen: (open) => dispatch(SetModalOpen(open))
     };
 };
 

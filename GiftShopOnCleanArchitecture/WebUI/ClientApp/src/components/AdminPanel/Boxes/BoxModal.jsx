@@ -1,26 +1,13 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { CreateBox } from './BoxAction';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Select from 'react-select';
 import DropZoneField from "../../Common/DropZoneField";
 import '../Admin.css';
 
-const options = [
-    { id: 1, value: 'chocolate', label: 'Chocolate', isSelected: true },
-    { id: 2, value: 'strawberry', label: 'Strawberry' },
-    { id: 3, value: 'vanilla', label: 'Vanilla' },
-    { id: 4, value: 'vanilla1', label: 'Vanilla1' },
-    { id: 5, value: 'vanilla2', label: 'Vanilla2' },
-    { id: 6, value: 'vanilla3', label: 'Vanilla3' },
-    { id: 7, value: 'vanilla4', label: 'Vanilla4' },
-]
-
-const selectedOptions = [
-    { id: 2, value: 'strawberry', label: 'Strawberry' },
-    { id: 3, value: 'vanilla', label: 'Vanilla' }
-]
 
 class BoxModal extends Component {
     constructor(props) {
@@ -33,12 +20,12 @@ class BoxModal extends Component {
     }
 
     onSubmit = (formData) => {
-        debugger;
-        const test = {
+        const boxData = {
             ...formData,
             tags: this.state.tags
         }
-        console.log(test);
+        console.log(boxData);
+        this.props.createBox(boxData)
     }
 
     handleInputChange = (newValue, wtf) => {
@@ -64,17 +51,16 @@ class BoxModal extends Component {
     MultiSelect = () => (
         <Select 
             name="tags"
-            options={options} 
+            options={this.props.tagsList} 
             isMulti 
             onChange={this.handleInputChange} 
-            defaultValue={selectedOptions} 
+            defaultValue={this.props.selectedTags} 
             className="tags-multi-select"
             classNamePrefix="select"/>
     )
 
     render() {
-        const { isOpen, handleClose, handleSubmit } = this.props;
-        console.log(this.props);
+        const { isOpen, handleClose, handleSubmit, submitError } = this.props;
         return (
             <Modal open={isOpen} onClose={() => handleClose(false)}>
                 <Box className="modal-box">
@@ -95,6 +81,7 @@ class BoxModal extends Component {
                             <Field name="description" placeholder="Description" component="textarea"/>
                             <Field name="tags" component={this.MultiSelect}/>
                         </div>
+                        {submitError && <p>Error</p>}
                         <div className="userInfoForm-actions">
                             <button onClick={() => handleClose(false)}>Cancel</button>  
                             <button type="submit">Submit</button>   
@@ -112,12 +99,23 @@ BoxModal = reduxForm({
 })(BoxModal);
   
 const mapStateToProps = (state) => {
+    const tags = state.tags.list.map(t => {
+        return {
+            id: t.id,
+            value: t.tagName,
+            label: t.tagName.toLowerCase()
+        }
+    })
     return {
+        isTagsPending: state.tags.isPending,
+        tagsList: tags,
+        submitError: state.addBox.addBoxError
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        createBox: (boxData) => dispatch(CreateBox(boxData))
     };
 };
 

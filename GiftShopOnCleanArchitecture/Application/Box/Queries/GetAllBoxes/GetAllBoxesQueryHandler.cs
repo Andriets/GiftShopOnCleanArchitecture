@@ -25,6 +25,7 @@ namespace Application.Boxes.Queries.GetAllBoxes
         public Task<IEnumerable<BoxDTO>> Handle(GetAllBoxesQuery request, CancellationToken cancellationToken)
         {
             var boxes = _context.Boxes
+                .Include(b => b.Photo)
                 .Include(b => b.Ratings)
                 .Include(b => b.Comments)
                 .Include(b => b.Relationship)

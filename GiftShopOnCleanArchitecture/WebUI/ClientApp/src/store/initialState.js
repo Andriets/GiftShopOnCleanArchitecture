@@ -28,6 +28,16 @@ const initialState = {
     boxes: {
         isPending: false,
         list: []
+    },
+    tags: {
+        isPending: false,
+        list: []
+    },
+    addBox: {
+        isOpen: false,
+        isAddingPending: false,
+        isAddingSuccess: false,
+        addBoxError: null
     }
 };
 

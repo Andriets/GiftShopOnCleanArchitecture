@@ -14,9 +14,12 @@ namespace Application.Boxes.Commands.CreateBox
     {
         private readonly IAppDbContext _context;
 
-        public CreateBoxCommandHandler(IAppDbContext appDbContext)
+        private readonly IPhotoService _photoService;
+
+        public CreateBoxCommandHandler(IAppDbContext appDbContext, IPhotoService photoService)
         {
             _context = appDbContext;
+            _photoService = photoService;
         }
 
         public async Task<Guid> Handle(CreateBoxCommand request, CancellationToken cancellationToken)
@@ -26,9 +29,10 @@ namespace Application.Boxes.Commands.CreateBox
                 Title = request.Title,
                 Description = request.Description,
                 Price = request.Price,
-                Photo = request.PhotoBytes,
                 BoxTag = request.Tags.Select(t => new BoxTag() { TagId = t.Id }).ToList()
             };
+
+            box.Photo = await _photoService.AddPhoto(request.Photo);
 
             _context.Boxes.Add(box);
             await _context.SaveChangesAsync(cancellationToken);
