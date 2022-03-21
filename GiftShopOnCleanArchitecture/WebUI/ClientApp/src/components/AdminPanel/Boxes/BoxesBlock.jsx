@@ -46,7 +46,7 @@ class BoxesBlock extends Component {
 const mapStateToProps = state => {
     return {
         boxes: state.boxes,
-        isModalOpen: state.addBox.isOpen
+        isModalOpen: state.boxModal.isOpen
     };
 };
 

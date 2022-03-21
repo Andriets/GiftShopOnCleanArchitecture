@@ -27,14 +27,27 @@ namespace Application.Boxes.Commands.UpdateBox
         public async Task<Guid> Handle(UpdateBoxCommand request, CancellationToken cancellationToken)
         {
             var box = _context.Boxes
+                .Include(b => b.Photo)
                 .Include(b => b.Comments)
                 .Include(b => b.BoxTag)
                     .ThenInclude(bt => bt.Tag)
                 .FirstOrDefault(b => b.Id == request.Id);
 
-            box.Title = request.Title;
-            box.Description = request.Description;
-            box.Price = request.Price;
+            if (request.Title is not null)
+            {
+                box.Title = request.Title;
+            }
+
+            if (request.Description is not null)
+            {
+                box.Description = request.Description;
+            }
+            
+            if (request.Price is not null)
+            {
+                box.Price = request.Price.Value;
+            }
+            
             if (box.Photo != null && request.Photo != null)
             {
                 await _photoService.Delete(box.Photo.Id);
@@ -47,7 +60,10 @@ namespace Application.Boxes.Commands.UpdateBox
                 }
             }
 
-            box.BoxTag = request.BoxTag?.Select(bt => new BoxTag { Box = box, TagId = bt.TagId }).ToList();
+            if (request.Tags.Any())
+            {
+                box.BoxTag = request.Tags.Select(t => new BoxTag { Box = box, TagId = t.Id }).ToList();
+            }
             
             await _context.SaveChangesAsync(cancellationToken);
 

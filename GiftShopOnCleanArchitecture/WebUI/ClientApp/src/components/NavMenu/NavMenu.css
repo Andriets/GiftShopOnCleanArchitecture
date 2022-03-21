@@ -40,8 +40,7 @@ ul.menu {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-top: 10px;
-  padding: 0;
+  padding: 5px 0px;
   list-style-type: none;
 }
 

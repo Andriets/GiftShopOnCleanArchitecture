@@ -34,16 +34,16 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> UpdateBox(UpdateBoxCommand createBoxCommand)
+        public async Task<IActionResult> UpdateBox([FromForm] UpdateBoxCommand createBoxCommand)
         {
             try
             {
                 var res = await _mediator.Send(createBoxCommand);
-                return Ok(res);
+                return Ok(new { id = res });
             }
             catch (GiftShopException)
             {
-                return BadRequest("Fail");
+                return BadRequest(new { error = "Fail" });
             }
         }
 

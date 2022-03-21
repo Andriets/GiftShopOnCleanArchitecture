@@ -31,6 +31,11 @@ namespace Application.Common.Mapping
                 Description = box.Description,
                 Price = box.Price,
                 PhotoBytes = box.Photo,
+                Tags = box.BoxTag.Select(bt => new TagDTO
+                {
+                    Id = bt.Tag.Id,
+                    TagName = bt.Tag.TagName
+                }),
                 BoxCommentDetails = from c in box.Comments
                                     join r in box.Ratings on c.UserId equals r.UserId into CommentsRatings
                                     from cr in CommentsRatings.DefaultIfEmpty()

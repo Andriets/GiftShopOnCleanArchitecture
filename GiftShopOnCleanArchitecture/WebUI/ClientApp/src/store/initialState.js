@@ -33,12 +33,21 @@ const initialState = {
         isPending: false,
         list: []
     },
-    addBox: {
+    boxModal: {
         isOpen: false,
+        editMode: false,
+        initialValues: {},
         imagefile: {},
+    },
+    addBox: {
         isAddingPending: false,
         isAddingSuccess: false,
         addBoxError: null
+    },
+    editBox: {
+        isEditingPending: false,
+        isEditingSuccess: false,
+        editBoxError: null
     }
 };
 

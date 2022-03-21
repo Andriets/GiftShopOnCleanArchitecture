@@ -1,13 +1,32 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { CreateBox, SetBoxImage } from './BoxAction';
+import { CreateBox, EditBox, SetBoxImage } from './BoxAction';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Select from 'react-select';
 import DropZoneField from "../../Common/DropZoneField";
 import '../Admin.css';
 
+const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, {type: contentType});
+    return blob;
+}
 
 class BoxModal extends Component {
     constructor(props) {
@@ -23,7 +42,27 @@ class BoxModal extends Component {
             ...formData,
             tags: this.state.tags
         }
-        this.props.createBox(boxData)
+        debugger;
+        if (this.props.editMode) {
+            boxData.id = this.props.initialValues.id;
+            if (boxData.tags.length === 0) {
+                boxData.tags = this.props.initialValues.tags.map(t => {
+                    return {
+                        id: t.id,
+                        value: t.tagName,
+                        label: t.tagName.toLowerCase()
+                    }
+                });
+            }
+            if (!boxData.image) {
+                boxData.image = {};
+                boxData.image.file = b64toBlob(this.props.initialValues.photoBytes.img, 'image/png');
+            }
+            boxData.id = this.props.initialValues.id;
+            this.props.editBox(boxData);
+        } else {
+            this.props.createBox(boxData);
+        }
     }
 
     handleInputChange = (newValue) => {
@@ -56,17 +95,24 @@ class BoxModal extends Component {
             options={this.props.tagsList} 
             isMulti 
             onChange={this.handleInputChange} 
-            defaultValue={this.props.selectedTags} 
+            defaultValue={this.props.initialTags} 
             className="tags-multi-select"
             classNamePrefix="select"/>
     )
 
     render() {
-        const { isOpen, handleSubmit, submitError, imagefile } = this.props;
+        const { isOpen, editMode, handleSubmit, submitError, imagefile, initialValues } = this.props;
+
+        if (editMode && !imagefile.preview) {
+            const contentType = 'image/png';
+            const blob = b64toBlob(initialValues.photoBytes.img, contentType);
+            const blobUrl = URL.createObjectURL(blob);
+            imagefile.preview = blobUrl;
+        }
         return (
             <Modal open={isOpen} onClose={() => this.closeModal()}>
                 <Box className="modal-box">
-                    <form className="userInfoForm" onSubmit={handleSubmit(this.onSubmit)}>
+                    <form className="boxInfoForm" onSubmit={handleSubmit(this.onSubmit)}>
                         <div className="userInfoForm-photo">
                             <Field
                                 id="image-field"
@@ -107,18 +153,29 @@ const mapStateToProps = (state) => {
             value: t.tagName,
             label: t.tagName.toLowerCase()
         }
-    })
+    });
+    const initialTags = state.boxModal?.initialValues?.tags?.map(t => {
+        return {
+            id: t.id,
+            value: t.tagName,
+            label: t.tagName.toLowerCase()
+        }
+    });
     return {
         isTagsPending: state.tags.isPending,
         tagsList: tags,
+        initialTags: initialTags,
+        editMode: state.boxModal.editMode,
         submitError: state.addBox.addBoxError,
-        imagefile: state.addBox.imagefile
+        imagefile: state.boxModal.imagefile,
+        initialValues: state.boxModal.initialValues
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         createBox: (boxData) => dispatch(CreateBox(boxData)),
+        editBox: (boxData) => dispatch(EditBox(boxData)),
         setBoxImage: (imageFile) => dispatch(SetBoxImage(imageFile))
     };
 };

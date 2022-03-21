@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { SetModalOpen, SetEditMode } from './BoxAction';
 
-export default class BoxCard extends Component {
+class BoxCard extends Component {
     constructor(props) {
         super(props);
     }
 
     render() {
         const { title, description, price, photoBytes } = this.props.boxInfo;
+        const { setEditMode } = this.props;
         return (
             <div className='box-card'>
                 <div className='box-left'>
@@ -20,10 +23,26 @@ export default class BoxCard extends Component {
                     </div>
                 </div>
                 <div className='box-actions'>
-                    <img src={process.env.PUBLIC_URL + '/img/Edit.svg'}/>
+                    <img onClick={() => setEditMode(this.props.boxInfo)} src={process.env.PUBLIC_URL + '/img/Edit.svg'}/>
                     <img src={process.env.PUBLIC_URL + '/img/Trash.svg'}/>
                 </div>
             </div>
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setEditMode: (boxInfo) => dispatch(SetEditMode(boxInfo))
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(BoxCard);
