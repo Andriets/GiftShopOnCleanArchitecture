@@ -18,7 +18,7 @@ const DropZoneField = ({
             <section>
                 <div className='photo-background' {...getRootProps()}>
                     <input {...getInputProps()} />
-                    <img src={imagefile.preview ? imagefile.preview : process.env.PUBLIC_URL + '/img/userIcon.png'}/>
+                    <img src={imagefile?.preview ? imagefile?.preview : process.env.PUBLIC_URL + '/img/userIcon.png'}/>
                 </div>
             </section>
         )}

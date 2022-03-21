@@ -7,7 +7,6 @@ export default class BoxCard extends Component {
 
     render() {
         const { title, description, price, photoBytes } = this.props.boxInfo;
-        console.log(this.props.boxInfo);
         return (
             <div className='box-card'>
                 <div className='box-left'>

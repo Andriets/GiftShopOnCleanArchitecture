@@ -35,6 +35,7 @@ const initialState = {
     },
     addBox: {
         isOpen: false,
+        imagefile: {},
         isAddingPending: false,
         isAddingSuccess: false,
         addBoxError: null

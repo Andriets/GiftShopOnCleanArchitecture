@@ -7,7 +7,9 @@ export const SET_BOXES_PENDING = "SET_BOXES_PENDING";
 export const ADD_BOX_SUCCESS = "ADD_BOX_SUCCESS";
 export const ADD_BOX_FAIL = "ADD_BOX_FAIL";
 
-export const SET_MODAL_OPEN = "SET_MODAL_OPEN"
+export const SET_MODAL_OPEN = "SET_MODAL_OPEN";
+
+export const SET_BOX_IMAGE = "SET_BOX_IMAGE";
 
 const api_serv = new BoxService();
 
@@ -41,6 +43,19 @@ export function SetModalOpen(open) {
         if (!open) {
             dispatch(reset('box-form'));
         }
+    }
+}
+
+export function SetBoxImage(imagefile) {
+    return dispatch => {
+        dispatch(setBoxImage(imagefile));
+    }
+}
+
+function setBoxImage(payload) {
+    return {
+        type: SET_BOX_IMAGE,
+        payload: payload
     }
 }
 

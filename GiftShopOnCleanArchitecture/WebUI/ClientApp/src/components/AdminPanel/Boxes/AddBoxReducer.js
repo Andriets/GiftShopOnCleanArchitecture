@@ -1,11 +1,12 @@
 import initialState from '../../../store/initialState';
-import { ADD_BOX_SUCCESS, ADD_BOX_FAIL, SET_MODAL_OPEN } from './BoxAction';
+import { ADD_BOX_SUCCESS, ADD_BOX_FAIL, SET_MODAL_OPEN, SET_BOX_IMAGE } from './BoxAction';
 
 export const reducer = (state = initialState.addBox, action) => {
     switch(action.type) {
         case ADD_BOX_SUCCESS:
             return {
                 ...state,
+                imagefile: {},
                 isOpen: false,
                 isAddingPending: false,
                 isAddingSuccess: action.payload
@@ -21,7 +22,13 @@ export const reducer = (state = initialState.addBox, action) => {
             return {
                 ...state,
                 isOpen: action.payload
+            };
+        case SET_BOX_IMAGE: {
+            return {
+                ...state,
+                imagefile: action.payload
             }
+        }
         default:
             return state;
     }

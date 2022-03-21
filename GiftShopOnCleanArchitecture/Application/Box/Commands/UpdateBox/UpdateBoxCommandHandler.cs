@@ -47,7 +47,6 @@ namespace Application.Boxes.Commands.UpdateBox
                 }
             }
 
-            box.Comments = request.Comments?.Select(c => new Comment { Box = box, CommentText = c.CommentText }).ToList();
             box.BoxTag = request.BoxTag?.Select(bt => new BoxTag { Box = box, TagId = bt.TagId }).ToList();
             
             await _context.SaveChangesAsync(cancellationToken);

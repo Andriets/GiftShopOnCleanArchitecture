@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { CreateBox } from './BoxAction';
+import { CreateBox, SetBoxImage } from './BoxAction';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Select from 'react-select';
@@ -14,7 +14,6 @@ class BoxModal extends Component {
         super(props);
         this.state = {
             tags: [],
-            imagefile: {},
             checked: false
         }
     }
@@ -24,19 +23,16 @@ class BoxModal extends Component {
             ...formData,
             tags: this.state.tags
         }
-        console.log(boxData);
         this.props.createBox(boxData)
     }
 
-    handleInputChange = (newValue, wtf) => {
-        console.log(newValue, wtf)
+    handleInputChange = (newValue) => {
         this.setState({
             tags: newValue
         })
     }
 
     handleOnDrop = (newImageFile, onChange) => {
-        debugger;
         if (newImageFile.length > 0) {
             const imagefile = {
                 file: newImageFile[0],
@@ -44,9 +40,15 @@ class BoxModal extends Component {
                 preview: URL.createObjectURL(newImageFile[0]),
                 size: 1
             };
-            this.setState({ imagefile: imagefile }, () => onChange(imagefile));
+            this.props.setBoxImage(imagefile);
+            onChange(imagefile);
         }
     };
+
+    closeModal = () => {
+        this.props.setBoxImage({});
+        this.props.handleClose(false);
+    }
 
     MultiSelect = () => (
         <Select 
@@ -60,9 +62,9 @@ class BoxModal extends Component {
     )
 
     render() {
-        const { isOpen, handleClose, handleSubmit, submitError } = this.props;
+        const { isOpen, handleSubmit, submitError, imagefile } = this.props;
         return (
-            <Modal open={isOpen} onClose={() => handleClose(false)}>
+            <Modal open={isOpen} onClose={() => this.closeModal()}>
                 <Box className="modal-box">
                     <form className="userInfoForm" onSubmit={handleSubmit(this.onSubmit)}>
                         <div className="userInfoForm-photo">
@@ -71,7 +73,7 @@ class BoxModal extends Component {
                                 name="image"
                                 component={DropZoneField}
                                 type="file"
-                                imagefile={this.state.imagefile}
+                                imagefile={imagefile}
                                 handleOnDrop={this.handleOnDrop}
                             />
                         </div>
@@ -83,7 +85,7 @@ class BoxModal extends Component {
                         </div>
                         {submitError && <p>Error</p>}
                         <div className="userInfoForm-actions">
-                            <button onClick={() => handleClose(false)}>Cancel</button>  
+                            <button onClick={() => this.closeModal()}>Cancel</button>  
                             <button type="submit">Submit</button>   
                         </div>   
                     </form>
@@ -109,13 +111,15 @@ const mapStateToProps = (state) => {
     return {
         isTagsPending: state.tags.isPending,
         tagsList: tags,
-        submitError: state.addBox.addBoxError
+        submitError: state.addBox.addBoxError,
+        imagefile: state.addBox.imagefile
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        createBox: (boxData) => dispatch(CreateBox(boxData))
+        createBox: (boxData) => dispatch(CreateBox(boxData)),
+        setBoxImage: (imageFile) => dispatch(SetBoxImage(imageFile))
     };
 };
 
