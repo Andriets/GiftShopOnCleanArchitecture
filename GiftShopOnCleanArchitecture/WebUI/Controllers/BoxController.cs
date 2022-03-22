@@ -76,7 +76,7 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> DeleteBoxById(DeleteBoxCommand deleteBoxCommand)
+        public async Task<IActionResult> DeleteBoxById([FromBody] DeleteBoxCommand deleteBoxCommand)
         {
             try
             {

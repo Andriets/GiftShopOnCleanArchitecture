@@ -31,7 +31,7 @@ export default class BoxService {
         file.append('Title', boxData.title);
         file.append('Description', boxData.description);
         file.append('Price', boxData.price);
-        file.append('Photo', boxData.image.file);
+        file.append('Photo', boxData?.image?.file);
         boxData.tags.forEach((tag, key) => {
             file.append(`Tags[${key}].Id`, tag.id);
         });
@@ -40,5 +40,12 @@ export default class BoxService {
         return !res.ok
             ? { error: await res.text() }
             : res;
+    }
+
+    DeleteBoxById = async (id) => {
+        const res = await baseService.postQuery('Box/DeleteBoxById', {boxId: id});
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
     }
 }

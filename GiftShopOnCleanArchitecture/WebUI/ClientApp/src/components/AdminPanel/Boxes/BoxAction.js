@@ -56,6 +56,16 @@ export function EditBox(boxData) {
     }
 }
 
+export function DeleteBoxById(boxId, boxes) {
+    return dispatch => {
+        api_serv.DeleteBoxById(boxId).then(res => {
+            if (!res.error) {
+                dispatch(setBoxes(boxes));
+            }
+        });
+    }
+}
+
 export function SetModalOpen(open) {
     return dispatch => {
         dispatch(setModalOpen(open))

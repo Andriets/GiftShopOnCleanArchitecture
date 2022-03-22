@@ -145,7 +145,7 @@
     align-items: center;
 }
 
-.userInfoForm-fields {
+.boxInfoForm-fields {
     width: 300px;
     display: flex;
     flex-direction: column;
@@ -154,13 +154,13 @@
     margin-top: 10px;
 }
 
-.userInfoForm-fields input {
+.boxInfoForm-fields input {
     border: 1px gray solid;
     width: 100%;
     margin-bottom: 10px;
 }
 
-.userInfoForm-fields textarea {
+.boxInfoForm-fields textarea {
     border: 1px gray solid;
     width: 100%;
     height: 110px;
@@ -171,9 +171,13 @@
     width: 100%;
 }
 
-.userInfoForm-actions {
+.boxInfoForm-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
+}
+
+.box-actions img:hover {
+    cursor: pointer;
 }

@@ -48,7 +48,7 @@ namespace Application.Boxes.Commands.UpdateBox
                 box.Price = request.Price.Value;
             }
             
-            if (box.Photo != null && request.Photo != null)
+            if (box.Photo is not null && request.Photo is not null)
             {
                 await _photoService.Delete(box.Photo.Id);
                 try
@@ -60,7 +60,7 @@ namespace Application.Boxes.Commands.UpdateBox
                 }
             }
 
-            if (request.Tags.Any())
+            if (request.Tags is not null)
             {
                 box.BoxTag = request.Tags.Select(t => new BoxTag { Box = box, TagId = t.Id }).ToList();
             }

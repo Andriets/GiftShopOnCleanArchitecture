@@ -42,22 +42,7 @@ class BoxModal extends Component {
             ...formData,
             tags: this.state.tags
         }
-        debugger;
         if (this.props.editMode) {
-            boxData.id = this.props.initialValues.id;
-            if (boxData.tags.length === 0) {
-                boxData.tags = this.props.initialValues.tags.map(t => {
-                    return {
-                        id: t.id,
-                        value: t.tagName,
-                        label: t.tagName.toLowerCase()
-                    }
-                });
-            }
-            if (!boxData.image) {
-                boxData.image = {};
-                boxData.image.file = b64toBlob(this.props.initialValues.photoBytes.img, 'image/png');
-            }
             boxData.id = this.props.initialValues.id;
             this.props.editBox(boxData);
         } else {
@@ -113,7 +98,7 @@ class BoxModal extends Component {
             <Modal open={isOpen} onClose={() => this.closeModal()}>
                 <Box className="modal-box">
                     <form className="boxInfoForm" onSubmit={handleSubmit(this.onSubmit)}>
-                        <div className="userInfoForm-photo">
+                        <div className="boxInfoForm-photo">
                             <Field
                                 id="image-field"
                                 name="image"
@@ -123,14 +108,14 @@ class BoxModal extends Component {
                                 handleOnDrop={this.handleOnDrop}
                             />
                         </div>
-                        <div className="userInfoForm-fields">
+                        <div className="boxInfoForm-fields">
                             <Field name="title" placeholder="Title" component="input" />
                             <Field name="price" placeholder="Price" component="input" />
                             <Field name="description" placeholder="Description" component="textarea"/>
                             <Field name="tags" component={this.MultiSelect}/>
                         </div>
                         {submitError && <p>Error</p>}
-                        <div className="userInfoForm-actions">
+                        <div className="boxInfoForm-actions">
                             <button onClick={() => this.closeModal()}>Cancel</button>  
                             <button type="submit">Submit</button>   
                         </div>   
