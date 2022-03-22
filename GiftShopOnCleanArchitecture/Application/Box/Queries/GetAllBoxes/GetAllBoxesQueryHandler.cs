@@ -25,6 +25,7 @@ namespace Application.Boxes.Queries.GetAllBoxes
         public Task<IEnumerable<BoxDTO>> Handle(GetAllBoxesQuery request, CancellationToken cancellationToken)
         {
             var boxes = _context.Boxes
+                .Include(b => b.Photo)
                 .Include(b => b.Ratings)
                 .Include(b => b.Comments)
                 .Include(b => b.Relationship)
@@ -38,10 +39,13 @@ namespace Application.Boxes.Queries.GetAllBoxes
                     || b.Description.Contains(request.KeyWord))
                 : boxes;
 
-            var res = boxes.OrderBy(b => b.Price)
-                .Skip((request.Page - 1) * request.PageSize)
-                .Take(request.PageSize)
-                .AsEnumerable();
+            var res = request.PageSize != 0
+                ? boxes.OrderBy(b => b.Price)
+                    .Skip((request.Page - 1) * request.PageSize)
+                    .Take(request.PageSize)
+                    .AsEnumerable()
+                : boxes.OrderBy(b => b.Price)
+                    .AsEnumerable();
 
             return Task.FromResult(res.Select(b => b.ToDTO()));
         }

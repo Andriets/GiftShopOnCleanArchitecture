@@ -21,29 +21,29 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> CreateBox(CreateBoxCommand createUserCommand)
+        public async Task<IActionResult> CreateBox([FromForm] CreateBoxCommand createUserCommand)
         {
             try
             {
                 var res = await _mediator.Send(createUserCommand);
-                return Ok(res);
+                return Ok(new { id = res });
             } catch (GiftShopException)
             {
-                return BadRequest("Fail");
+                return BadRequest(new { error = "Fail" });
             }
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> UpdateBox(UpdateBoxCommand createBoxCommand)
+        public async Task<IActionResult> UpdateBox([FromForm] UpdateBoxCommand createBoxCommand)
         {
             try
             {
                 var res = await _mediator.Send(createBoxCommand);
-                return Ok(res);
+                return Ok(new { id = res });
             }
             catch (GiftShopException)
             {
-                return BadRequest("Fail");
+                return BadRequest(new { error = "Fail" });
             }
         }
 
@@ -76,7 +76,7 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> DeleteBoxById(DeleteBoxCommand deleteBoxCommand)
+        public async Task<IActionResult> DeleteBoxById([FromBody] DeleteBoxCommand deleteBoxCommand)
         {
             try
             {

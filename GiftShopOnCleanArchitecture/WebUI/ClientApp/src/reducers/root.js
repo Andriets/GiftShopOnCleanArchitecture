@@ -5,6 +5,10 @@ import { Register } from '../components/Register/RegisterAction';
 import { reducer as RegifterReducer } from '../components/Register/RegisterReducer';
 import { reducer as UserReducer } from '../components/UserProfile/UserReducer';
 import { reducer as ChangePasswordModalReducer } from '../components/UserProfile/ChangePasswordModalReducer';
+import { reducer as BoxesReducer } from '../components/AdminPanel/Boxes/BoxReducer';
+import { reducer as AddBoxReducer } from '../components/AdminPanel/Boxes/AddBoxReducer';
+import { reducer as BoxModalReducer } from '../components/AdminPanel/Boxes/BoxModalReducer';
+import { reducer as TagReducer } from '../components/AdminPanel/Tags/TagReducer';
 
 const rootReducers = {
     routing: routerReducer,
@@ -12,7 +16,11 @@ const rootReducers = {
     login: LoginReducer,
     register: RegifterReducer,
     user: UserReducer,
-    changePasswordModal: ChangePasswordModalReducer
+    changePasswordModal: ChangePasswordModalReducer,
+    boxes: BoxesReducer,
+    boxModal: BoxModalReducer,
+    addBox: AddBoxReducer,
+    tags: TagReducer
 };
 
 export default rootReducers;

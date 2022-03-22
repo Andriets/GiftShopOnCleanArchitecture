@@ -24,6 +24,30 @@ const initialState = {
         isChangingPasPenging: false,
         isChangingPasSuccess: false,
         changingPasError: null
+    },
+    boxes: {
+        isPending: false,
+        list: []
+    },
+    tags: {
+        isPending: false,
+        list: []
+    },
+    boxModal: {
+        isOpen: false,
+        editMode: false,
+        initialValues: {},
+        imagefile: {},
+    },
+    addBox: {
+        isAddingPending: false,
+        isAddingSuccess: false,
+        addBoxError: null
+    },
+    editBox: {
+        isEditingPending: false,
+        isEditingSuccess: false,
+        editBoxError: null
     }
 };
 

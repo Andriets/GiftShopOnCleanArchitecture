@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
     "@material-ui/core": "^4.12.3",
+    "@mui/material": "^5.5.1",
     "bootstrap": "^5.1.0",
     "globalize": "^1.7.0",
     "history": "^5.0.1",
@@ -20,6 +23,7 @@
     "react-router-dom": "^5.2.0",
     "react-router-redux": "^4.0.8",
     "react-scripts": "^4.0.3",
+    "react-select": "^5.2.2",
     "reactstrap": "^8.9.0",
     "redux": "^4.1.1",
     "redux-form": "^8.3.7",

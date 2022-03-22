@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Common.Models;
+using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -14,18 +15,12 @@ namespace Application.Boxes.Commands.UpdateBox
 
         public string Description { get; set; }
 
-        public double Price { get; set; }
+        public double? Price { get; set; }
 
         public IFormFile Photo { get; set; }
 
         public Photo PhotoBytes { get; set; }
 
-        public IEnumerable<Rating> Ratings { get; set; }
-
-        public IEnumerable<Comment> Comments { get; set; }
-
-        public IEnumerable<Relationship> Relationship { get; set; }
-
-        public IEnumerable<BoxTag> BoxTag { get; set; }
+        public IEnumerable<TagDTO> Tags { get; set; }
     }
 }

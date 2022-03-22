@@ -22,6 +22,9 @@ namespace Application.Common.Models
 
         public Photo PhotoBytes { get; set; }
 
+        public IEnumerable<TagDTO> Tags { get; set; }
+
         public IEnumerable<BoxCommentDetails> BoxCommentDetails { get; set; }
+
     }
 }

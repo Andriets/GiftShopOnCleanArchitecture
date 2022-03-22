@@ -24,6 +24,7 @@ namespace Application.Boxes.Queries.GetBoxById
         public Task<BoxDTO> Handle(GetBoxByIdQuery request, CancellationToken cancellationToken)
         {
             var res = _context.Boxes
+                .Include(b => b.Photo)
                 .Include(b => b.Ratings)
                 .Include(b => b.Comments)
                     .ThenInclude(c => c.User)
