@@ -9,6 +9,8 @@ import { reducer as BoxesReducer } from '../components/AdminPanel/Boxes/BoxReduc
 import { reducer as AddBoxReducer } from '../components/AdminPanel/Boxes/AddBoxReducer';
 import { reducer as BoxModalReducer } from '../components/AdminPanel/Boxes/BoxModalReducer';
 import { reducer as TagReducer } from '../components/AdminPanel/Tags/TagReducer';
+import { reducer as AddTagReducer } from '../components/AdminPanel/Tags/AddTagReducer';
+import { reducer as EditTagReducer } from '../components/AdminPanel/Tags/EditTagReducer';
 
 const rootReducers = {
     routing: routerReducer,
@@ -20,7 +22,9 @@ const rootReducers = {
     boxes: BoxesReducer,
     boxModal: BoxModalReducer,
     addBox: AddBoxReducer,
-    tags: TagReducer
+    tags: TagReducer,
+    addTag: AddTagReducer,
+    editTag: EditTagReducer
 };
 
 export default rootReducers;
