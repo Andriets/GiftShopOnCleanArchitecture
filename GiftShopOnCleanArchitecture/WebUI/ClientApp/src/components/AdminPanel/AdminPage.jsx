@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import BoxesBlock from './Boxes/BoxesBlock';
+import TagsBlock from './Tags/TagsBlock';
 import './Admin.css';
 
 const boxesBlock = "boxesBlock";
+const tagsBlock = "tagsBlock";
 
 class AdminPage extends Component {
     constructor(props) {
@@ -23,6 +25,7 @@ class AdminPage extends Component {
     render() {
         const componentByTabName = {
             boxesBlock: BoxesBlock,
+            tagsBlock: TagsBlock
         }
 
         const CurrentComponent = componentByTabName[this.state.openTab];
@@ -33,6 +36,12 @@ class AdminPage extends Component {
                 </div>
                 <div className='admin-content'>
                     <div className='switch-btns'>
+                        <button onClick={() => this.handleChangeTab(boxesBlock)}>
+                            Boxes
+                        </button>
+                        <button onClick={() => this.handleChangeTab(tagsBlock)}>
+                            Tags
+                        </button>
                         <button>
                             Boxes
                         </button>

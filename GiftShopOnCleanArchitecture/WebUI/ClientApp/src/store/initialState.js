@@ -29,10 +29,6 @@ const initialState = {
         isPending: false,
         list: []
     },
-    tags: {
-        isPending: false,
-        list: []
-    },
     boxModal: {
         isOpen: false,
         editMode: false,
@@ -48,7 +44,26 @@ const initialState = {
         isEditingPending: false,
         isEditingSuccess: false,
         editBoxError: null
-    }
+    },
+    tags: {
+        isPending: false,
+        list: []
+    },
+    tagModal: {
+        isOpen: false,
+        editMode: false,
+        initialValues: {}
+    },
+    addTag: {
+        isAddingPending: false,
+        isAddingSuccess: false,
+        addTagError: null
+    },
+    editTag: {
+        isEditingPending: false,
+        isEditingSuccess: false,
+        editTagError: null
+    },
 };
 
 export default initialState;

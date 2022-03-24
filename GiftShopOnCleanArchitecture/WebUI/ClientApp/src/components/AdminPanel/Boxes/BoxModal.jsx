@@ -97,7 +97,7 @@ class BoxModal extends Component {
         return (
             <Modal open={isOpen} onClose={() => this.closeModal()}>
                 <Box className="modal-box">
-                    <form className="boxInfoForm" onSubmit={handleSubmit(this.onSubmit)}>
+                    <form className="boxInfoForm" onSubmit={handleSubmit(this.onSubmit)} autoComplete="off">
                         <div className="boxInfoForm-photo">
                             <Field
                                 id="image-field"
