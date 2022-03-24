@@ -12,6 +12,7 @@ import { reducer as TagReducer } from '../components/AdminPanel/Tags/TagReducer'
 import { reducer as AddTagReducer } from '../components/AdminPanel/Tags/AddTagReducer';
 import { reducer as EditTagReducer } from '../components/AdminPanel/Tags/EditTagReducer';
 
+
 const rootReducers = {
     routing: routerReducer,
     form: formReducer,
