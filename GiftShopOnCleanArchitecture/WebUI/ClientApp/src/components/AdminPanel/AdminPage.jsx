@@ -43,9 +43,6 @@ class AdminPage extends Component {
                             Tags
                         </button>
                         <button>
-                            Boxes
-                        </button>
-                        <button>
                             Users
                         </button>
                         <button>
