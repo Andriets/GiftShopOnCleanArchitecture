@@ -11,7 +11,7 @@ import './Home.css';
 class Home extends Component {
   static displayName = Home.name;
 
-  componentWillMount() {
+  componentDidMount() {
     const userId = localStorage.getItem("Id");
     if (userId) {
         this.props.getUserById(userId);

@@ -5,6 +5,7 @@ import ProfilePage from '../UserProfile/ProfilePage';
 import NotFound from '../NotFound/NotFound';
 import { GetUserById } from '../UserProfile/UserAction';
 import AdminPage from '../AdminPanel/AdminPage';
+import CatalogPage from '../Catalog/CatalogPage';
 
 class Content extends Component {
 
@@ -16,6 +17,7 @@ class Content extends Component {
         return (
             <Switch> 
                 {isAuthenticated && <Route path='/home/profile' render={() => <ProfilePage/>}/>}
+                <Route path='/home/catalog' render={() => <CatalogPage />} />
                 <Route path='/home/admin' render={() => <AdminPage/>}/>
                 <Route component={NotFound} />
             </Switch>
