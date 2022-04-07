@@ -14,7 +14,18 @@ export const ADD_BOX_FAIL = "ADD_BOX_FAIL";
 export const EDIT_BOX_SUCCESS = "EDIT_BOX_SUCCESS";
 export const EDIT_BOX_FAIL = "EDIT_BOX_FAIL";
 
+export const SET_FILTERS = "SET_FILTERS";
+
+
 const api_serv = new BoxService();
+
+export function GetBasicFiltersInfo() {
+    return dispatch => {
+        api_serv.GetBasicFiltersInfo().then(res => {
+            dispatch(setFilters(res));
+        });
+    }
+}
 
 export function GetAllBoxes(filterData) {
     return dispatch => {
@@ -33,7 +44,7 @@ export function CreateBox(boxData) {
                 dispatch(addBoxSuccess(true));
                 dispatch(setModalOpen(false));
                 dispatch(reset('box-form'));
-                dispatch(GetAllBoxes({page: 0, pageSize: 0, keyWord: ""}));
+                dispatch(GetAllBoxes({page: 1, pageSize: 0, keyWord: ""}));
             } else {
                 dispatch(addBoxFail(res.error));
             }
@@ -48,7 +59,7 @@ export function EditBox(boxData) {
                 dispatch(editBoxSuccess(true));
                 dispatch(setModalOpen(false));
                 dispatch(reset('box-form'));
-                dispatch(GetAllBoxes({page: 0, pageSize: 0, keyWord: ""}));
+                dispatch(GetAllBoxes({page: 1, pageSize: 0, keyWord: ""}));
             } else {
                 dispatch(editBoxFail(res.error));
             }
@@ -84,6 +95,13 @@ export function SetBoxImage(imagefile) {
 export function SetEditMode(boxInfo) {
     return dispatch => {
         dispatch(setEditMode(boxInfo))
+    }
+}
+
+function setFilters(payload) {
+    return {
+        type: SET_FILTERS,
+        payload: payload
     }
 }
 

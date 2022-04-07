@@ -6,6 +6,7 @@ import Slider from '@mui/material/Slider';
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { styled } from '@mui/material/styles';
+import { GetAllBoxes } from '../AdminPanel/Boxes/BoxAction';
 import './Catalog.css';
 
 const PriceSlider = styled(Slider)(({ theme }) => ({
@@ -41,20 +42,32 @@ class CatalogFilters extends Component {
         const notTagKeys = ["minPrice", "maxPrice", "search"];
         const tagKeys = Object.keys(formData).filter(key => !notTagKeys.includes(key));
         const filtersData = {
+            page: 1,
+            pageSize: 6,
+            keyWord: formData.search ?? "",
             minPrice: formData.minPrice,
             maxPrice: formData.maxPrice,
             tags: []
         };
         tagKeys.forEach(tagKey => {
             if (formData[tagKey]) {
-                filtersData.tags.push(this.props.tags.find(tag => tag.tagName === tagKey));
+                filtersData.tags.push(this.props.tags.find(tag => tag.tag.tagName === tagKey));
             }            
         });
+        console.log(filtersData)
+        this.props.getAllBoxes(filtersData);
     }
 
     OnChangeMinPrice = (event, newValue, prevValue) => {
         newValue = parseInt(newValue);
-        const newPriceRange = [this.state.priceRange[1] > newValue ? newValue : this.state.priceRange[1], this.state.priceRange[1]];
+        let newPriceRange;
+
+        if (this.state.priceRange) {
+            newPriceRange = [this.state.priceRange[1] > newValue ? newValue : this.state.priceRange[1], this.state.priceRange[1]];
+        } else {
+            newPriceRange = [this.props.initialValues.maxPrice > newValue ? newValue : this.props.initialValues.maxPrice, this.props.initialValues.maxPrice];
+        }
+        
         this.setState({
             priceRange: newPriceRange
         });
@@ -62,7 +75,14 @@ class CatalogFilters extends Component {
 
     OnChangeMaxPrice = (event, newValue, prevValue) => {
         newValue = parseInt(newValue);
-        const newPriceRange = [this.state.priceRange[0], this.state.priceRange[0] < newValue ? newValue : this.state.priceRange[0]];
+        let newPriceRange;
+
+        if (this.state.priceRange) {
+            newPriceRange = [this.state.priceRange[0], this.state.priceRange[0] < newValue ? newValue : this.state.priceRange[0]];
+        } else {
+            newPriceRange = [this.props.initialValues.minPrice, this.props.initialValues.minPrice < newValue ? newValue : this.props.initialValues.minPrice];
+        }
+
         this.setState({
             priceRange: newPriceRange
         });
@@ -77,8 +97,11 @@ class CatalogFilters extends Component {
         this.props.change('maxPrice', newValue[1]);
     }
 
+    onChangeCheckBox = (checkboxName, value) => {
+        this.props.change(checkboxName, value);
+    }
+
     renderCheckBox = (props) => {
-        const { change, checkboxes } = this.props;
         const checkBoxColor = {
             color: "#FA812F",
             "&.Mui-checked": {
@@ -86,17 +109,16 @@ class CatalogFilters extends Component {
             }
         }
         
-        const value = checkboxes && checkboxes[props.input.name] ? !checkboxes[props.input.name] : true;
         return <FormControlLabel 
-                    onClick={() => {change(props.input.name, value)}} 
+                    onChange={(e, value) => this.onChangeCheckBox(props.input.name, value)}
                     control={<Checkbox sx={checkBoxColor}/>} 
-                    label={props.input.name} />
+                    label={`${props.input.name} (${props.label})`}/>
     }
 
     render() {
         const { handleSubmit, initialValues, tags } = this.props;
-        const priceRangeVelue = this.state.priceRange ? this.state.priceRange : [initialValues.minPrice, initialValues.maxPrice];
-        
+        const priceRangeVelue = this.state.priceRange ? this.state.priceRange : [initialValues?.minPrice, initialValues?.maxPrice];
+
         return (
             <div className="filters-form-container">
                 <form className="filters-form" onSubmit={handleSubmit(this.OnSubmit)} autoComplete="off">
@@ -117,8 +139,8 @@ class CatalogFilters extends Component {
                                 getAriaLabel={() => 'Price range'}
                                 value={priceRangeVelue}
                                 onChange={this.handleChange}
-                                min={initialValues.minPrice}
-                                max={initialValues.maxPrice}
+                                min={initialValues?.minPrice}
+                                max={initialValues?.maxPrice}
                                 disableSwap
                             />
                         </Box>
@@ -128,19 +150,18 @@ class CatalogFilters extends Component {
                             Categories
                         </h4>
                         <div className="categories">
-                            {tags.map((tag, key) => {
+                            {tags?.map((tag, key) => {
                                 return <Field
                                     key={key}
-                                    name={tag.tagName}
-                                    id={tag.id}
+                                    name={tag.tag.tagName}
+                                    id={tag.tag.id}
+                                    label={tag.count}
                                     component={this.renderCheckBox}
                                     type="checkbox"/>
                             })
                             }
                         </div>
                     </div>
-                    
-                    
                 </form>
             </div>
         );
@@ -153,23 +174,23 @@ CatalogFilters = reduxForm({
 
 const selector = formValueSelector("filters-form");
 const mapStateToProps = state => {
-    const checkboxes = {};
-    state.tags.list.forEach(tag => {
-        checkboxes[tag.tagName] = selector(state, tag.tagName);
-    });
-
-    return {
-        checkboxes,
-        tags: state.tags.list,
-        initialValues: {
-            minPrice: 0,
-            maxPrice: 520
+    let inVal;
+    if (state.filters.minPrice) {
+        inVal = {
+            minPrice: state.filters.minPrice,
+            maxPrice: state.filters.maxPrice
         }
+    }
+    return {
+        filters: state.filters,
+        tags: state.filters?.tags,
+        initialValues: inVal
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        getAllBoxes: (filtersData) => dispatch(GetAllBoxes(filtersData))
     };
 };
 

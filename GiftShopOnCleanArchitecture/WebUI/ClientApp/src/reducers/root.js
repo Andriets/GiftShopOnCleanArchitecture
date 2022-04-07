@@ -11,6 +11,7 @@ import { reducer as BoxModalReducer } from '../components/AdminPanel/Boxes/BoxMo
 import { reducer as TagReducer } from '../components/AdminPanel/Tags/TagReducer';
 import { reducer as AddTagReducer } from '../components/AdminPanel/Tags/AddTagReducer';
 import { reducer as EditTagReducer } from '../components/AdminPanel/Tags/EditTagReducer';
+import { reducer as FiltersReducer } from '../components/Catalog/FiltersReducer';
 
 
 const rootReducers = {
@@ -25,7 +26,8 @@ const rootReducers = {
     addBox: AddBoxReducer,
     tags: TagReducer,
     addTag: AddTagReducer,
-    editTag: EditTagReducer
+    editTag: EditTagReducer,
+    filters: FiltersReducer
 };
 
 export default rootReducers;

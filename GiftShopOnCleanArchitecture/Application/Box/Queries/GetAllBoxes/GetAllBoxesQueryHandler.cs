@@ -32,20 +32,29 @@ namespace Application.Boxes.Queries.GetAllBoxes
                 .Include(b => b.BoxTag)
                     .ThenInclude(bt => bt.Tag)
                 .AsNoTracking()
-                .AsQueryable();
+                .AsEnumerable();
+
+            if (request.MinPrice is not null)
+            {
+                boxes = boxes.Where(b => b.Price >= request.MinPrice
+                              && b.Price <= request.MaxPrice);
+            }
 
             boxes = !string.IsNullOrEmpty(request.KeyWord)
                 ? boxes.Where(b => b.Title.Contains(request.KeyWord)
                     || b.Description.Contains(request.KeyWord))
                 : boxes;
 
+            if (request.Tags is not null)
+            {
+                boxes = boxes.Where(b => b.BoxTag.Select(bt => bt.TagId).Intersect(request.Tags.Select(t => t.Id)).Count() != 0);
+            }
+
             var res = request.PageSize != 0
                 ? boxes.OrderBy(b => b.Price)
                     .Skip((request.Page - 1) * request.PageSize)
                     .Take(request.PageSize)
-                    .AsEnumerable()
-                : boxes.OrderBy(b => b.Price)
-                    .AsEnumerable();
+                : boxes.OrderBy(b => b.Price);
 
             return Task.FromResult(res.Select(b => b.ToDTO()));
         }

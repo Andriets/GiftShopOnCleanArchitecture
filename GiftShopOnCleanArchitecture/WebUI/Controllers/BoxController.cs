@@ -2,6 +2,7 @@
 using Application.Boxes.Commands.DeleteBox;
 using Application.Boxes.Commands.UpdateBox;
 using Application.Boxes.Queries.GetAllBoxes;
+using Application.Boxes.Queries.GetBasicFiltersData;
 using Application.Boxes.Queries.GetBoxById;
 using Domain.Exeptions;
 using MediatR;
@@ -47,8 +48,8 @@ namespace WebUI.Controllers
             }
         }
 
-        [HttpGet("[action]")]
-        public IActionResult GetAllBoxes([FromQuery] GetAllBoxesQuery getAllBoxesQuery)
+        [HttpPost("[action]")]
+        public IActionResult GetAllBoxes([FromForm] GetAllBoxesQuery getAllBoxesQuery)
         {
             try
             {
@@ -57,7 +58,7 @@ namespace WebUI.Controllers
             }
             catch (GiftShopException)
             {
-                return BadRequest("Fail");
+                return BadRequest(new { error = "Fail" });
             }
         }
 
@@ -86,6 +87,20 @@ namespace WebUI.Controllers
             catch (GiftShopException)
             {
                 return BadRequest("Fail");
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetBasicFiltersInfo([FromQuery] GetBasicFiltersInfoQuery getBasicFiltersInfoQuery)
+        {
+            try
+            {
+                var res = await _mediator.Send(getBasicFiltersInfoQuery);
+                return Ok(res);
+            }
+            catch (GiftShopException)
+            {
+                return BadRequest(new { error = "Fail" });
             }
         }
     }

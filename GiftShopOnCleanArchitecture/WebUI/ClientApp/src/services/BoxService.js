@@ -4,9 +4,29 @@ const baseService = new BaseService();
 
 export default class BoxService {
 
-    GetAllBoxes = async (filterData) => {
-        const res = await baseService.getQuery(`Box/GetAllBoxes?page=${filterData.page}&PageSize=${filterData.pageSize}&KeyWord=${filterData.keyWord}`);
+    GetBasicFiltersInfo = async () => {
+        const res = await baseService.getQuery('Box/GetBasicFiltersInfo');
         return res;
+    }
+
+    GetAllBoxes = async (filterData) => {
+        debugger;
+        let file = new FormData();
+        file.append('Page', filterData.page);
+        file.append('PageSize', filterData.pageSize);
+        file.append('KeyWord', filterData.keyWord);
+        if (filterData.minPrice) {
+            file.append('MinPrice', filterData.minPrice);
+            file.append('MaxPrice', filterData.maxPrice);
+        }
+        filterData.tags?.forEach((tag, key) => {
+            file.append(`Tags[${key}].Id`, tag.tag.id);
+        });
+
+        const res = await baseService.postQueryWithData('Box/GetAllBoxes', file);
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
     }
 
     CreateBox = async (boxData) => {

@@ -49,6 +49,13 @@ const initialState = {
         isPending: false,
         list: []
     },
+    catalogFiltersInfo: {
+        currentPage: null,
+        totalPages: null,
+        minPrice: null,
+        maxPrice: null,
+        tags: []
+    },
     tagModal: {
         isOpen: false,
         editMode: false,

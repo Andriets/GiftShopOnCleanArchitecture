@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CatalogFilters from './CatalogFilters';
+import CatalogList from './CatalogList';
 import { GetAllTags } from '../AdminPanel/Tags/TagAction';
+import { GetBasicFiltersInfo, GetAllBoxes } from '../AdminPanel/Boxes/BoxAction';
 import './Catalog.css';
 
 
@@ -12,6 +14,8 @@ class CatalogPage extends Component {
 
     componentDidMount() {
         this.props.getAllTags("");
+        this.props.getBasicFiltersInfo();
+        this.props.getAllBoxes({page: 1, pageSize: 6, keyWord: ""});
     }
 
     render() {
@@ -22,6 +26,7 @@ class CatalogPage extends Component {
                 </div>
                 <div className='catalog-content'>
                     <CatalogFilters />
+                    <CatalogList />
                 </div>
             </div>
         );
@@ -36,6 +41,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getAllTags: (keyWord) => dispatch(GetAllTags(keyWord)),
+        getBasicFiltersInfo: _ => dispatch(GetBasicFiltersInfo()),
+        getAllBoxes: (filtersData) => dispatch(GetAllBoxes(filtersData))
     };
 };
 
