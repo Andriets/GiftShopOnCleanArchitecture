@@ -136,6 +136,11 @@
     background: rgba(196, 196, 196, 0.25);;
 }
 
+.disabled-page:hover {
+    cursor: auto;
+    background: none;
+}
+
 .catalog-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

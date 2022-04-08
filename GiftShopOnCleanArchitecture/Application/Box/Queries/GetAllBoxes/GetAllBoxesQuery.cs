@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Boxes.Queries.GetAllBoxes
 {
-    public class GetAllBoxesQuery : IRequest<IEnumerable<BoxDTO>>
+    public class GetAllBoxesQuery : IRequest<PaginatedResponse<BoxDTO>>
     {
         public int Page { get; set; }
 

@@ -3,6 +3,7 @@ import {reset} from 'redux-form';
 
 export const SET_BOXES = "SET_BOXES";
 export const SET_BOXES_PENDING = "SET_BOXES_PENDING";
+export const SET_PAGES_INFO = "SET_PAGES_INFO";
 
 export const SET_MODAL_OPEN = "SET_MODAL_OPEN";
 export const SET_BOX_IMAGE = "SET_BOX_IMAGE";
@@ -31,7 +32,11 @@ export function GetAllBoxes(filterData) {
     return dispatch => {
         api_serv.GetAllBoxes(filterData).then(res => {
             if (!res.error) {
-                dispatch(setBoxes(res));
+                dispatch(setBoxes(res.items));
+                dispatch(setPagesInfo({
+                    currentPage: res.currentPage,
+                    totalPages: res.totalPages
+                }));
             }
         });
     }
@@ -122,6 +127,13 @@ function setBoxImage(payload) {
 function setBoxes(payload) {
     return {
         type: SET_BOXES,
+        payload: payload
+    }
+}
+
+function setPagesInfo(payload) {
+    return {
+        type: SET_PAGES_INFO,
         payload: payload
     }
 }

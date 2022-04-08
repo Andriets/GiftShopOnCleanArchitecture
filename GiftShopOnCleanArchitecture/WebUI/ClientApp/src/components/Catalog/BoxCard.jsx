@@ -8,7 +8,6 @@ class BoxCard extends Component {
 
     render() {
         const { box } = this.props;
-        console.log(box);
         return (
             <div className='catalog-card'>
                 <img className='card-backgroud-photo' src={'data:image/png;base64,' + box?.photoBytes?.img}/>
