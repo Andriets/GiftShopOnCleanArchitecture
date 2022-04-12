@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Attitude } from '../Common/Enums/Attitude';
 
 class BoxCard extends Component {
     constructor(props) {
@@ -7,15 +8,30 @@ class BoxCard extends Component {
     }
 
     render() {
-        const { box } = this.props;
+        const { box, isAuthenticated, userId } = this.props;
+        const attitude = box.boxCommentDetails.find(x => x.userId === userId)?.attitude ?? Attitude.NONE;
+        debugger;
         return (
             <div className='catalog-card'>
                 <img className='card-backgroud-photo' src={'data:image/png;base64,' + box?.photoBytes?.img}/>
-                <div>
+                <div> 
+                    
                     <div className='attitude-container'>
-                        <img src={process.env.PUBLIC_URL + '/img/Attitude.svg'} />
-                        <img src={process.env.PUBLIC_URL + '/img/Attitude.svg'} />
+                    {isAuthenticated && attitude === Attitude.NONE && 
+                        <>
+                            <img src={process.env.PUBLIC_URL + '/img/Attitude.svg'} />
+                            <img src={process.env.PUBLIC_URL + '/img/Attitude.svg'} />
+                        </>
+                    }
+                    {isAuthenticated && attitude === Attitude.LIKE &&
+                        <img src={process.env.PUBLIC_URL + '/img/Like.svg'} />
+                    }
+                    {isAuthenticated && attitude === Attitude.DISLIKE &&
+                        <img src={process.env.PUBLIC_URL + '/img/Dislike.svg'} />
+                    }
                     </div>
+                    
+                    
                     <div className='catalog-card-info'>
                         <div className='card-box-name'>
                             <span>{box.title}</span>
@@ -35,6 +51,8 @@ class BoxCard extends Component {
 
 const mapStateToProps = state => {
     return {
+        isAuthenticated: !!localStorage.getItem('JwtToken'),
+        userId: localStorage.getItem('Id')
     };
 };
 

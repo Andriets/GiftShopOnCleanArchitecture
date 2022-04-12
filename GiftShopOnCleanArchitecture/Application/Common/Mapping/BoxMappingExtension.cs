@@ -1,4 +1,5 @@
 ﻿using Application.Common.Models;
+using Domain.Emuns;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,10 @@ namespace Application.Common.Mapping
 
         public static BoxDTO ToDTO(this Box box)
         {
+            var allRelatedUsersIds = box.Comments.Select(c => c.UserId).ToList()
+                .Union(box.Ratings.Select(r => r.UserId).ToList())
+                .Union(box.Relationship.Select(r => r.UserId).ToList()).ToList();
+
             return new BoxDTO()
             {
                 Id = box.Id,
@@ -36,18 +41,20 @@ namespace Application.Common.Mapping
                     Id = bt.Tag.Id,
                     TagName = bt.Tag.TagName
                 }),
-                BoxCommentDetails = from c in box.Comments
-                                    join r in box.Ratings on c.UserId equals r.UserId into CommentsRatings
-                                    from cr in CommentsRatings.DefaultIfEmpty()
-                                    join rel in box.Relationship on cr.UserId equals rel.UserId into ComRatRel
-                                    from clr in ComRatRel.DefaultIfEmpty()
+                BoxCommentDetails = from uid in allRelatedUsersIds
+                                    join c in box.Comments on uid equals c.UserId into firstJoin
+                                    from comment in firstJoin.DefaultIfEmpty()
+                                    join rel in box.Relationship on uid equals rel.UserId into secondJoin
+                                    from relationship in secondJoin.DefaultIfEmpty()
+                                    join r in box.Ratings on uid equals r.UserId into thirdJoin
+                                    from rating in thirdJoin.DefaultIfEmpty()
                                     select new BoxCommentDetails()
                                     {
-                                        UserId = c.UserId,
-                                        UserName = c.User == null ? null : $"{c?.User?.FirstName} {c?.User?.LastName}",
-                                        CommentMessage = c.CommentText,
-                                        Score = cr?.Score,
-                                        Attitude = clr?.Attitude
+                                        UserId = uid,
+                                        UserName = comment?.User == null ? null : $"{comment?.User?.FirstName} {comment?.User?.LastName}",
+                                        CommentMessage = comment?.CommentText,
+                                        Score = rating?.Score,
+                                        Attitude = relationship?.Attitude ?? Attitude.None
                                     }
             };
         }

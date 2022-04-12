@@ -11,7 +11,6 @@ export default class BoxService {
 
     GetAllBoxes = async (filterData) => {
         let file = new FormData();
-        debugger;
         file.append('Page', filterData.page);
         file.append('PageSize', filterData.pageSize);
         file.append('KeyWord', filterData.keyWord);

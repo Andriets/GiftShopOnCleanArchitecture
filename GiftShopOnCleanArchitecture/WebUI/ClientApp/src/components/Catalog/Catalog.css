@@ -175,7 +175,7 @@
     cursor: pointer;
 }
 
-.attitude-container img:last-child {
+.attitude-container img:nth-child(2) {
     transform: rotate(180deg);
 }
 

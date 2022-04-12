@@ -1,5 +1,6 @@
 ﻿using Application.Boxes.Commands.CreateBox;
 using Application.Boxes.Commands.DeleteBox;
+using Application.Boxes.Commands.SetBoxAttitude;
 using Application.Boxes.Commands.UpdateBox;
 using Application.Boxes.Queries.GetAllBoxes;
 using Application.Boxes.Queries.GetBasicFiltersData;
@@ -41,6 +42,20 @@ namespace WebUI.Controllers
             {
                 var res = await _mediator.Send(createBoxCommand);
                 return Ok(new { id = res });
+            }
+            catch (GiftShopException)
+            {
+                return BadRequest(new { error = "Fail" });
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> SetBoxAttitude([FromBody] SetBoxAttitudeCommand setBoxAttitudeCommand)
+        {
+            try
+            {
+                var res = await _mediator.Send(setBoxAttitudeCommand);
+                return Ok(new { Success = res });
             }
             catch (GiftShopException)
             {
