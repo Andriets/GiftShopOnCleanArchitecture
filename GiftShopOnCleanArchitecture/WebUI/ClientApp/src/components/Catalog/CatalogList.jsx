@@ -43,6 +43,7 @@ class CatalogList extends Component {
 
     render() {
         const { currentPage, totalPages, boxes, isBoxesPending } = this.props;
+        
         return (
             <div className='catalog-right'>
                 <div className='filters-info'>

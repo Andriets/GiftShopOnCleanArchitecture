@@ -12,6 +12,7 @@ import { reducer as TagReducer } from '../components/AdminPanel/Tags/TagReducer'
 import { reducer as AddTagReducer } from '../components/AdminPanel/Tags/AddTagReducer';
 import { reducer as EditTagReducer } from '../components/AdminPanel/Tags/EditTagReducer';
 import { reducer as FiltersReducer } from '../components/Catalog/FiltersReducer';
+import { reducer as CartReducer } from '../components/Cart/CartReducer';
 
 
 const rootReducers = {
@@ -27,7 +28,8 @@ const rootReducers = {
     tags: TagReducer,
     addTag: AddTagReducer,
     editTag: EditTagReducer,
-    filters: FiltersReducer
+    filters: FiltersReducer,
+    cart: CartReducer
 };
 
 export default rootReducers;

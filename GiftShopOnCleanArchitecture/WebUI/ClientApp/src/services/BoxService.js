@@ -67,4 +67,11 @@ export default class BoxService {
             ? { error: await res.text() }
             : await res.json();
     }
+
+    SetBoxAttitude = async (userBoxAttitude) => {
+        const res = await baseService.postQuery('Box/SetBoxAttitude', userBoxAttitude);
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
+    }
 }

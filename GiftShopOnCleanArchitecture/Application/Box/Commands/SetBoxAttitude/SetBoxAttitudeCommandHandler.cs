@@ -33,7 +33,6 @@ namespace Application.Boxes.Commands.SetBoxAttitude
                     UserId = request.UserId,
                     BoxId = request.BoxId,
                     Attitude = request.Attitude
-
                 };
 
                 await _context.Relationship.AddAsync(Relationship);

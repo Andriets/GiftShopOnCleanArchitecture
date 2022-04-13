@@ -25,9 +25,9 @@ namespace Application.Common.Mapping
 
         public static BoxDTO ToDTO(this Box box)
         {
-            var allRelatedUsersIds = box.Comments.Select(c => c.UserId).ToList()
-                .Union(box.Ratings.Select(r => r.UserId).ToList())
-                .Union(box.Relationship.Select(r => r.UserId).ToList()).ToList();
+            var allRelatedUsersIds = box.Comments?.Select(c => c.UserId).ToList()
+                .Union(box.Ratings?.Select(r => r.UserId).ToList())
+                .Union(box.Relationship?.Select(r => r.UserId).ToList()).ToList();
 
             return new BoxDTO()
             {
@@ -36,12 +36,13 @@ namespace Application.Common.Mapping
                 Description = box.Description,
                 Price = box.Price,
                 PhotoBytes = box.Photo,
-                Tags = box.BoxTag.Select(bt => new TagDTO
+                Tags = box.BoxTag?.Select(bt => new TagDTO
                 {
                     Id = bt.Tag.Id,
                     TagName = bt.Tag.TagName
                 }),
-                BoxCommentDetails = from uid in allRelatedUsersIds
+                BoxCommentDetails = allRelatedUsersIds is null ? new List<BoxCommentDetails>() : 
+                                    from uid in allRelatedUsersIds
                                     join c in box.Comments on uid equals c.UserId into firstJoin
                                     from comment in firstJoin.DefaultIfEmpty()
                                     join rel in box.Relationship on uid equals rel.UserId into secondJoin

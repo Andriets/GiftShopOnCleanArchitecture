@@ -29,6 +29,10 @@ const initialState = {
         isPending: false,
         list: []
     },
+    cart: {
+        isPending: false,
+        list: []
+    },
     boxModal: {
         isOpen: false,
         editMode: false,

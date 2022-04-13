@@ -82,6 +82,16 @@ export function DeleteBoxById(boxId, boxes) {
     }
 }
 
+export function SetBoxAttitude(userBoxAttitude, boxes) {
+    return dispatch => {
+        api_serv.SetBoxAttitude(userBoxAttitude).then(res => {
+            if (!res.error) {
+                dispatch(setBoxes(boxes));
+            }
+        })
+    }
+}
+
 export function SetModalOpen(open) {
     return dispatch => {
         dispatch(setModalOpen(open))

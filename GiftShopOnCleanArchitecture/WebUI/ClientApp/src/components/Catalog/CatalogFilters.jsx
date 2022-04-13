@@ -54,7 +54,6 @@ class CatalogFilters extends Component {
                 filtersData.tags.push(this.props.tags.find(tag => tag.tag.tagName === tagKey));
             }            
         });
-        console.log(filtersData)
         this.props.getAllBoxes(filtersData);
     }
 
