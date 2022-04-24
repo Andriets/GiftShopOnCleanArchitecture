@@ -10,7 +10,7 @@ export default class NotFound extends Component {
         return (
             <>
                 <h1>404 - Not Found!</h1>
-                <Link to="/">
+                <Link to="/home/catalog">
                     Go Home
                 </Link>
             </>

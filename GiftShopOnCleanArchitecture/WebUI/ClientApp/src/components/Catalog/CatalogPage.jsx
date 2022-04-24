@@ -41,7 +41,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getAllTags: (keyWord) => dispatch(GetAllTags(keyWord)),
-        getBasicFiltersInfo: _ => dispatch(GetBasicFiltersInfo()),
+        getBasicFiltersInfo: () => dispatch(GetBasicFiltersInfo()),
         getAllBoxes: (filtersData) => dispatch(GetAllBoxes(filtersData))
     };
 };

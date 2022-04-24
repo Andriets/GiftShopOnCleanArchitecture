@@ -204,6 +204,11 @@
     align-items: center;
 }
 
+.card-box-name a {
+    text-decoration: none;
+    color: black;
+}
+
 .card-box-name span {
     font-family: 'Roboto';
     font-style: normal;

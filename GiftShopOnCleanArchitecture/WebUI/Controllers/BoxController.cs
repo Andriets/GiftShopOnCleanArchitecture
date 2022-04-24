@@ -5,6 +5,7 @@ using Application.Boxes.Commands.UpdateBox;
 using Application.Boxes.Queries.GetAllBoxes;
 using Application.Boxes.Queries.GetBasicFiltersData;
 using Application.Boxes.Queries.GetBoxById;
+using Application.Boxes.Queries.GetRecomendations;
 using Domain.Exeptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -111,6 +112,20 @@ namespace WebUI.Controllers
             try
             {
                 var res = await _mediator.Send(getBasicFiltersInfoQuery);
+                return Ok(res);
+            }
+            catch (GiftShopException)
+            {
+                return BadRequest(new { error = "Fail" });
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetRecomendatinForUser([FromQuery] GetRecomendationsQuery getRecomendationsQuery)
+        {
+            try
+            {
+                var res = await _mediator.Send(getRecomendationsQuery);
                 return Ok(res);
             }
             catch (GiftShopException)

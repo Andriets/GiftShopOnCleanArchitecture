@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Attitude } from '../Common/Enums/Attitude';
 import { SetBoxAttitude } from '../AdminPanel/Boxes/BoxAction';
 import { AddBoxToCart } from '../Cart/CartAction';
@@ -61,7 +62,9 @@ class BoxCard extends Component {
                     
                     <div className='catalog-card-info'>
                         <div className='card-box-name'>
-                            <span>{box.title}</span>
+                            <Link to={`/home/product/${box.id}`}>
+                                <span>{box.title}</span>
+                            </Link>
                         </div>
                         <div className='card-price-cart'>
                             <span className='card-price'>${box.price}</span>
