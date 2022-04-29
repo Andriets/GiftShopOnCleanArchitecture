@@ -88,7 +88,7 @@ namespace WebUI.Controllers
             }
             catch (GiftShopException)
             {
-                return BadRequest("Fail");
+                return BadRequest(new { error = "Fail" });
             }
         }
 

@@ -27,4 +27,104 @@
 
 .box-info-block {
     flex: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.boxInfo-boxContent {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #FA812F;
+    padding: 10px;
+}
+
+.boxInfo-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.boxInfo-photo {
+    position: relative;
+    border-radius: 10px;
+    width: 350px;
+    height: 350px;
+}
+
+.boxInfo-attitudeContainer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.boxInfo-attitudeContainer img:hover {
+    cursor: pointer;
+}
+
+.boxInfo-attitudeContainer img:nth-child(2) {
+    transform: rotate(180deg);
+}
+
+.boxInfo-boxImage {
+    width: 100%;
+}
+
+.boxInfo-left-bottom {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0px;
+}
+
+.boxInfo-price {
+    font-weight: 400;
+    font-size: 36px;
+}
+
+.boxInfo_toCartButton {
+    width: 140px;
+    background: #FA812F;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+.boxInfo_toCartButton span {
+    color: #fff;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.boxInfo_toCartButton img {
+    width: 30px;
+}
+
+.boxInfo-right {
+    width: 100%;
+    padding: 0px 10px 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.boxInfo-title {
+    margin: 0;
+}
+
+.boxInfo-description {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
+}
+
+.custom-large-adjust .css-dqr9h-MuiRating-label{
+    top: 4px !important;
+}
+
+.custom-medium-adjust .css-dqr9h-MuiRating-label{
+    top: 3px !important;
 }

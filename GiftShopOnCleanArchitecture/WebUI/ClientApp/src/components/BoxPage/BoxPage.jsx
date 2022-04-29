@@ -10,8 +10,9 @@ class BoxPage extends Component {
     }
 
     render() {
-        const t = this.props;
-        debugger;
+        const { boxes } = this.props;
+        const { id } = this.props.match.params;
+        
         return (
             <div className='box-page'>
                <div className='page-name'>
@@ -19,7 +20,7 @@ class BoxPage extends Component {
                 </div>
                 <div className='box-content'>
                     <RecomendationBlock />
-                    <BoxInfoBlock />
+                    <BoxInfoBlock id={id}/>
                 </div>
             </div>
         );

@@ -24,7 +24,7 @@ export default class App extends Component {
               <Redirect to="/home/catalog" />
           )}/>
         <Route path='/home/profile' component={() => (<Home needAuthentication><ProfilePage/></Home>)}/>
-        <Route path='/home/product/:id' component={() => (<Home><BoxPage/></Home>)}/>
+        <Route path='/home/product/:id' component={(props) => (<Home><BoxPage {...props}/></Home>)}/>
         <Route path='/home/catalog' component={() => <Home><CatalogPage/></Home>} />
         <Route path='/home/admin' component={() => <Home><AdminPage/></Home>} />
         <Route path='/login' component={LoginWrapper} />

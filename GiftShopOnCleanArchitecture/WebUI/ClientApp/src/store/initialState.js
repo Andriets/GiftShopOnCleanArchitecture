@@ -29,6 +29,10 @@ const initialState = {
         isPending: false,
         list: []
     },
+    box: {
+        isPending: false,
+        box: {}
+    },
     cart: {
         isPending: false,
         list: []

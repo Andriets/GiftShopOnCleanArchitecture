@@ -5,6 +5,9 @@ export const SET_BOXES = "SET_BOXES";
 export const SET_BOXES_PENDING = "SET_BOXES_PENDING";
 export const SET_PAGES_INFO = "SET_PAGES_INFO";
 
+export const SET_BOX = "SET_BOX";
+export const SET_BOX_PENDING = "SET_BOX_PENDING";
+
 export const SET_MODAL_OPEN = "SET_MODAL_OPEN";
 export const SET_BOX_IMAGE = "SET_BOX_IMAGE";
 export const SET_EDIT_MODE = "SET_EDIT_MODE";
@@ -39,6 +42,16 @@ export function GetAllBoxes(filterData) {
                 }));
             }
         });
+    }
+}
+
+export function GetBoxById(id) {
+    return dispatch => {
+        api_serv.GetBoxById(id).then(res => {
+            if (!res.error) {
+                dispatch(setBox(res));
+            }
+        })
     }
 }
 
@@ -82,11 +95,22 @@ export function DeleteBoxById(boxId, boxes) {
     }
 }
 
-export function SetBoxAttitude(userBoxAttitude, boxes) {
+export function SetBoxAttitudeFromCatalog(userBoxAttitude, boxes) {
     return dispatch => {
         api_serv.SetBoxAttitude(userBoxAttitude).then(res => {
             if (!res.error) {
                 dispatch(setBoxes(boxes));
+            }
+        })
+    }
+}
+
+export function SetBoxAttitudeFromProduct(userBoxAttitude, box) {
+    return dispatch => {
+        api_serv.SetBoxAttitude(userBoxAttitude).then(res => {
+            if (!res.error) {
+                dispatch(GetBoxById(box.id));
+                // dispatch(setBox(box));
             }
         })
     }
@@ -137,6 +161,13 @@ function setBoxImage(payload) {
 function setBoxes(payload) {
     return {
         type: SET_BOXES,
+        payload: payload
+    }
+}
+
+function setBox(payload) {
+    return {
+        type: SET_BOX,
         payload: payload
     }
 }

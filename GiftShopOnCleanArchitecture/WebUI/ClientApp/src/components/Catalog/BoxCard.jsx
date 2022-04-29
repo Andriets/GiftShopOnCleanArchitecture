@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Attitude } from '../Common/Enums/Attitude';
-import { SetBoxAttitude } from '../AdminPanel/Boxes/BoxAction';
+import { SetBoxAttitudeFromCatalog } from '../AdminPanel/Boxes/BoxAction';
 import { AddBoxToCart } from '../Cart/CartAction';
 
 class BoxCard extends Component {
@@ -90,7 +90,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setBoxAttitude: (userBoxAttitude, boxes) => dispatch(SetBoxAttitude(userBoxAttitude, boxes)),
+        setBoxAttitude: (userBoxAttitude, boxes) => dispatch(SetBoxAttitudeFromCatalog(userBoxAttitude, boxes)),
         addBoxToCart: (userId, boxId, newCart) => dispatch(AddBoxToCart(userId, boxId, newCart))
     };
 };

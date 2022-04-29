@@ -61,6 +61,11 @@ export default class BoxService {
             : res;
     }
 
+    GetBoxById = async (id) => {
+        const res = await baseService.getQuery(`Box/GetBoxById?BoxId=${id}`);
+        return res;
+    }
+
     DeleteBoxById = async (id) => {
         const res = await baseService.postQuery('Box/DeleteBoxById', {boxId: id});
         return !res.ok

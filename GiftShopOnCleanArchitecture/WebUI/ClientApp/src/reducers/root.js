@@ -5,7 +5,8 @@ import { Register } from '../components/Register/RegisterAction';
 import { reducer as RegifterReducer } from '../components/Register/RegisterReducer';
 import { reducer as UserReducer } from '../components/UserProfile/UserReducer';
 import { reducer as ChangePasswordModalReducer } from '../components/UserProfile/ChangePasswordModalReducer';
-import { reducer as BoxesReducer } from '../components/AdminPanel/Boxes/BoxReducer';
+import { reducer as BoxesReducer } from '../components/AdminPanel/Boxes/BoxesReducer';
+import { reducer as BoxReducer } from '../components/AdminPanel/Boxes/BoxReducer';
 import { reducer as AddBoxReducer } from '../components/AdminPanel/Boxes/AddBoxReducer';
 import { reducer as BoxModalReducer } from '../components/AdminPanel/Boxes/BoxModalReducer';
 import { reducer as TagReducer } from '../components/AdminPanel/Tags/TagReducer';
@@ -23,6 +24,7 @@ const rootReducers = {
     user: UserReducer,
     changePasswordModal: ChangePasswordModalReducer,
     boxes: BoxesReducer,
+    box: BoxReducer,
     boxModal: BoxModalReducer,
     addBox: AddBoxReducer,
     tags: TagReducer,

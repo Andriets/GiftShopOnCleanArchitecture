@@ -33,7 +33,7 @@ class BoxesBlock extends Component {
                 </div>
                 <div className='boxes-list'>
                     {
-                      boxes.list.map(box =>
+                      boxes.list?.map(box =>
                         <BoxCard key={box.id} boxInfo={box} />
                       )
                     }
