@@ -8,7 +8,7 @@
 
 .box-content {
     width: 100%;
-    height: 100%;
+    height: 90%;
     display: flex;
     justify-content: space-between;
     gap: 30px;
@@ -23,6 +23,18 @@
 
 .recomendation-block {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 240px;
+    overflow-y: auto;
+}
+
+.recomendation-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 .box-info-block {

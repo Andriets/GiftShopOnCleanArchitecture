@@ -28,6 +28,11 @@ export default class BoxService {
             : await res.json();
     }
 
+    GetRecomendationForUser = async (userId) => {
+        const res = await baseService.getQuery(`Box/GetRecomendationForUser?userId=${userId}`);
+        return res;
+    }
+
     CreateBox = async (boxData) => {
         let file = new FormData();
         file.append('Title', boxData.title);

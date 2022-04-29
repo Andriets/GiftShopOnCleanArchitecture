@@ -8,6 +8,9 @@ export const SET_PAGES_INFO = "SET_PAGES_INFO";
 export const SET_BOX = "SET_BOX";
 export const SET_BOX_PENDING = "SET_BOX_PENDING";
 
+export const SET_RECOMENDATION = "SET_RECOMENDATION";
+export const SET_RECOMENDATION_PENDING = "SET_RECOMENDATION_PENDING";
+
 export const SET_MODAL_OPEN = "SET_MODAL_OPEN";
 export const SET_BOX_IMAGE = "SET_BOX_IMAGE";
 export const SET_EDIT_MODE = "SET_EDIT_MODE";
@@ -40,6 +43,16 @@ export function GetAllBoxes(filterData) {
                     currentPage: res.currentPage,
                     totalPages: res.totalPages
                 }));
+            }
+        });
+    }
+}
+
+export function GetRecomendationForUser(userId) {
+    return dispatch => {
+        api_serv.GetRecomendationForUser(userId).then(res => {
+            if (!res.error) {
+                dispatch(setRecomendation(res));
             }
         });
     }
@@ -168,6 +181,13 @@ function setBoxes(payload) {
 function setBox(payload) {
     return {
         type: SET_BOX,
+        payload: payload
+    }
+}
+
+function setRecomendation(payload) {
+    return {
+        type: SET_RECOMENDATION,
         payload: payload
     }
 }

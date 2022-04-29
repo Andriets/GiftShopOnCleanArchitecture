@@ -34,7 +34,15 @@ namespace Infrastracture.Services
             List<Box> recommendedBoxes = new List<Box>();
             foreach (var boxId in prediction)
             {
-                recommendedBoxes.Add(_appDbContext.Boxes.Find(boxId));
+                recommendedBoxes.Add(_appDbContext.Boxes
+                    .Include(b => b.Photo)
+                    .Include(b => b.Ratings)
+                    .Include(b => b.Comments)
+                        .ThenInclude(c => c.User)
+                    .Include(b => b.Relationship)
+                    .Include(b => b.BoxTag)
+                        .ThenInclude(bt => bt.Tag)
+                    .FirstOrDefault(b => b.Id == boxId));
             }
             return Task.FromResult(recommendedBoxes.AsEnumerable());
         }

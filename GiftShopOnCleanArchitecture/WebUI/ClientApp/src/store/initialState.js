@@ -29,6 +29,10 @@ const initialState = {
         isPending: false,
         list: []
     },
+    recomendation: {
+        idPending: false,
+        list: []
+    },
     box: {
         isPending: false,
         box: {}

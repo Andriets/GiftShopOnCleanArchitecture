@@ -121,7 +121,7 @@ namespace WebUI.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetRecomendatinForUser([FromQuery] GetRecomendationsQuery getRecomendationsQuery)
+        public async Task<IActionResult> GetRecomendationForUser([FromQuery] GetRecomendationsQuery getRecomendationsQuery)
         {
             try
             {

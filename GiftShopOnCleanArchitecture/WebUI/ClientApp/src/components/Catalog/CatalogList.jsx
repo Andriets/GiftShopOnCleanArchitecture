@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { GetAllBoxes } from '../AdminPanel/Boxes/BoxAction';
 import BoxCard from './BoxCard';
+import BoxCardContainer from './BoxCardContainer';
 
 class CatalogList extends Component {
     constructor(props) {
@@ -54,7 +55,7 @@ class CatalogList extends Component {
                         <img alt="prev-arrow" src={process.env.PUBLIC_URL + '/img/prev-arrow.svg'} />
                     </div>
                     <div className='catalog-list'>
-                        {boxes.map((box, key) => <BoxCard key={key} box={box}/>)}
+                        {boxes.map((box, key) => <BoxCardContainer key={key} box={box}/>)}
                     </div>
                     <div className='next-page' onClick={this.OnNextPage}>
                         <img  alt="next-arrow" src={process.env.PUBLIC_URL + '/img/next-arrow.svg'}/>
