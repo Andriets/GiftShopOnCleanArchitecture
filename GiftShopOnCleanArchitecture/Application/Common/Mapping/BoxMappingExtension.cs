@@ -41,7 +41,7 @@ namespace Application.Common.Mapping
                     Id = bt.Tag.Id,
                     TagName = bt.Tag.TagName
                 }),
-                BoxCommentDetails = allRelatedUsersIds is null ? new List<BoxCommentDetails>() : 
+                BoxCommentDetails = allRelatedUsersIds is null ? new List<BoxCommentDetails>() :
                                     from uid in allRelatedUsersIds
                                     join c in box.Comments on uid equals c.UserId into firstJoin
                                     from comment in firstJoin.DefaultIfEmpty()
@@ -53,6 +53,7 @@ namespace Application.Common.Mapping
                                     {
                                         UserId = uid,
                                         UserName = comment?.User == null ? null : $"{comment?.User?.FirstName} {comment?.User?.LastName}",
+                                        UserPhoto = comment?.User?.Photo,
                                         CommentMessage = comment?.CommentText,
                                         Score = rating?.Score,
                                         Attitude = relationship?.Attitude ?? Attitude.None

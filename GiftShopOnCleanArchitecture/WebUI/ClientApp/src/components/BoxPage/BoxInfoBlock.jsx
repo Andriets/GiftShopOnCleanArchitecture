@@ -4,11 +4,21 @@ import { GetBoxById, SetBoxAttitudeFromProduct } from '../AdminPanel/Boxes/BoxAc
 import { Attitude } from '../Common/Enums/Attitude';
 import { AddBoxToCart } from '../Cart/CartAction';
 import Rating from '@mui/material/Rating';
+import CommentModal from './CommentModal';
 import './BoxPage.css';
 
 class BoxInfoBlock extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            openCommentModal: false
+        }
+    }
+
+    setModalOpen = status => {
+        this.setState({
+            openCommentModal: status
+        });
     }
 
     componentDidMount() {
@@ -35,7 +45,7 @@ class BoxInfoBlock extends Component {
     }
 
     render() {
-        const { box, attitude, rating } = this.props;
+        const { box, attitude, rating, comments } = this.props;
 
         return (
             <div className='box-info-block'>
@@ -61,6 +71,10 @@ class BoxInfoBlock extends Component {
                         </div>
                         <div className='boxInfo-left-bottom'>
                             <span className='boxInfo-price'>${box?.price}</span>
+                            <button onClick={() => this.setModalOpen(true)} className='boxInfo_addCommentButton'>
+                                <img src={process.env.PUBLIC_URL + '/img/talk-bubble.svg'} />  
+                            </button>
+                            <CommentModal isOpen={this.state.openCommentModal} box={box} handleClose={this.setModalOpen}/>
                             <button onClick={this.OnAddBoxToCart} className='boxInfo_toCartButton'>
                                 <span>To cart</span>
                                 <img src={process.env.PUBLIC_URL + '/img/cart.svg'} />
@@ -77,7 +91,25 @@ class BoxInfoBlock extends Component {
                         <div className="boxInfo-description">{box?.description}</div>
                     </div>
                 </div>
-               
+                <div className='boxInfo-commentsContainer'>
+                    <div className='boxInfo-comments'>
+                        {comments?.map((c, key) => (
+                         <div className='comment-item' key={key}>
+                             <div className='comment-item-top'>
+                                <img className='commentItem-user-photo' src={"data:image/png;base64," + c?.userPhoto?.img}/>
+                                <div className='commentItem-userInfo'>
+                                    <span className='commentItem-userName'>{c.userName}</span>
+                                    <Rating className="custom-medium-adjust" name="half-rating" defaultValue={c.score} precision={0.1} readOnly/>
+                                </div>
+                                <img className='commentItem-trash' src={process.env.PUBLIC_URL + '/img/Trash.svg'}/>
+                             </div>
+                             <div className='comment-item-bottom'>
+                                <span>{c.commentMessage}</span>
+                             </div>
+                         </div>   
+                        ))}
+                    </div>
+                </div>
             </div>
         );
     }
@@ -98,12 +130,13 @@ const mapStateToProps = state => {
         .reduce((rating, boxCommentDetails, _, { length }) => {
             return rating + boxCommentDetails.score / length;
         }, 0);
-    
+
     return {
         isAuthenticated,
         box,
         rating,
         cartList: state.cart.list,
+        comments: box?.boxCommentDetails?.filter(x => x.commentMessage !== null),
         attitude
     };
 };

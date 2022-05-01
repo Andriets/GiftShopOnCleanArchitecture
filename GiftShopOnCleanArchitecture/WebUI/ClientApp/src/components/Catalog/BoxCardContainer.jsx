@@ -40,7 +40,6 @@ class BoxCardContainer extends Component {
     }
 
     render() {
-        debugger;
         return (
             <BoxCard {...this.props} 
                 OnSetAttitude={this.OnSetAttitude}

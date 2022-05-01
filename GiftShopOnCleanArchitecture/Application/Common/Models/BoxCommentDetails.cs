@@ -1,4 +1,5 @@
 ﻿using Domain.Emuns;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace Application.Common.Models
         public string UserId { get; set; }
 
         public string UserName { get; set; }
+
+        public Photo UserPhoto { get; set; }
 
         public float? Score { get; set; }
 

@@ -37,7 +37,6 @@ export default class BoxCard extends Component {
 
     render() {
         const { box, isAuthenticated, attitude, OnAddBoxToCart, OnSetAttitude } = this.props;
-        debugger;
 
         return (
             <div className='catalog-card'>

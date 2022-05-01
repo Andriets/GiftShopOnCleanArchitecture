@@ -25,7 +25,7 @@ class RecomendationBlock extends Component {
                 <h3>Recomendations</h3>
                 <div className='recomendation-list'>
                     {isAuthenticated 
-                        ? boxes?.map(box => <RecomendationCardContainer box={box}/>)
+                        ? boxes?.map((box, key) => <RecomendationCardContainer box={box} key={key}/>)
                         : <h4>You should be authorized to see recommendations</h4>
                     }
                 </div>
