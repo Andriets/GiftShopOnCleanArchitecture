@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { AddBoxComment, SetBoxRating } from '../AdminPanel/Boxes/BoxAction'
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
@@ -14,12 +15,26 @@ class CommentModal extends Component {
     }
 
     onSubmit = (formData) => {
-        const { box } = this.props;
-        const commentMessage = {
-            rating: this.state.rating,
-            message: formData.commentMessage
+        const { addBoxComment, setBoxRating, userId, box } = this.props;
+
+        if (this.state.rating > 0) {
+            const boxRating = {
+                userId,
+                boxId: box.id,
+                score: this.state.rating
+            };
+            setBoxRating(boxRating);
         }
-        console.log(commentMessage);
+
+        if (formData.commentMessage) {
+            const boxComment = {
+                userId,
+                boxId: box.id,
+                commentText: formData.commentMessage
+            };
+            addBoxComment(boxComment);
+        }
+
         this.closeModal();
     }
 
@@ -42,12 +57,16 @@ class CommentModal extends Component {
                 <Box className="modal-box">
                     <form className="commentForm" onSubmit={handleSubmit(this.onSubmit)} autoComplete="off">
                         <div className="commentForm-fields">
-                            <Rating onChange={this.onChangeRating} className="custom-large-adjust" name="half-rating" precision={0.1} size="large"/>
-                            <Field name="commentMessage" placeholder="Comment" component="textarea"/>
+                            <Rating onChange={this.onChangeRating} className="custom-large-adjust commentForm-rating" name="half-rating" precision={0.1} size="large"/>
+                            <Field className="comment-textarea" name="commentMessage" placeholder="Comment" component="textarea"/>
                         </div>
                         <div className="commentForm-actions">
-                            <button onClick={this.closeModal}>Cancel</button>   
-                            <button type="submit">Submit</button>   
+                            <button onClick={this.closeModal}>
+                                <span>Cancel</span>
+                            </button>   
+                            <button type="submit">
+                                <span>Submit</span>
+                            </button>   
                         </div>   
                     </form>
                 </Box>
@@ -68,6 +87,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        addBoxComment: (boxComment) => dispatch(AddBoxComment(boxComment)),
+        setBoxRating: (boxRating) => dispatch(SetBoxRating(boxRating))
     };
 };
 

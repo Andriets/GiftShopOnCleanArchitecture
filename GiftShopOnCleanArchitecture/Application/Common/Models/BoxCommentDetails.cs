@@ -18,6 +18,8 @@ namespace Application.Common.Models
 
         public float? Score { get; set; }
 
+        public Guid CommentId { get; set; }
+
         public string CommentMessage { get; set; }
 
         public Attitude? Attitude { get; set; }

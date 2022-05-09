@@ -78,6 +78,27 @@ export default class BoxService {
             : await res.json();
     }
 
+    AddBoxComment = async (boxComment) => {
+        const res = await baseService.postQuery('Box/AddBoxComment', boxComment);
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
+    }
+
+    DeleteBoxComment = async (id) => {
+        const res = await baseService.postQuery('Box/DeleteBoxComment', {CommentId: id});
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
+    }
+
+    SetBoxRating = async (boxRating) => {
+        const res = await baseService.postQuery('Box/SetBoxRating', boxRating);
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
+    }
+
     SetBoxAttitude = async (userBoxAttitude) => {
         const res = await baseService.postQuery('Box/SetBoxAttitude', userBoxAttitude);
         return !res.ok

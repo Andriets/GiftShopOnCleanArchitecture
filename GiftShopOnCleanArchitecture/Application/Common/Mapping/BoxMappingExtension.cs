@@ -54,6 +54,7 @@ namespace Application.Common.Mapping
                                         UserId = uid,
                                         UserName = comment?.User == null ? null : $"{comment?.User?.FirstName} {comment?.User?.LastName}",
                                         UserPhoto = comment?.User?.Photo,
+                                        CommentId = comment == null ? Guid.Empty : comment.Id,
                                         CommentMessage = comment?.CommentText,
                                         Score = rating?.Score,
                                         Attitude = relationship?.Attitude ?? Attitude.None

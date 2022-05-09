@@ -180,6 +180,10 @@
     margin-left: auto;
 }
 
+.commentItem-trash:hover {
+    cursor: pointer;
+}
+
 .commentItem-user-photo {
     width: 44px;
     height: 44px;
@@ -197,4 +201,48 @@
 .comment-item-bottom {
     border-top: 1px black solid;
     padding: 10px 0px;
+}
+
+.commentForm {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.commentForm-fields {
+    display: flex;
+    flex-direction: column;
+}
+
+.commentForm-rating {
+    align-self: center;
+}
+
+.comment-textarea {
+    height: 200px;
+}
+
+.commentForm-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.commentForm-actions button {
+    width: 80px;
+    height: 40px;
+    background: #FA812F;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+.commentForm-actions button span {
+    color: #fff;
+    font-weight: 500;
+    font-size: 18px;
 }

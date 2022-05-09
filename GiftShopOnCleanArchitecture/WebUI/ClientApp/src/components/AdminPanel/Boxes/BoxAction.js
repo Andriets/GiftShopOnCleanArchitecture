@@ -108,6 +108,36 @@ export function DeleteBoxById(boxId, boxes) {
     }
 }
 
+export function AddBoxComment(boxComment) {
+    return dispatch => {
+        api_serv.AddBoxComment(boxComment).then(res => {
+            if (!res.error) {
+                dispatch(GetBoxById(boxComment.boxId));
+            }
+        });
+    }
+}
+
+export function DeleteBoxComment(boxId, commentId) {
+    return dispatch => {
+        api_serv.DeleteBoxComment(commentId).then(res => {
+            if (!res.error) {
+                dispatch(GetBoxById(boxId));
+            }
+        });
+    }
+}
+
+export function SetBoxRating(boxRating) {
+    return dispatch => {
+        api_serv.SetBoxRating(boxRating).then(res => {
+            if (!res.error) {
+                dispatch(GetBoxById(boxRating.boxId));
+            }
+        })
+    }
+}
+
 export function SetBoxAttitudeFromCatalog(userBoxAttitude, boxes) {
     return dispatch => {
         api_serv.SetBoxAttitude(userBoxAttitude).then(res => {
