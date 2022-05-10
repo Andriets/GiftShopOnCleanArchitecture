@@ -1,16 +1,16 @@
 import initialState from '../../../store/initialState';
-import { SET_BOXES, SET_BOXES_PENDING } from './BoxAction';
+import { SET_BOX, SET_BOX_PENDING } from './BoxAction';
 
-export const reducer = (state = initialState.boxes, action) => {
+export const reducer = (state = initialState.box, action) => {
     switch(action.type) {
-        case SET_BOXES:
+        case SET_BOX:
             return {
                 isPending: false,
-                list: action.payload
+                box: action.payload
             };
-        case SET_BOXES_PENDING:
+        case SET_BOX_PENDING:
             return {
-                list: [],
+                box: {},
                 isPending: action.payload
             };
         default:

@@ -26,18 +26,25 @@ namespace Infrastracture.Services
             _appDbContext = appDbContext;
         }
 
-        public IEnumerable<Box> GetRecomendations(string userId)
+        public Task<IEnumerable<Box>> GetRecomendations(string userId)
         {
-            userId = "958c59e0-5a4c-47ba-ac89-34f2b3e49d02";
             var CFPrediction = GetColaborativeFilteringRecomendation(userId);
             var CBPrediction = GetContetBasedRecomendation(userId);
             var prediction = CFPrediction.Concat(CBPrediction).Distinct<Guid>().ToArray();
             List<Box> recommendedBoxes = new List<Box>();
             foreach (var boxId in prediction)
             {
-                recommendedBoxes.Add(_appDbContext.Boxes.Find(boxId));
+                recommendedBoxes.Add(_appDbContext.Boxes
+                    .Include(b => b.Photo)
+                    .Include(b => b.Ratings)
+                    .Include(b => b.Comments)
+                        .ThenInclude(c => c.User)
+                    .Include(b => b.Relationship)
+                    .Include(b => b.BoxTag)
+                        .ThenInclude(bt => bt.Tag)
+                    .FirstOrDefault(b => b.Id == boxId));
             }
-            return recommendedBoxes;
+            return Task.FromResult(recommendedBoxes.AsEnumerable());
         }
 
         public void TrainModel()
@@ -154,7 +161,10 @@ namespace Infrastracture.Services
                     IDF = (double)t.Select(t => t.BoxId).Distinct().Count() / (double)boxes.Count()
                 }).ToArray();
 
-            var prediction = boxes.Where(b => !relationship.Contains(relationship.FirstOrDefault(r => r.BoxId == b.Id)))
+            var boxesForPrediction = boxes.Where(b => !relationship.Contains(relationship.FirstOrDefault(r => r.BoxId == b.Id)))
+                .Union(boxes.Where(b => relationship.Contains(relationship.FirstOrDefault(r => r.BoxId == b.Id && r.Attitude == Attitude.None))));
+
+            var prediction = boxes.Where(b => boxesForPrediction.Contains(b))
                 .Select(b => new
                 {
                     BoxId = b.Id,

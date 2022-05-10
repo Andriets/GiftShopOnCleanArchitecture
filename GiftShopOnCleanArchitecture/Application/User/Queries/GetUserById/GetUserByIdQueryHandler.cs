@@ -16,24 +16,30 @@ namespace Application.User.Queries.GetUserById
     public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDTO>
     {
         private readonly IAppDbContext _context;
+        private readonly IIdentityService _identityService;
 
-        public GetUserByIdQueryHandler(IAppDbContext context)
+        public GetUserByIdQueryHandler(IIdentityService identityService, IAppDbContext context)
         {
+            _identityService = identityService;
             _context = context;
         }
 
         public async Task<UserDTO> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            var appUser = await _context.Users
+            var appUser = _context.Users
                 .Include(u => u.Photo)
-                .FirstOrDefaultAsync(u => u.Id == request.UserId);
+                .FirstOrDefault(u => u.Id == request.UserId);
 
-            if (appUser == null)
+            if (appUser is null)
             {
                 throw new GiftShopException("User not found");
             }
 
-            return appUser.ToDTO();
+            var res = appUser.ToDTO();
+            var roles = await _identityService.GetUserRolesByUserNameAsync(appUser.UserName);
+            res.Role = roles.ToArray()[0];
+
+            return res;
         }
     }
 }

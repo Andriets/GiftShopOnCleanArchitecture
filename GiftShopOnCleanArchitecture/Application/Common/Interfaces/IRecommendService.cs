@@ -11,6 +11,6 @@ namespace Application.Common.Interfaces
     {
         void TrainModel();
 
-        IEnumerable<Box> GetRecomendations(string userId);
+        Task<IEnumerable<Box>> GetRecomendations(string userId);
     }
 }

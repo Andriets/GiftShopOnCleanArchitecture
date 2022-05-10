@@ -29,6 +29,18 @@ const initialState = {
         isPending: false,
         list: []
     },
+    recomendation: {
+        idPending: false,
+        list: []
+    },
+    box: {
+        isPending: false,
+        box: {}
+    },
+    cart: {
+        isPending: false,
+        list: []
+    },
     boxModal: {
         isOpen: false,
         editMode: false,
@@ -48,6 +60,13 @@ const initialState = {
     tags: {
         isPending: false,
         list: []
+    },
+    catalogFiltersInfo: {
+        currentPage: null,
+        totalPages: null,
+        minPrice: null,
+        maxPrice: null,
+        tags: []
     },
     tagModal: {
         isOpen: false,

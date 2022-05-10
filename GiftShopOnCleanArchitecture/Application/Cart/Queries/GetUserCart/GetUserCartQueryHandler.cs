@@ -24,9 +24,10 @@ namespace Application.Carts.Queries.GetUserCart
         public Task<IEnumerable<BoxDTO>> Handle(GetUserCartQuery request, CancellationToken cancellationToken)
         {
             var cart = _context.Carts
-                .Where(c => c.UserId == request.UserId)
                 .Include(c => c.Box)
-                .AsEnumerable();
+                    .ThenInclude(b => b.Photo)
+                .Where(c => c.UserId == request.UserId)
+                .ToList();
 
             return Task.FromResult(cart.Select(c => c.Box.ToDTO()));
         }

@@ -4,8 +4,32 @@ const baseService = new BaseService();
 
 export default class BoxService {
 
+    GetBasicFiltersInfo = async () => {
+        const res = await baseService.getQuery('Box/GetBasicFiltersInfo');
+        return res;
+    }
+
     GetAllBoxes = async (filterData) => {
-        const res = await baseService.getQuery(`Box/GetAllBoxes?page=${filterData.page}&PageSize=${filterData.pageSize}&KeyWord=${filterData.keyWord}`);
+        let file = new FormData();
+        file.append('Page', filterData.page);
+        file.append('PageSize', filterData.pageSize);
+        file.append('KeyWord', filterData.keyWord);
+        if (filterData.minPrice) {
+            file.append('MinPrice', filterData.minPrice);
+            file.append('MaxPrice', filterData.maxPrice);
+        }
+        filterData.tags?.forEach((tag, key) => {
+            file.append(`Tags[${key}].Id`, tag.tag.id);
+        });
+
+        const res = await baseService.postQueryWithData('Box/GetAllBoxes', file);
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
+    }
+
+    GetRecomendationForUser = async (userId) => {
+        const res = await baseService.getQuery(`Box/GetRecomendationForUser?userId=${userId}`);
         return res;
     }
 
@@ -42,8 +66,41 @@ export default class BoxService {
             : res;
     }
 
+    GetBoxById = async (id) => {
+        const res = await baseService.getQuery(`Box/GetBoxById?BoxId=${id}`);
+        return res;
+    }
+
     DeleteBoxById = async (id) => {
         const res = await baseService.postQuery('Box/DeleteBoxById', {boxId: id});
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
+    }
+
+    AddBoxComment = async (boxComment) => {
+        const res = await baseService.postQuery('Box/AddBoxComment', boxComment);
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
+    }
+
+    DeleteBoxComment = async (id) => {
+        const res = await baseService.postQuery('Box/DeleteBoxComment', {CommentId: id});
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
+    }
+
+    SetBoxRating = async (boxRating) => {
+        const res = await baseService.postQuery('Box/SetBoxRating', boxRating);
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
+    }
+
+    SetBoxAttitude = async (userBoxAttitude) => {
+        const res = await baseService.postQuery('Box/SetBoxAttitude', userBoxAttitude);
         return !res.ok
             ? { error: await res.text() }
             : await res.json();

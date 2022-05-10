@@ -1,5 +1,5 @@
 ﻿using Application.Carts.Commands.AddBoxToCart;
-using Application.Carts.Commands.DeleteBoxesFromCart;
+using Application.Carts.Commands.DeleteBoxFromCart;
 using Application.Carts.Queries.GetUserCart;
 using Domain.Exeptions;
 using MediatR;
@@ -19,16 +19,16 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> AddBoxToCart(AddBoxToCartCommand addBoxToCartCommand)
+        public async Task<IActionResult> AddBoxToCart([FromBody] AddBoxToCartCommand addBoxToCartCommand)
         {
             try
             {
                 var res = await _mediator.Send(addBoxToCartCommand);
-                return Ok(res);
+                return Ok(new {success = res });
             }
             catch (GiftShopException)
             {
-                return BadRequest("Fail");
+                return BadRequest(new { message = "Fail" });
             }
         }
 
@@ -42,21 +42,21 @@ namespace WebUI.Controllers
             }
             catch (GiftShopException)
             {
-                return BadRequest("Fail");
+                return BadRequest(new { message = "Fail" });
             }
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> DeleteBoxesFromCart(DeleteBoxesFromCartCommand deleteBoxesFromCartCommand)
+        public async Task<IActionResult> DeleteBoxFromCart([FromBody] DeleteBoxFromCartCommand deleteBoxesFromCartCommand)
         {
             try
             {
                 var res = await _mediator.Send(deleteBoxesFromCartCommand);
-                return Ok(res);
+                return Ok(new { success = res });
             }
             catch (GiftShopException)
             {
-                return BadRequest("Fail");
+                return BadRequest(new { message = "Fail" });
             }
         }
     }

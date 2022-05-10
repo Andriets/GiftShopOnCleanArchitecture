@@ -1,8 +1,14 @@
-﻿using Application.Boxes.Commands.CreateBox;
+﻿using Application.Boxes.Commands.AddBoxComment;
+using Application.Boxes.Commands.CreateBox;
 using Application.Boxes.Commands.DeleteBox;
+using Application.Boxes.Commands.DeleteBoxComment;
+using Application.Boxes.Commands.SetBoxAttitude;
+using Application.Boxes.Commands.SetBoxRating;
 using Application.Boxes.Commands.UpdateBox;
 using Application.Boxes.Queries.GetAllBoxes;
+using Application.Boxes.Queries.GetBasicFiltersData;
 using Application.Boxes.Queries.GetBoxById;
+using Application.Boxes.Queries.GetRecomendations;
 using Domain.Exeptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -47,8 +53,64 @@ namespace WebUI.Controllers
             }
         }
 
-        [HttpGet("[action]")]
-        public IActionResult GetAllBoxes([FromQuery] GetAllBoxesQuery getAllBoxesQuery)
+        [HttpPost("[action]")]
+        public async Task<IActionResult> SetBoxAttitude([FromBody] SetBoxAttitudeCommand setBoxAttitudeCommand)
+        {
+            try
+            {
+                var res = await _mediator.Send(setBoxAttitudeCommand);
+                return Ok(new { Success = res });
+            }
+            catch (GiftShopException)
+            {
+                return BadRequest(new { error = "Fail" });
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> SetBoxRating([FromBody] SetBoxRatingCommand setBoxRatingCommand)
+        {
+            try
+            {
+                var res = await _mediator.Send(setBoxRatingCommand);
+                return Ok(new { Success = res });
+            }
+            catch (GiftShopException)
+            {
+                return BadRequest(new { error = "Fail" });
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> AddBoxComment([FromBody] AddBoxCommentCommand addBoxCommentCommand)
+        {
+            try
+            {
+                var res = await _mediator.Send(addBoxCommentCommand);
+                return Ok(new { id = res });
+            }
+            catch (GiftShopException)
+            {
+                return BadRequest(new { error = "Fail" });
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> DeleteBoxComment([FromBody] DeleteBoxCommentCommand deleteBoxCommentCommand)
+        {
+            try
+            {
+                var res = await _mediator.Send(deleteBoxCommentCommand);
+                return Ok(new { id = res });
+            }
+            catch (GiftShopException)
+            {
+                return BadRequest("Fail");
+            }
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult GetAllBoxes([FromForm] GetAllBoxesQuery getAllBoxesQuery)
         {
             try
             {
@@ -57,7 +119,7 @@ namespace WebUI.Controllers
             }
             catch (GiftShopException)
             {
-                return BadRequest("Fail");
+                return BadRequest(new { error = "Fail" });
             }
         }
 
@@ -71,7 +133,7 @@ namespace WebUI.Controllers
             }
             catch (GiftShopException)
             {
-                return BadRequest("Fail");
+                return BadRequest(new { error = "Fail" });
             }
         }
 
@@ -86,6 +148,34 @@ namespace WebUI.Controllers
             catch (GiftShopException)
             {
                 return BadRequest("Fail");
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetBasicFiltersInfo([FromQuery] GetBasicFiltersInfoQuery getBasicFiltersInfoQuery)
+        {
+            try
+            {
+                var res = await _mediator.Send(getBasicFiltersInfoQuery);
+                return Ok(res);
+            }
+            catch (GiftShopException)
+            {
+                return BadRequest(new { error = "Fail" });
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetRecomendationForUser([FromQuery] GetRecomendationsQuery getRecomendationsQuery)
+        {
+            try
+            {
+                var res = await _mediator.Send(getRecomendationsQuery);
+                return Ok(res);
+            }
+            catch (GiftShopException)
+            {
+                return BadRequest(new { error = "Fail" });
             }
         }
     }

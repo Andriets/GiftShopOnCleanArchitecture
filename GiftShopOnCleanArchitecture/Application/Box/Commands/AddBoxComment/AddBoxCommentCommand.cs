@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Carts.Commands.DeleteBoxesFromCart
+namespace Application.Boxes.Commands.AddBoxComment
 {
-    public class DeleteBoxesFromCartCommand : IRequest<bool>
+    public class AddBoxCommentCommand : IRequest<Guid>
     {
         public string UserId { get; set; }
 
-        public Guid[] BoxesIds { get; set; }
+        public Guid BoxId { get; set; }
+
+        public string CommentText { get; set; }
     }
 }
