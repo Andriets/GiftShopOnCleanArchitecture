@@ -23,7 +23,7 @@ class AvatarBlock extends Component {
             const reader = new FileReader();
             reader.onload = (event) => {
                 const userInfo = Object.assign({}, this.props.userInfo);
-
+                
                 userInfo.photo.img = event.target.result;
                 userInfo.photoBytes = newImageFile[0];
                 this.props.updateUserPhoto(userInfo);

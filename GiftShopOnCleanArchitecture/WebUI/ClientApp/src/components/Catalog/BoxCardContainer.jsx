@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Attitude } from '../Common/Enums/Attitude';
 import { SetBoxAttitudeFromCatalog } from '../AdminPanel/Boxes/BoxAction';
-import { AddBoxToCart } from '../Cart/CartAction';
+import { AddBoxToCart, SetCartList } from '../Cart/CartAction';
 import BoxCard from './BoxCard';
 
 class BoxCardContainer extends Component {
@@ -34,9 +34,31 @@ class BoxCardContainer extends Component {
     }
 
     OnAddBoxToCart = () => {
-        const { userId, cartList, box, addBoxToCart } = this.props;
+        const { userId, cartList, box, addBoxToCart, setCartList } = this.props;
+
         cartList.push(box);
-        addBoxToCart(userId, box.id, cartList);
+        if (userId) {
+            addBoxToCart(userId, box.id, cartList);
+            return;
+        }
+        
+        let stringCartList = localStorage.getItem('Cart');
+        let cart = stringCartList === null ? [] : JSON.parse(stringCartList);
+
+        if (cart.length === 10) {
+            alert("You can add only 10 product to the cart");
+            return;
+        }
+
+        let el = cart.find(x => x.id === box.id);
+        if (el === undefined) {
+            cart.push({id: box.id, quantity: 1});
+            stringCartList = JSON.stringify(cart);
+            localStorage.setItem('Cart', stringCartList);
+            setCartList(cartList);
+        } else {
+            alert("This product is already in the cart");
+        }
     }
 
     render() {
@@ -64,7 +86,8 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = dispatch => {
     return {
         setBoxAttitude: (userBoxAttitude, boxes) => dispatch(SetBoxAttitudeFromCatalog(userBoxAttitude, boxes)),
-        addBoxToCart: (userId, boxId, newCart) => dispatch(AddBoxToCart(userId, boxId, newCart))
+        addBoxToCart: (userId, boxId, newCart) => dispatch(AddBoxToCart(userId, boxId, newCart)),
+        setCartList: (cartList) => dispatch(SetCartList(cartList))
     };
 };
 

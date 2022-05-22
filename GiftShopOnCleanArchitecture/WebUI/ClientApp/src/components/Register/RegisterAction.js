@@ -1,4 +1,5 @@
 import UserService from '../../services/UserService';
+import { GetUserById } from '../UserProfile/UserAction';
 
 export const SET_REGISTER_SUCCESS = "SET_REGISTER_SUCCESS";
 export const SET_REGISTER_FAIL = "SET_REGISTER_FAIL";
@@ -20,7 +21,7 @@ const registerResponseHandler = (res, dispatch) => {
             localStorage.setItem('JwtToken', response.jwtToken);
             localStorage.setItem('Id', response.id);
             dispatch(setLoginSuccess(true));
-            window.location.replace(`${window.location.origin}/Home`);
+            window.location.replace(`${window.location.origin}/Login`);
         }
     });
 };

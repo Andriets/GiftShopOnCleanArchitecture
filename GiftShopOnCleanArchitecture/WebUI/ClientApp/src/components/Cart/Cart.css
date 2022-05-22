@@ -1,0 +1,122 @@
+.cart-page {
+    width: 100%;
+    height: 100vh;
+    padding: 0px 20px 30px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-content {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart-block,
+.order-block {
+    background: #FBF6F1;
+    box-shadow: 0px 4px 4px rgba(250, 129, 47, 0.25);
+    border-radius: 20px;
+}
+
+.cart-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 30px 20px;
+}
+
+.cart-block-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart-block-total {
+    font-weight: 500;
+    font-size: 35px;
+    margin: 0;
+}
+
+.checkout-button {
+    background: #FA812F;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 20px;
+}
+
+.checkout-button span {
+    font-weight: 500;
+    font-size: 20px;
+    color: #fff;
+}
+
+.order-block {
+    margin-left: 30px;
+    width: 35vw;
+    height: 100%;
+}
+
+.cart-block-bottom {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cart-item {
+    width: 100%;
+    height: 100px;
+    background: #FFE3C3;
+    border-radius: 10px;
+    display: flex;
+}
+
+.cart-item-photo img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.cart-item-details-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 20px 10px 15px;
+}
+
+.cart-item-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cart-item-title,
+.cart-item-quantity,
+.cart-item-price {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.cart-item-quantity {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.cart-item-quantity img:hover,
+.cart-item-actions img:hover {
+    cursor: pointer;
+}
+
+.cart-item-details-bottom {
+    display: flex;
+    gap: 35px;
+}
+
+.cart-item-actions {
+    align-self: flex-end;
+}

@@ -24,7 +24,8 @@ namespace Application.Carts.Commands.AddBoxToCart
             var cart = new Cart()
             {
                 UserId = request.UserId,
-                BoxId = request.BoxId
+                BoxId = request.BoxId,
+                Quantity = 1
             };
 
             _context.Carts.Add(cart);

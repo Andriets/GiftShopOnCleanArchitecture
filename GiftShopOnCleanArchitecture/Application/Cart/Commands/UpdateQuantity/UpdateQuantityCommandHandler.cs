@@ -8,18 +8,18 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.Carts.Commands.DeleteBoxFromCart
+namespace Application.Carts.Commands.UpdateQuantity
 {
-    public class DeleteBoxFromCartCommandHandler : IRequestHandler<DeleteBoxFromCartCommand, bool>
+    public class UpdateQuantityCommandHandler : IRequestHandler<UpdateQuantityCommand, bool>
     {
         private readonly IAppDbContext _context;
 
-        public DeleteBoxFromCartCommandHandler(IAppDbContext appDbContext)
+        public UpdateQuantityCommandHandler(IAppDbContext appDbContext)
         {
             _context = appDbContext;
         }
 
-        public async Task<bool> Handle(DeleteBoxFromCartCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(UpdateQuantityCommand request, CancellationToken cancellationToken)
         {
             var cart = _context.Carts.FirstOrDefault(c => c.UserId == request.UserId && c.BoxId == request.BoxId);
 
@@ -28,7 +28,7 @@ namespace Application.Carts.Commands.DeleteBoxFromCart
                 throw new GiftShopException("Cart not found");
             }
 
-            _context.Carts.Remove(cart);
+            cart.Quantity = request.NewQuantity;
             await _context.SaveChangesAsync(cancellationToken);
 
             return true;

@@ -14,7 +14,14 @@ export function GetUserById(id) {
         api_serv.GetUserById(id)
             .then(response => {
                 if (!response.error) {
-                    response.photo.img = "data:image/png;base64," + response.photo.img;
+                    
+                    if (!response.photo) {
+                        response.photo = {};
+                        response.photo.img = null;
+                    } else {
+                        response.photo.img = "data:image/png;base64," + response.photo.img;
+                    }
+                    
                     dispatch(SetUser(response));
                 }
             });

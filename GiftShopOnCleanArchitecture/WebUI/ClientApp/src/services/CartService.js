@@ -21,4 +21,23 @@ export default class CartService {
             ? { error: await res.text() }
             : await res.json();
     }
+
+    UpdateQuantity = async (cartItemInfo) => {
+        const res = await baseService.postQuery('Cart/UpdateQuantity', cartItemInfo);
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
+    }
+
+    GetCartsByBoxesIds = async (boxesIds) => {
+        let file = new FormData();
+        boxesIds.forEach((id, key) => {
+            file.append(`BoxesIds[${key}]`, id);
+        });
+
+        const res = await baseService.postQueryWithData('Cart/GetCartsByBoxesIds', file);
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
+    }
 }

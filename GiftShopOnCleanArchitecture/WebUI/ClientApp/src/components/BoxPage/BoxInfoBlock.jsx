@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { GetBoxById, SetBoxAttitudeFromProduct, DeleteBoxComment } from '../AdminPanel/Boxes/BoxAction';
 import { Attitude } from '../Common/Enums/Attitude';
-import { AddBoxToCart } from '../Cart/CartAction';
+import { AddBoxToCart, SetCartList } from '../Cart/CartAction';
 import Rating from '@mui/material/Rating';
 import CommentModal from './CommentModal';
 import './BoxPage.css';
@@ -43,9 +43,31 @@ class BoxInfoBlock extends Component {
     }
 
     OnAddBoxToCart = () => {
-        const { cartList, box, addBoxToCart } = this.props;
+        const { userId, cartList, box, addBoxToCart, setCartList } = this.props;
+
         cartList.push(box);
-        addBoxToCart(localStorage.getItem("Id"), box.id, cartList);
+        if (userId) {
+            addBoxToCart(localStorage.getItem("Id"), box.id, cartList);
+            return; 
+        }
+
+        let stringCartList = localStorage.getItem('Cart');
+        let cart = stringCartList === null ? [] : JSON.parse(stringCartList);
+
+        if (cart.length === 10) {
+            alert("You can add only 10 product to the cart");
+            return;
+        }
+
+        let el = cart.find(x => x.id === box.id);
+        if (el === undefined) {
+            cart.push({id: box.id, quantity: 1});
+            stringCartList = JSON.stringify(cart);
+            localStorage.setItem('Cart', stringCartList);
+            setCartList(cartList);
+        } else {
+            alert("This product is already in the cart");
+        }
     }
 
     render() {
@@ -58,7 +80,7 @@ class BoxInfoBlock extends Component {
                         <div className='boxInfo-photo'>
                             <img className='boxInfo-boxImage' src={"data:image/png;base64," + box?.photoBytes?.img}/>
                             <div className='boxInfo-attitudeContainer'>
-                                {attitude === Attitude.NONE &&
+                                {(attitude === Attitude.NONE || attitude === undefined) &&
                                     <>
                                         <img onClick={() => this.OnSetBoxAttitude(Attitude.LIKE)} className='boxInfo-attitude' src={process.env.PUBLIC_URL + '/img/Attitude.svg'} />
                                         <img onClick={() => this.OnSetBoxAttitude(Attitude.DISLIKE)} className='boxInfo-attitude' src={process.env.PUBLIC_URL + '/img/Attitude.svg'} />
@@ -167,7 +189,8 @@ const mapDispatchToProps = dispatch => {
         getBoxById: (id) => dispatch(GetBoxById(id)),
         setBoxAttitude: (userBoxAttitude, box) => dispatch(SetBoxAttitudeFromProduct(userBoxAttitude, box)),
         addBoxToCart: (userId, boxId, newCart) => dispatch(AddBoxToCart(userId, boxId, newCart)),
-        deleteBoxComment: (boxId, commentId) => dispatch(DeleteBoxComment(boxId, commentId))
+        deleteBoxComment: (boxId, commentId) => dispatch(DeleteBoxComment(boxId, commentId)),
+        setCartList: (cartList) => dispatch(SetCartList(cartList))
     };
 };
 

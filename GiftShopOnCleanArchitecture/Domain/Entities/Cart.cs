@@ -15,5 +15,7 @@ namespace Domain.Entities
         public Guid BoxId { get; set; }
 
         public virtual Box Box { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

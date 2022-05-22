@@ -1,5 +1,7 @@
 ﻿using Application.Carts.Commands.AddBoxToCart;
 using Application.Carts.Commands.DeleteBoxFromCart;
+using Application.Carts.Commands.UpdateQuantity;
+using Application.Carts.Queries.GetCartByBoxesIds;
 using Application.Carts.Queries.GetUserCart;
 using Domain.Exeptions;
 using MediatR;
@@ -53,6 +55,34 @@ namespace WebUI.Controllers
             {
                 var res = await _mediator.Send(deleteBoxesFromCartCommand);
                 return Ok(new { success = res });
+            }
+            catch (GiftShopException)
+            {
+                return BadRequest(new { message = "Fail" });
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> UpdateQuantity([FromBody] UpdateQuantityCommand updateQuantityCommand)
+        {
+            try
+            {
+                var res = await _mediator.Send(updateQuantityCommand);
+                return Ok(new { success = res });
+            }
+            catch (GiftShopException)
+            {
+                return BadRequest(new { message = "Fail" });
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetCartsByBoxesIds([FromForm] GetCartsByBoxesIdsCommand getCartsByBoxesIdsCommand)
+        {
+            try
+            {
+                var res = await _mediator.Send(getCartsByBoxesIdsCommand);
+                return Ok(res);
             }
             catch (GiftShopException)
             {

@@ -31,13 +31,43 @@ export function AddBoxToCart(userId, boxId, newCart) {
     }
 }
 
-export function DeleteBoxFromCart(userId, boxId, newCart) {
+export function DeleteBoxFromCart(userId, boxId) {
     return dispatch => {
         api_serv.DeleteBoxesFromCart(userId, boxId).then(res => {
             if (!res.error) {
-                dispatch(setCart(newCart));
+                dispatch(GetUserCart(userId));
             }
         })
+    }
+}
+
+export function UpdateQuantity(cartItemInfo) {
+    return dispatch => {
+        api_serv.UpdateQuantity(cartItemInfo).then(res => {
+            if (!res.error) {
+                dispatch(GetUserCart(cartItemInfo.userId));
+            }
+        })
+    }
+}
+
+export function GetCartsByBoxesIds(boxesIds) {
+    return dispatch => {
+        api_serv.GetCartsByBoxesIds(boxesIds.map(b => b.id)).then(res => {
+            if (!res.error) {
+                const newCartList = res.map(box => {
+                    box.quantity = boxesIds.find(b => b.id === box.id).quantity;
+                    return box;
+                });
+                dispatch(setCart(newCartList));
+            }
+        });
+    }
+}
+
+export function SetCartList(cartList) {
+    return dispatch => {
+        dispatch(setCart(cartList));
     }
 }
 

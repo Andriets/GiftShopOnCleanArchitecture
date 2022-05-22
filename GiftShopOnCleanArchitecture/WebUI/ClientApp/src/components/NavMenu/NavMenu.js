@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { GetUserById } from '../UserProfile/UserAction';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
-import { GetUserCart } from '../Cart/CartAction';
+import { GetUserCart, SetCartList } from '../Cart/CartAction';
 import './NavMenu.css';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -31,7 +31,12 @@ class NavMenu extends Component {
     const userId = localStorage.getItem("Id");
     if (userId) {
       this.props.getUserCart(userId);
+      return;
     }
+
+    let stringCartList = localStorage.getItem('Cart');
+    let cartList = stringCartList === null ? [] : JSON.parse(stringCartList);
+    this.props.setCartList(cartList);
   }
 
   render () {
@@ -61,11 +66,13 @@ class NavMenu extends Component {
                     <img src={process.env.PUBLIC_URL + '/img/content_details_grid_list_list.svg'} />
                   </li>
                 </a>
-                <li className='menu_list'>
-                  <StyledBadge badgeContent={this.props.cart.list.length} invisible={this.props.cart.list.length === 0}>
-                    <img src={process.env.PUBLIC_URL + '/img/cart.svg'} />
-                  </StyledBadge>
-                </li>     
+                <a href={"/home/cart"}>
+                  <li className='menu_list'>
+                    <StyledBadge badgeContent={this.props.cart.list.length} invisible={this.props.cart.list.length === 0}>
+                      <img src={process.env.PUBLIC_URL + '/img/cart.svg'} />
+                    </StyledBadge>
+                  </li>  
+                </a>
               </div>
               <div>
                 <li className='menu_list'>
@@ -95,7 +102,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUserCart: (userId) => dispatch(GetUserCart(userId))
+    getUserCart: (userId) => dispatch(GetUserCart(userId)),
+    setCartList: (cartList) => dispatch(SetCartList(cartList))
   };
 };
 

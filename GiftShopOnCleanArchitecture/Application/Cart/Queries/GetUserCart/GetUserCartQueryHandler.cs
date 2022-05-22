@@ -29,7 +29,11 @@ namespace Application.Carts.Queries.GetUserCart
                 .Where(c => c.UserId == request.UserId)
                 .ToList();
 
-            return Task.FromResult(cart.Select(c => c.Box.ToDTO()));
+            return Task.FromResult(cart.Select(c => { 
+                var boxDTO = c.Box.ToDTO();
+                boxDTO.Quantity = c.Quantity;
+                return boxDTO;
+            }));
         }
     }
 }
