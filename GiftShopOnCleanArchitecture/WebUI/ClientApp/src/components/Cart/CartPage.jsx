@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Collapse from '@mui/material/Collapse';
 import CartBlock from './CartBlock';
+import OrderBlock from './OrderBlock';
 import './Cart.css';
 
 class CartPage extends Component {
@@ -19,7 +20,8 @@ class CartPage extends Component {
         }));
     }
 
-    render() {   
+    render() {
+        const { cart } = this.props;   
         return (
             <div className='cart-page'>
                <div className='page-name'>
@@ -27,10 +29,8 @@ class CartPage extends Component {
                 </div>
                 <div className='cart-content'>                  
                     <CartBlock onCheckout={this.handleClick} isCheckout={this.state.isCheckout}/>
-                    <Collapse className='order-block-collapse' orientation="horizontal" in={this.state.isCheckout} >
-                        <div onClick={this.handleClick} className='order-block'>
-
-                        </div>
+                    <Collapse className='order-block-collapse' orientation="horizontal" in={cart.length > 0 && this.state.isCheckout} >
+                        <OrderBlock />
                     </Collapse>
                 </div>
             </div>
@@ -40,6 +40,7 @@ class CartPage extends Component {
 
 const mapStateToProps = state => {
     return {
+        cart: state.cart.list
     };
 };
 

@@ -35,7 +35,7 @@ namespace Application.Common.Mapping
                       Photo = orderDTO.User.Photo,
                       UserName = orderDTO.UserName
                   },*/
-                BoxOrders = orderDTO.Boxes.Select(b => new BoxOrder() { BoxId = b.Id }).ToList()
+                BoxOrders = orderDTO.Boxes.Select(b => new BoxOrder() { BoxId = b.Id, Quantity = b.Quantity }).ToList()
             };
         }
 

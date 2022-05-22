@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Orders.Queries.GetOrderById;
 using Application.Orders.Commands.UpdateOrderStatus;
 using Application.Carts.Commands.DeleteBoxFromCart;
+using Application.Carts.Commands.ClearUserCart;
 
 namespace WebUI.Controllers
 {
@@ -26,18 +27,13 @@ namespace WebUI.Controllers
         {
             try
             {
-                var createOrderTask = _mediator.Send(new CreateOrderCommand() { Order = orderDTO});
+                var res = await _mediator.Send(new CreateOrderCommand() { Order = orderDTO});
                 if (orderDTO.UserId != null)
                 {
-                    /*var DeleteBoxesFromCartTask = _mediator.Send(new DeleteBoxFromCartCommand()
-                    {
-                        UserId = orderDTO.UserId,
-                        BoxesIds = orderDTO.Boxes.Select(b => b.Id).ToArray()
-                    });
-                    await Task.WhenAll(createOrderTask, DeleteBoxesFromCartTask);*/
+                    await _mediator.Send(new ClearUserCartCommand() { UserId = orderDTO.UserId });
                 }
 
-                return Ok(await createOrderTask);
+                return Ok(res);
             }
             catch (GiftShopException)
             {

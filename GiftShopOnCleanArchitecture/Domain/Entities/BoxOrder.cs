@@ -15,5 +15,7 @@ namespace Domain.Entities
         public Guid OrderId { get; set; }
 
         public virtual Order Order { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

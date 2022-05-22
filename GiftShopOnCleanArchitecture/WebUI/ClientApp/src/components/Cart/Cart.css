@@ -56,6 +56,9 @@
     margin-left: 30px;
     width: 35vw;
     height: 100%;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .cart-block-bottom {
@@ -119,4 +122,61 @@
 
 .cart-item-actions {
     align-self: flex-end;
+}
+
+.order-block h2 {
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 58px;
+    text-align: center;
+    text-decoration-line: underline;
+    color: #FA812F;
+}
+
+.orderForm {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.orderForm-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.orderForm-firsrow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.orderForm-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.orderForm-field input {
+    min-width: 240px;
+    border: 2px solid #A5A5A5;
+    border-radius: 10px;
+    height: 40px;
+    padding: 0px 10px;
+}
+
+.orderForm-field label {
+    font-size: 24px;
+}
+
+.orderForm-actions button {
+    width: 100%;
+    height: 50px;
+    background: #FA812F;
+    border: none;
+    border-radius: 10px;
+
+    font-weight: 500;
+    font-size: 28px;
+    text-align: center;
+    color: #FFFFFF;
 }

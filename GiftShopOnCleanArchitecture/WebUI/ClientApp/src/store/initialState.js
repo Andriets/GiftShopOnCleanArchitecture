@@ -83,6 +83,11 @@ const initialState = {
         isEditingSuccess: false,
         editTagError: null
     },
+    createOrder: {
+        isOrderPending: false,
+        isOrderSuccess: false,
+        orderError: null
+    }
 };
 
 export default initialState;

@@ -24,9 +24,11 @@ class CartBlock extends Component {
             <div className='cart-block'>
                 <div className='cart-block-top'>
                     <h3 className='cart-block-total'>Total: ${totalPrice}</h3>
-                    <button onClick={onCheckout} className='checkout-button'>
-                        <span>{!isCheckout ? "Checkout" : "Cancel"}</span>
-                    </button>
+                    {cartList.length > 0 &&
+                        <button onClick={onCheckout} className='checkout-button'>
+                            <span>{!isCheckout ? "Checkout" : "Cancel"}</span>
+                        </button>
+                    }
                 </div>
                 <div className='cart-block-bottom'>
                     {cartList?.map((cart, key) => <CartItem cart={cart} key={key}/> )}
