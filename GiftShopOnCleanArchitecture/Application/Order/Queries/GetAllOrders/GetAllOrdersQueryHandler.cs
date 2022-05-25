@@ -25,23 +25,14 @@ namespace Application.Orders.Queries.GetAllOrders
         {
             var orders = _context.Orders
                 .Include(o => o.User)
+                    .ThenInclude(u => u.Photo)
+                .Include(o => o.BoxOrders)
+                    .ThenInclude(bo => bo.Box)
+                .Where(o => o.OrderDate > DateTime.Now.Date.AddDays(-15))
                 .AsNoTracking()
-                .AsQueryable();
-
-            orders = !string.IsNullOrEmpty(request.KeyWord)
-                ? orders.Where(o => o.UserName.Contains(request.KeyWord)
-                    || o.PhoneNumber.Contains(request.KeyWord)
-                    || o.Region.Contains(request.KeyWord)
-                    || o.City.Contains(request.KeyWord)
-                    || o.PostOffice.Contains(request.KeyWord))
-                : orders;
-
-            var res = orders.OrderByDescending(o => o.OrderDate)
-                .Skip((request.Page - 1) * request.PageSize)
-                .Take(request.PageSize)
                 .AsEnumerable();
 
-            return Task.FromResult(res.Select(o => o.ToDTO()));
+            return Task.FromResult(orders.Select(o => o.ToDTO()));
 
         }
     }

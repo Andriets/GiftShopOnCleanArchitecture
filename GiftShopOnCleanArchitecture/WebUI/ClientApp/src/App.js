@@ -7,6 +7,7 @@ import RegisterWrapper from './components/Register/RegisterWrapper.jsx';
 import BoxPage from './components/BoxPage/BoxPage';
 import CatalogPage from './components/Catalog/CatalogPage';
 import CartPage from './components/Cart/CartPage';
+import BoardPage from './components/Board/BoardPage';
 import AdminPage from './components/AdminPanel/AdminPage';
 import ProfilePage from './components/UserProfile/ProfilePage';
 
@@ -28,6 +29,7 @@ export default class App extends Component {
         <Route path='/home/product/:id' component={(props) => (<Home><BoxPage {...props}/></Home>)}/>
         <Route path='/home/catalog' component={() => <Home><CatalogPage/></Home>} />
         <Route path='/home/cart' component={() => <Home><CartPage/></Home>} />
+        <Route path='/home/board' component={() => <Home><BoardPage/></Home>} /> 
         <Route path='/home/admin' component={() => <Home><AdminPage/></Home>} />        
         <Route path='/login' component={LoginWrapper} />
         <Route path='/register' component={RegisterWrapper} />

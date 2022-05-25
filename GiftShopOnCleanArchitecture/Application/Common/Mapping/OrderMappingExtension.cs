@@ -69,7 +69,8 @@ namespace Application.Common.Mapping
                     Id = bo.Box.Id,
                     Title = bo.Box.Title,
                     Description = bo.Box.Description,
-                    Price = bo.Box.Price
+                    Price = bo.Box.Price,
+                    Quantity = bo.Quantity
                 })
             };
         }

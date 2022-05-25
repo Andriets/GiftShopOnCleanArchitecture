@@ -91,6 +91,10 @@ const initialState = {
     users: {
         isPending: false,
         list: null
+    },
+    orders: {
+        isPending: false,
+        list: null
     }
 };
 

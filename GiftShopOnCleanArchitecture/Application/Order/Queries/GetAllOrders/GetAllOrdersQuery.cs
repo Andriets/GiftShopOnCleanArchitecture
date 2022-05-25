@@ -10,10 +10,5 @@ namespace Application.Orders.Queries.GetAllOrders
 {
     public class GetAllOrdersQuery : IRequest<IEnumerable<OrderDTO>>
     {
-        public int Page { get; set; }
-
-        public int PageSize { get; set; }
-
-        public string KeyWord { get; set; }
     }
 }
