@@ -23,11 +23,25 @@ export default class AuthenticationService {
         return res;
     }
 
+    GetAllUsers = async (filterData) => {
+        const res = await baseService.postQuery('User/GetAll', filterData);
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
+    }
+
     UpdateUserPhoto = async (userData) => {
         let file = new FormData();
         file.append('UserId', userData.id);
         file.append('Photo', userData.photo);
         const res = await baseService.postQueryWithData('User/UpdateUserPhoto', file);
+        return !res.ok
+            ? { error: await res.text() }
+            : await res.json();
+    }
+
+    UpdateUserRole = async (userData) => {
+        const res = await baseService.postQuery('User/UpdateUserRole', userData);
         return !res.ok
             ? { error: await res.text() }
             : await res.json();

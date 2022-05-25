@@ -4,6 +4,8 @@ import {reset} from 'redux-form';
 export const SET_USER = "SET_USER";
 export const SET_USER_SIGN_OUT = "SET_USER_SIGN_OUT";
 
+export const SET_USERS = "SET_USERS";
+
 export const SET_MODAL_SHOW = "SET_MODAL_SHOW";
 export const SET_CHANGE_PASSWORD_ERROR = "SET_CHANGE_PASSWORD_ERROR";
 
@@ -28,6 +30,16 @@ export function GetUserById(id) {
     }
 }
 
+export function GetAllUsers(filterData) {
+    return dispatch => {
+        api_serv.GetAllUsers(filterData).then(res => {
+            if (!res.error) {
+                dispatch(SetUsers(res));
+            }
+        })
+    }
+}
+
 export function UpdateUserPhoto(userData) {
     return dispatch => {
         api_serv.UpdateUserPhoto({id: userData.id, photo: userData.photoBytes})
@@ -35,6 +47,17 @@ export function UpdateUserPhoto(userData) {
                 if (!response.error) {
                     response.photo.img = "data:image/png;base64," + response.photo.img;
                     dispatch(SetUser(response));
+                }
+            });
+    } 
+}
+
+export function UpdateUserRole(userData) {
+    return dispatch => {
+        api_serv.UpdateUserRole(userData)
+            .then(response => {
+                if (!response.error) {
+                    
                 }
             });
     } 
@@ -78,6 +101,13 @@ export function ChangePassword(changePasswordData) {
 function SetUser(payload) {
     return {
         type: SET_USER,
+        payload: payload
+    };
+}
+
+function SetUsers(payload) {
+    return {
+        type: SET_USERS,
         payload: payload
     };
 }

@@ -233,3 +233,49 @@
     background: inherit;
     border: none;
 }
+
+.users-block {
+    height: 100%;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    overflow-y: auto;
+}
+
+.user-filters {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.users-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-card {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    background: #FFE3C3;
+    border-top: 1px solid #919191;
+    border-bottom: 1px solid #919191;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-photo img {
+    width: 60px;
+    height: 60px;
+}
+
+.user-username {
+    font-weight: 400;
+    font-size: 22px;
+}
+
+.user-role {
+    margin-left: auto;
+}

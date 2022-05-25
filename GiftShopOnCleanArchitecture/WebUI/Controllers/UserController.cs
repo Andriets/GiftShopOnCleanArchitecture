@@ -2,6 +2,8 @@
 using Application.User.Commands.AuthorizeUser;
 using Application.User.Commands.ChangePassword;
 using Application.User.Commands.CreateUser;
+using Application.User.Commands.UpdateUserRole;
+using Application.User.Queries.GetAllUsers;
 using Application.User.Queries.GetUserById;
 using Application.Users.Commands.UpdateUserInfo;
 using Application.Users.Commands.UpdateUserPhoto;
@@ -38,6 +40,20 @@ namespace WebUI.Controllers
         }
 
         [HttpPost("[action]")]
+        public async Task<IActionResult> GetAllAsync([FromBody] GetAllUsersQuery getAllUsersQuery)
+        {
+            try
+            {
+                var res = await _mediator.Send(getAllUsersQuery);
+                return Ok(res);
+            }
+            catch (GiftShopException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("[action]")]
         public async Task<IActionResult> UpdateUserPhotoAsync([FromForm] UpdateUserPhotoCommand updateUserPhotoCommand)
         {
             try
@@ -45,6 +61,20 @@ namespace WebUI.Controllers
                 var res = await _mediator.Send(updateUserPhotoCommand);
                 return Ok(res);
             } catch (GiftShopException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> UpdateUserRoleAsync([FromBody] UpdateUserRoleCommand updateUserRoleCommand)
+        {
+            try
+            {
+                var res = await _mediator.Send(updateUserRoleCommand);
+                return Ok(new { Success = res });
+            }
+            catch (GiftShopException ex)
             {
                 return BadRequest(ex.Message);
             }

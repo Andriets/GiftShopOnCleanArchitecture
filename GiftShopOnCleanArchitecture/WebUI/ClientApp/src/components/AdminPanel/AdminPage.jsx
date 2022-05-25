@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import BoxesBlock from './Boxes/BoxesBlock';
 import TagsBlock from './Tags/TagsBlock';
+import UsersBlock from './Users/UsersBlock';
 import './Admin.css';
 
 const boxesBlock = "boxesBlock";
 const tagsBlock = "tagsBlock";
+const usersBlock = "usersBlock";
 
 class AdminPage extends Component {
     constructor(props) {
@@ -25,7 +27,8 @@ class AdminPage extends Component {
     render() {
         const componentByTabName = {
             boxesBlock: BoxesBlock,
-            tagsBlock: TagsBlock
+            tagsBlock: TagsBlock,
+            usersBlock: UsersBlock
         }
 
         const CurrentComponent = componentByTabName[this.state.openTab];
@@ -42,11 +45,8 @@ class AdminPage extends Component {
                         <button onClick={() => this.handleChangeTab(tagsBlock)}>
                             Tags
                         </button>
-                        <button>
+                        <button onClick={() => this.handleChangeTab(usersBlock)}>
                             Users
-                        </button>
-                        <button>
-                            Statistic
                         </button>
                     </div>
                     <div className='content-block'>

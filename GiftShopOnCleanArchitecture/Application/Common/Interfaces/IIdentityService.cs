@@ -18,6 +18,8 @@ namespace Application.Common.Interfaces
 
         Task AddToRoleAsync(ApplicationUser user, string role);
 
+        Task ChangeUserRoleAsync(string userName, string newRole);
+
         Task<bool> IsInRoleAsync(string userId, string role);
 
         Task<IList<string>> GetUserRolesByUserNameAsync(string userName);

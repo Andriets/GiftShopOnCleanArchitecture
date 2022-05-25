@@ -41,6 +41,14 @@ namespace Infrastracture.Services
             await _userManager.AddToRoleAsync(user, role);
         }
 
+        public async Task ChangeUserRoleAsync(string userName, string newRole)
+        {
+            var userRole = await GetUserRolesByUserNameAsync(userName);
+            var user = await GetUserByUserNameAsync(userName);
+            await _userManager.RemoveFromRolesAsync(user, userRole);
+            await AddToRoleAsync(user, newRole);
+        }
+
         public async Task<(Result Result, string UserId)> CreateUserAsync(ApplicationUser user, string password)
         {
             var result = await _userManager.CreateAsync(user, password);

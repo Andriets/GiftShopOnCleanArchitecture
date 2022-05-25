@@ -15,7 +15,7 @@ import { reducer as EditTagReducer } from '../components/AdminPanel/Tags/EditTag
 import { reducer as FiltersReducer } from '../components/Catalog/FiltersReducer';
 import { reducer as CartReducer } from '../components/Cart/CartReducer';
 import { reducer as CreateOrderReducer } from '../components/Cart/OrderReducer';
-
+import { reducer as UsersReducer } from '../components/AdminPanel/Users/UsersReducer';
 
 const rootReducers = {
     routing: routerReducer,
@@ -34,7 +34,8 @@ const rootReducers = {
     editTag: EditTagReducer,
     filters: FiltersReducer,
     cart: CartReducer,
-    createOrder: CreateOrderReducer
+    createOrder: CreateOrderReducer,
+    users: UsersReducer
 };
 
 export default rootReducers;

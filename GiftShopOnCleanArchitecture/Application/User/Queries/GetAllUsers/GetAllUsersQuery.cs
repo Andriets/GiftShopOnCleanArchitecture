@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Common.Models;
+using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,10 @@ using System.Threading.Tasks;
 
 namespace Application.User.Queries.GetAllUsers
 {
-    public class GetAllUsersQuery : IRequest<List<ApplicationUser>>
+    public class GetAllUsersQuery : IRequest<IEnumerable<UserDTO>>
     {
+        public string KeyWord { get; set; }
+
+        public string Role { get; set; }
     }
 }

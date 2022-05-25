@@ -87,6 +87,10 @@ const initialState = {
         isOrderPending: false,
         isOrderSuccess: false,
         orderError: null
+    },
+    users: {
+        isPending: false,
+        list: null
     }
 };
 
