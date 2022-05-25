@@ -8,7 +8,7 @@ class OrderCard extends Component {
     }
 
     render() {
-        const { order, userPhoto, userName, phoneNumber, place, handleModalOpen } = this.props;
+        const { order, userPhoto, userName, phoneNumber, destination, handleModalOpen } = this.props;
         
         return(
             <div className='order-card'>
@@ -18,7 +18,7 @@ class OrderCard extends Component {
                 <div className='order-info'>
                     <span>{userName}</span>
                     <span>{phoneNumber}</span>
-                    <span>{place}</span>
+                    <span>{destination}</span>
                 </div>
                 <div className='order-actions'>
                     <span onClick={() => handleModalOpen(order)}>details</span>
@@ -34,13 +34,13 @@ const mapStateToProps = (state, props) => {
                                               : process.env.PUBLIC_URL + '/img/userIcon.png';
     const userName = order.userName;
     const phoneNumber = order?.phoneNumber;
-    const place = `${order?.user?.region} ${order?.user?.city}, №${order?.user?.postOffice}`;
+    const destination = `${order?.region} ${order?.city}, №${order?.postOffice}`;
     return {
         order,
         userPhoto,
         userName,
         phoneNumber,
-        place
+        destination
     };
 };
 

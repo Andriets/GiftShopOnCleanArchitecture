@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import BoxesBlock from './Boxes/BoxesBlock';
 import TagsBlock from './Tags/TagsBlock';
 import UsersBlock from './Users/UsersBlock';
+import NotFound from '../NotFound/NotFound';
 import './Admin.css';
 
 const boxesBlock = "boxesBlock";
@@ -33,33 +34,40 @@ class AdminPage extends Component {
 
         const CurrentComponent = componentByTabName[this.state.openTab];
         return(
-            <div className='admin-page'>
-                <div className='page-name'>
-                    <h3>MANAGE PANEL</h3>
-                </div>
-                <div className='admin-content'>
-                    <div className='switch-btns'>
-                        <button onClick={() => this.handleChangeTab(boxesBlock)}>
-                            Boxes
-                        </button>
-                        <button onClick={() => this.handleChangeTab(tagsBlock)}>
-                            Tags
-                        </button>
-                        <button onClick={() => this.handleChangeTab(usersBlock)}>
-                            Users
-                        </button>
-                    </div>
-                    <div className='content-block'>
-                        <CurrentComponent />
-                    </div>
-                </div>
-            </div>
+            <>
+                {this.props.userRole === "SuperAdmin" ? 
+                    <div className='admin-page'>
+                        <div className='page-name'>
+                            <h3>MANAGE PANEL</h3>
+                        </div>
+                        <div className='admin-content'>
+                            <div className='switch-btns'>
+                                <button onClick={() => this.handleChangeTab(boxesBlock)}>
+                                    Boxes
+                                </button>
+                                <button onClick={() => this.handleChangeTab(tagsBlock)}>
+                                    Tags
+                                </button>
+                                <button onClick={() => this.handleChangeTab(usersBlock)}>
+                                    Users
+                                </button>
+                            </div>
+                            <div className='content-block'>
+                                <CurrentComponent />
+                            </div>
+                        </div>
+                    </div> 
+                    : <NotFound /> 
+                }
+            </>
+            
         );
     }
 }
 
 const mapStateToProps = state => {
     return {
+        userRole: state?.user?.role
     };
 };
 

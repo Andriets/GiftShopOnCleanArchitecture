@@ -74,17 +74,21 @@ class NavMenu extends Component {
                   </li>  
                 </a>
               </div>
-              <div>
-                <a href={"/home/board"}>
-                  <li className='menu_list'>
-                    <img src={process.env.PUBLIC_URL + '/img/Board.svg'} />
-                  </li> 
-                </a>
-                <a href={"/home/admin"}>
-                  <li className='menu_list'>
-                    <img src={process.env.PUBLIC_URL + '/img/DashBoard.svg'} />
-                  </li>  
-                </a>
+              <div> 
+                {(role === "SuperAdmin" || role === "Moderator") &&
+                  <a href={"/home/board"}>
+                    <li className='menu_list'>
+                      <img src={process.env.PUBLIC_URL + '/img/Board.svg'} />
+                    </li> 
+                  </a>
+                }
+                {role === "SuperAdmin" &&
+                  <a href={"/home/admin"}>
+                    <li className='menu_list'>
+                      <img src={process.env.PUBLIC_URL + '/img/DashBoard.svg'} />
+                    </li>  
+                  </a>
+                }
               </div>
             </ul>
           </nav>
