@@ -18,7 +18,7 @@ const loginResponseHandler = (res, dispatch) => {
             localStorage.setItem('JwtToken', response.jwtToken);
             localStorage.setItem('Id', response.id);
             dispatch(setLoginSuccess(true));
-            window.location.replace(`${window.location.origin}/Home`);
+            window.location.replace(`${window.location.origin}/`);
         } else {
             localStorage.clear();
             dispatch(setLoginFail(response.error));

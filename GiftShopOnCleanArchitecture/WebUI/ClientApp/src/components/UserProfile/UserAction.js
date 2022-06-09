@@ -68,7 +68,14 @@ export function UpdateUserInfo(userInfo) {
         api_serv.UpdateUserInfo(userInfo)
             .then(response => {
                 if (!response.error) {
-                    response.photo.img = "data:image/png;base64," + response.photo.img;
+
+                    if (!response.photo) {
+                        response.photo = {};
+                        response.photo.img = null;
+                    } else {
+                        response.photo.img = "data:image/png;base64," + response.photo.img;
+                    }
+                    
                     dispatch(SetUser(response));
                 }
             })

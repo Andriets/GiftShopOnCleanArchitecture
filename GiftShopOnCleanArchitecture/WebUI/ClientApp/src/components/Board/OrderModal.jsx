@@ -79,7 +79,7 @@ const mapStateToProps = (state, props) => {
     const { order } = props;
     const userName = order?.userName;
     const phoneNumber = order?.phoneNumber;
-    const destination = `${order?.user?.region} ${order?.user?.city}, №${order?.user?.postOffice}`;
+    const destination = `${order?.region} ${order?.city}, №${order?.postOffice}`;
     const orderStatus = order?.orderStatus;
     const boxes = order?.boxes;
     return {

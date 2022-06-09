@@ -17,9 +17,10 @@ class BoxCardContainer extends Component {
     OnSetAttitude = (newAttitude) => {
         const { boxes, setBoxAttitude, userId, box } = this.props;
         let currentBox = boxes.find(b => b.id === box.id);
-
-        if (currentBox.boxCommentDetails.length) {
-            const boxCommentDetails = currentBox.boxCommentDetails.find(bcd => bcd.userId === userId);
+        
+        const boxCommentDetails = currentBox.boxCommentDetails.find(bcd => bcd.userId === userId);
+        
+        if (boxCommentDetails) {
             boxCommentDetails.attitude = newAttitude;
         } else {
             currentBox.boxCommentDetails.push({userId: userId, boxId: box.id, attitude: newAttitude});

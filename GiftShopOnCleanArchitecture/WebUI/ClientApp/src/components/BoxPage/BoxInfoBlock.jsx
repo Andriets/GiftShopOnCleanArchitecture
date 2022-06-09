@@ -80,16 +80,16 @@ class BoxInfoBlock extends Component {
                         <div className='boxInfo-photo'>
                             <img className='boxInfo-boxImage' src={"data:image/png;base64," + box?.photoBytes?.img}/>
                             <div className='boxInfo-attitudeContainer'>
-                                {(attitude === Attitude.NONE || attitude === undefined) &&
+                                {isAuthenticated && (attitude === Attitude.NONE || attitude === undefined) &&
                                     <>
                                         <img onClick={() => this.OnSetBoxAttitude(Attitude.LIKE)} className='boxInfo-attitude' src={process.env.PUBLIC_URL + '/img/Attitude.svg'} />
                                         <img onClick={() => this.OnSetBoxAttitude(Attitude.DISLIKE)} className='boxInfo-attitude' src={process.env.PUBLIC_URL + '/img/Attitude.svg'} />
                                     </>
                                 }
-                                {attitude === Attitude.LIKE &&
+                                {isAuthenticated && attitude === Attitude.LIKE &&
                                     <img onClick={() => this.OnSetBoxAttitude(Attitude.NONE)} src={process.env.PUBLIC_URL + '/img/Like.svg'} />
                                 }
-                                {attitude === Attitude.DISLIKE &&
+                                {isAuthenticated && attitude === Attitude.DISLIKE &&
                                     <img onClick={() => this.OnSetBoxAttitude(Attitude.NONE)} src={process.env.PUBLIC_URL + '/img/Dislike.svg'} />
                                 }
                             </div>
@@ -127,7 +127,7 @@ class BoxInfoBlock extends Component {
                         {comments?.map((c, key) => (
                          <div className='comment-item' key={key}>
                              <div className='comment-item-top'>
-                                <img className='commentItem-user-photo' src={"data:image/png;base64," + c?.userPhoto?.img}/>
+                                <img className='commentItem-user-photo' src={c?.userPhoto?.img ? "data:image/png;base64," + c?.userPhoto?.img : process.env.PUBLIC_URL + '/img/userIcon.png'}/>
                                 <div className='commentItem-userInfo'>
                                     <span className='commentItem-userName'>{c.userName}</span>
                                     {c.score > 0 && 
