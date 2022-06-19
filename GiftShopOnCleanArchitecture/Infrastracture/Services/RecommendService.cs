@@ -76,14 +76,6 @@ namespace Infrastracture.Services
 
             var model = trainerEstimator.Fit(trainingData);
 
-            /*var predictionEngine = mlContext.Model.CreatePredictionEngine<BoxRating, RatingPrediction>(model);
-
-            var prediction = predictionEngine.Predict(new BoxRating
-            {
-                BoxId = "a450e1bd-3d98-4b2d-8027-35388d960092",
-                UserId = "bc6c0c55-e6f0-434e-87bd-9cacad19e6b7"
-            });*/
-
             mlContext.Model.Save(model, trainingData.Schema, GetAbsolutePath(ModelRelativePath));
         }
 
@@ -175,7 +167,7 @@ namespace Infrastracture.Services
                 .Take(2)
                 .ToArray();
 
-            return new Guid[] { prediction[0].BoxId, prediction[1].BoxId };
+            return prediction.Length >= 2 ? new Guid[] { prediction[0].BoxId, prediction[1].BoxId } : new Guid[0];
         }
 
         private double CBPrediction(Box b, dynamic[] df_idf, double[] userProfile)

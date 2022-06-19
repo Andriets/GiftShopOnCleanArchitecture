@@ -13,10 +13,12 @@ namespace Application.Boxes.Commands.SetBoxRating
     public class SetBoxRatingCommandHandler : IRequestHandler<SetBoxRatingCommand, bool>
     {
         private readonly IAppDbContext _context;
+        private readonly IRecommendService _recommendService;
 
-        public SetBoxRatingCommandHandler(IAppDbContext appDbContext)
+        public SetBoxRatingCommandHandler(IAppDbContext appDbContext, IRecommendService recommendService)
         {
             _context = appDbContext;
+            _recommendService = recommendService;
         }
 
         public async Task<bool> Handle(SetBoxRatingCommand request, CancellationToken cancellationToken)
@@ -39,6 +41,7 @@ namespace Application.Boxes.Commands.SetBoxRating
             }
 
             await _context.SaveChangesAsync(cancellationToken);
+            _recommendService.TrainModel();
 
             return true;
         }

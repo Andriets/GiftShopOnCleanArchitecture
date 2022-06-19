@@ -34,7 +34,7 @@ class UserInfoBlock extends Component {
                 <nav className='info-block_navbar'>
                     <ul className='info-block_navbar-list'>
                         <li onClick={() => this.handleChangeTab(userInfoForm)}>Basic Info</li>
-                        <li onClick={() => this.handleChangeTab(ordersHistory)}>Orders History</li>
+                        {/* <li onClick={() => this.handleChangeTab(ordersHistory)}>Orders History</li> */}
                     </ul>
                 </nav>
                 <CurrentComponent />
