@@ -58,9 +58,11 @@ class NavMenu extends Component {
           <nav>
             <ul className='menu'>
               <div>
-                <li className='menu_list'>
-                  <img src={process.env.PUBLIC_URL + '/img/home_icon.svg'} />
-                </li>
+                <a href={"/home/main"}>
+                  <li className='menu_list'>
+                    <img src={process.env.PUBLIC_URL + '/img/home_icon.svg'} />
+                  </li>
+                </a>
                 <a href={"/home/catalog"}>
                   <li className='menu_list'>
                     <img src={process.env.PUBLIC_URL + '/img/content_details_grid_list_list.svg'} />

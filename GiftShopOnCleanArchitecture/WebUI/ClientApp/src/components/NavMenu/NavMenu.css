@@ -1,5 +1,6 @@
 ﻿header {
   width: 60px;
+  z-index: 2;
   height: 100vh;
   background: #FA4032;
   float: left;

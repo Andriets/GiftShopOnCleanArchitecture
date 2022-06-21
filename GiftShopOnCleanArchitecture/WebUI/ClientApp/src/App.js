@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import Home from './components/Home/Home';
+import Main from './components/Home/Main';
 import NotFound from './components/NotFound/NotFound.jsx';
 import LoginWrapper from './components/Login/LoginWrapper.jsx';
 import RegisterWrapper from './components/Register/RegisterWrapper.jsx';
@@ -23,8 +24,9 @@ export default class App extends Component {
           exact
           path="/"
           render={() => (
-              <Redirect to="/home/catalog" />
+              <Redirect to="/home/main" />
           )}/>
+        <Route path='/home/main' component={() => <Home><Main/></Home>} />
         <Route path='/home/profile' component={() => (<Home needAuthentication><ProfilePage/></Home>)}/>
         <Route path='/home/product/:id' component={(props) => (<Home><BoxPage {...props}/></Home>)}/>
         <Route path='/home/catalog' component={() => <Home><CatalogPage/></Home>} />
